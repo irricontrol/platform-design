@@ -1,0 +1,43 @@
+<div class="pluv-layer-card" id="chuvaGeoPanel" aria-label="Visualização Geoespacial">
+  <button class="pluv-layer-card__bar" type="button" aria-label="Visualização Geoespacial">
+    <span class="pluv-layer-card__icon">
+      <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+    </span>
+    <span class="pluv-layer-card__label">Visualização Geoespacial</span>
+    <span class="pluv-layer-card__chev">
+      <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </span>
+  </button>
+
+  <div class="pluv-layer-card__panel" role="region" aria-label="Controles de camadas">
+    <div class="chuva-geo__section">
+      <div class="chuva-geo__section-title">Sobreposicoes</div>
+      <label class="chuva-geo__toggle">
+        <span>Chuva</span>
+        <input type="checkbox" id="chuvaGeoRainToggle" checked aria-label="Sobreposicao de chuva (PNG)">
+      </label>
+      <label class="chuva-geo__toggle">
+        <span>Areas de Irrigacao</span>
+        <input type="checkbox" id="chuvaGeoIrrigationToggle" aria-label="Areas de Irrigacao">
+      </label>
+    </div>
+
+    <div class="chuva-geo__section">
+      <div class="chuva-geo__section-title">Opacidade</div>
+      <div class="chuva-geo__opacity">
+        <input type="range" id="chuvaGeoOpacity" min="0" max="100" value="70" aria-label="Opacidade da chuva">
+        <span class="chuva-geo__opacity-value" id="chuvaGeoOpacityValue">70%</span>
+      </div>
+      <button class="chuva-geo__reset" type="button" id="chuvaGeoOpacityReset">Resetar opacidade</button>
+    </div>
+
+    <div class="chuva-geo__section" id="chuvaGeoLegendSection">
+      <div class="chuva-geo__section-title">Legenda</div>
+      <div class="chuva-geo__legend-bar" aria-label="Legenda de chuva">
+        <span>0 mm</span>
+        <span class="chuva-geo__legend-gradient" aria-hidden="true"></span>
+        <span id="chuvaGeoMaxLabel">25 mm</span>
+      </div>
+    </div>
+  </div>
+</div>

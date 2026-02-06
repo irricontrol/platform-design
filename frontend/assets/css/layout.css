@@ -1,0 +1,47 @@
+/* layout.css */
+.app{
+  height:100%;
+  display:flex;
+}
+
+/* Sidebar */
+.sidebar{
+  width: 205px;
+  background: linear-gradient(180deg, var(--sidebar), var(--sidebar2));
+  color: var(--sidebarText);
+  padding: 12px 12px;
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  align-self: flex-start;
+}
+
+/* Main agora é 100% mapa */
+.main{
+  flex:1;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.main--map{
+  background: #000; /* só pra evitar “branco piscando” enquanto carrega tiles */
+}
+
+/* Sidebar colapsada */
+.app.is-collapsed .sidebar{
+  width: 64px;
+  padding: 12px 6px;
+}
+
+/* Conteúdo interno compacta sem quebrar */
+.app.is-collapsed .sidebar__search{
+  display:none;
+}
+.app.is-collapsed .sidebar__create{
+  display:none;
+}

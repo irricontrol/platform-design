@@ -1,0 +1,220 @@
+/* components.css */
+/* Brand */
+.sidebar__brand{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap: 6px;
+  padding-bottom: 6px;
+}
+.brand__logo{
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+  filter: none;
+  display: block;
+  image-rendering: auto;
+}
+.brand__sub{
+  font-size: 10px;
+  color: var(--sidebarMuted);
+  letter-spacing: .8px;
+}
+
+/* Inputs */
+.input{
+  width: 100%;
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.input--dark{
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: var(--sidebarText);
+}
+.input--dark::placeholder{ color: rgba(255,255,255,.55); }
+
+/* Sidebar search menor */
+.sidebar__search .input--dark{
+  padding: 8px 10px;
+  font-size: 11px;
+  border-radius: 9px;
+}
+.sidebar__create{
+  display:flex;
+}
+.sidebar__create-btn{
+  width: 100%;
+  padding: 2px 2px;
+  border-radius: 2px;
+  font-size: 11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 6px;
+}
+.sidebar__create-btn i{
+  font-size: 12px;
+}
+
+/* Nav */
+.nav__section{ margin-top: 6px; }
+.nav__title{
+  font-size: 8px;
+  color: rgba(255,255,255,.55);
+  letter-spacing: 1px;
+  margin: 10px 8px 8px;
+}
+
+.nav__item{
+  display:flex;
+  align-items:center;
+  gap: 6px;
+  padding: 9px 8px;
+  border-radius: 12px;
+  color: var(--sidebarText);
+  font-size: 11px;
+  transition: background .12s ease, box-shadow .12s ease;
+}
+.nav__item:hover{
+  background: rgba(255,255,255,.06);
+}
+.nav__item.is-active{
+  background: rgba(22,163,74,.16);
+  box-shadow: inset 0 0 0 0.5px rgba(22,163,74,.10);
+}
+.nav__ico{
+  width: 16px;
+  text-align:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  opacity:.9;
+  font-size: 14px;
+  line-height: 1;
+  color: #fff;
+}
+
+/* Buttons */
+.btn{
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor:pointer;
+  font-weight: 700;
+}
+.btn--sm{ padding: 8px 12px; border-radius: 10px; font-weight: 700; }
+.btn--primary{
+  background: var(--primary);
+  color: #fff;
+}
+.btn--primary:hover{ background: var(--primary2); }
+
+.btn--light{
+  background: #f3f6fb;
+  border-color: rgba(15,23,32,.10);
+  color: var(--text);
+}
+.btn--light:hover{ background:#eaf0f8; }
+
+/* Override para botão "Criar fazenda" (mais baixo) */
+.btn.sidebar__create-btn{
+  padding: 9px 10px;
+  border-radius: 9px;
+  font-size: 11px;
+  line-height: 1.1;
+}
+
+/* Dropdown */
+.dropdown{ position:relative; }
+.dropdown__menu{
+  position:absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 6px;
+  display:none;
+  z-index: 50;
+}
+.dropdown.is-open .dropdown__menu{ display:block; }
+
+.dropdown__item{
+  width:100%;
+  text-align:left;
+  border:none;
+  background: transparent;
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor:pointer;
+}
+.dropdown__item:hover{ background:#f1f5fb; }
+
+.chev{ opacity:.7; margin-left: 6px; }
+
+/* Botão do brand */
+.brand-btn{
+  width: fit-content;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px 0 10px;
+  border-radius: 14px;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content:center;
+}
+.brand-btn:hover{
+  background: transparent;
+}
+
+.brand-btn::after{
+  content:"";
+  display:block;
+  width: 100%;
+  margin: 8px 0 0;
+  height: 1px;
+  background: rgba(255,255,255,.10);
+  border-radius: 999px;
+}
+
+/* Controle de qual logo aparece */
+.brand__logo--mini{ display:none; }
+
+.app.is-collapsed .brand__logo--full{ display:none; }
+.app.is-collapsed .brand__logo--mini{
+  display:block;
+  width: 20px;
+}
+
+/* Centraliza logo no modo colapsado */
+.app.is-collapsed .sidebar__brand{ align-items:center; }
+.app.is-collapsed .brand-btn{
+  justify-content:center;
+  width: 20px;
+}
+
+/* Subtítulo some no colapsado */
+.app.is-collapsed .brand__sub{ display:none; }
+
+/* Nav: some texto e título, fica só ícone */
+.app.is-collapsed .nav__title{ display:none; }
+.app.is-collapsed .nav__label{ display:none; }
+
+/* Nav item centraliza ícone */
+.app.is-collapsed .nav__item{
+  justify-content:center;
+  padding: 9px;
+}
+.app.is-collapsed .nav__ico{
+  width: auto;
+  font-size: 15px;
+}
