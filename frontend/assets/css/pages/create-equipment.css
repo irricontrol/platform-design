@@ -1974,12 +1974,44 @@ body.is-modal-open{ overflow: hidden; }
   gap: 12px 14px;
 }
 
+.farm-billing__grid--country{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.farm-billing:not(.is-country-selected) .farm-billing__grid--country{
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.farm-billing:not(.is-country-selected) .farm-billing__grid--country .farm-billing__field{
+  grid-column: 1 / -1;
+}
+
+.farm-billing__grid--address{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.farm-billing__grid.is-hidden{
+  display: none;
+}
+
 .farm-billing__grid--docs{
   grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr);
 }
 
+.farm-billing__grid--billing-top{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.farm-billing__grid--billing-bottom{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .farm-billing__field--full{
   grid-column: 1 / -1;
+}
+
+.farm-billing__field--span-2{
+  grid-column: span 2;
 }
 
 .farm-billing__field.is-hidden{
@@ -1990,11 +2022,411 @@ body.is-modal-open{ overflow: hidden; }
   display: none;
 }
 
+.farm-billing__doc{
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: 8px;
+}
+
+.farm-billing__intro{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* padding lateral apenas antes de selecionar o paÃ­s */
+.create-farm .farm-billing:not(.is-country-selected) .farm-billing__intro{
+  padding: 0 128px;
+}
+
+.create-farm .farm-billing:not(.is-country-selected) .farm-billing__section-head{
+  padding: 0 128px;
+}
+
+.create-farm .farm-billing:not(.is-country-selected) .farm-billing__grid--country{
+  padding: 0 128px;
+}
+
+.farm-billing__hint{
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  color: #6b7280;
+}
+
+.create-farm .farm-billing__intro{
+  margin-bottom: 6px;
+}
+
+.create-farm .farm-billing__section-title{
+  margin-top: 4px;
+}
+
+.create-farm .farm-billing__grid--country{
+  margin-top: 6px;
+}
+
+.farm-billing__details{
+  margin-top: 10px;
+}
+
+.farm-billing__details.is-hidden{
+  display: none;
+}
+
+.farm-switch{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #111827;
+  position: relative;
+}
+
+.farm-switch__input{
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.farm-switch__track{
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  position: relative;
+  transition: background .15s ease;
+  flex: 0 0 auto;
+}
+
+.farm-switch__track::after{
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #ffffff;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  box-shadow: 0 1px 2px rgba(15,23,42,.18);
+  transition: transform .15s ease;
+}
+
+.farm-switch__input:checked + .farm-switch__track{
+  background: #16a34a;
+}
+
+.farm-switch__input:checked + .farm-switch__track::after{
+  transform: translateX(16px);
+}
+
+.farm-switch__label{
+  color: inherit;
+}
+
 @media (max-width: 860px){
   .farm-billing__grid{
+    grid-template-columns: 1fr;
+  }
+  .farm-billing__grid--country{
     grid-template-columns: 1fr;
   }
   .farm-billing__grid--docs{
     grid-template-columns: 1fr;
   }
+  .farm-billing__doc{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   CREATE FARM — INPUTS + FOOTER BUTTONS (compact height)
+   ========================================================= */
+.create-farm .equip-input{
+  padding: 6px 10px;
+  line-height: 1.2;
+  min-height: 34px;
+  box-sizing: border-box;
+}
+
+.create-farm select.equip-input{
+  height: 34px;
+  line-height: 1.2;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.create-farm .create-equip__btn{
+  padding: 5px 11px;
+}
+
+/* Compacta o Step 2 (Faturamento) para evitar scroll em BR */
+.create-farm .farm-billing{
+  gap: 8px;
+}
+
+.create-farm .farm-billing__alert{
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.create-farm .farm-billing__section{
+  padding: 0;
+  gap: 8px;
+  border: none;
+  background: transparent;
+}
+
+.create-farm .farm-billing__section-title{
+  font-size: 12.5px;
+}
+
+.create-farm .farm-billing__grid{
+  gap: 8px 10px;
+}
+
+.create-farm .farm-billing__details{
+  margin-top: 8px;
+}
+
+.create-farm #createFarmFooter{
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* Alinha footer ao padding do modal para evitar scroll horizontal */
+.create-farm #createFarmFooter{
+  margin: 10px -18px -10px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.create-farm .create-equip__dialog{
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   CREATE FARM — STEP 4 (FAIXAS DE ENERGIA)
+   ========================================================= */
+.farm-energy{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.farm-energy__note{
+  border: 1px solid rgba(59,130,246,.55);
+  background: rgba(59,130,246,.08);
+  color: #1e3a8a;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.farm-energy__lead{
+  margin: 0;
+  font-size: 12.5px;
+  color: #334155;
+}
+
+.farm-energy__grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 240px));
+  gap: 12px;
+  justify-content: start;
+}
+
+.farm-energy__card{
+  border: 1px solid rgba(15,23,42,.14);
+  border-radius: 12px;
+  padding: 12px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+  min-height: 110px;
+}
+
+.farm-energy__card:hover{
+  border-color: rgba(22,163,74,.55);
+  box-shadow: 0 0 0 2px rgba(22,163,74,.10);
+}
+
+.farm-energy__card-title{
+  font-weight: 600;
+  font-size: 12.5px;
+  color: #0f172a;
+}
+
+.farm-energy__card-desc{
+  font-size: 12px;
+  color: #64748b;
+}
+
+.farm-energy__card.is-selected{
+  border-color: rgba(22,163,74,.75);
+  background: rgba(22,163,74,.10);
+  box-shadow: 0 0 0 2px rgba(22,163,74,.12);
+  position: relative;
+}
+
+.farm-energy__card.is-selected::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top: 14px solid #16a34a;
+  border-left: 14px solid transparent;
+  border-top-right-radius: 10px;
+}
+
+@media (max-width: 860px){
+  .farm-energy__grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   CREATE FARM — STEP 5 (LOCALIZAÃ‡ÃƒO)
+   ========================================================= */
+.farm-location{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.farm-location__row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.farm-location__input{
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.farm-location__icon{
+  position: absolute;
+  left: 18px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.farm-location__input-field{
+  padding-left: 92px;
+}
+
+.create-farm .farm-location__input-field{
+  padding-left: 32px;
+}
+
+.farm-location__btn{
+  white-space: nowrap;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,.18);
+  color: #0f172a;
+  box-shadow: none;
+  font-weight: 400;
+}
+
+.farm-location__btn i{
+  color: #0f172a;
+  font-size: 13px;
+  line-height: 1;
+  transform: translateY(-0.5px);
+}
+
+.farm-location__btn:hover{
+  background: #ffffff;
+  border-color: #16a34a;
+  color: #16a34a;
+}
+
+.farm-location__btn:hover i{
+  color: #16a34a;
+}
+
+.farm-location__radius .equip-input:disabled{
+  background: #f8fafc;
+  color: #94a3b8;
+}
+
+.farm-location__radius{
+  width: 210px;
+  border: 1px solid rgba(15,23,42,.12);
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: #ffffff;
+}
+
+.farm-location__radius-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.farm-location__radius-edit{
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0;
+}
+
+.farm-location__radius-edit:hover{
+  color: #0f172a;
+}
+
+.farm-location__map{
+  height: 360px;
+  border-radius: 12px;
+  border: 1px solid rgba(15,23,42,.12);
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+@media (max-width: 860px){
+  .farm-location__row{
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .farm-location__btn{
+    width: 100%;
+  }
+  .farm-location__radius{
+    width: 100%;
+  }
+}
+
+.create-farm .equip-field{
+  gap: 5px;
+}
+
+.create-farm .equip-label{
+  font-size: 11.5px;
+}
+
+.create-farm .create-equip__dialog{
+  padding: 14px 18px 10px;
+}
+
+/* Sobe o modal de criar fazenda para crescer para baixo */
+.create-farm.create-equip{
+  align-items: flex-start;
+}
+
+.create-farm .create-equip__dialog{
+  margin-top: 60px;
 }

@@ -52,8 +52,11 @@
     </button>
     </div>
 
-      <div class="sidebar__search">
-        <input class="input input--dark" type="text" placeholder="Buscar fazenda" />
+      <div class="sidebar__search farm-search" id="farmSearch">
+        <input class="input input--dark" id="farmSearchInput" type="text" placeholder="Buscar fazenda" />
+        <div class="farm-search__panel" id="farmSearchPanel" aria-hidden="true">
+          <div class="farm-list" id="farmList" aria-label="Lista de fazendas"></div>
+        </div>
       </div>
       <div class="sidebar__create">
         <button class="btn btn--primary sidebar__create-btn" type="button" id="btnCreateFarm">
@@ -503,13 +506,9 @@
       <div class="create-equip__dynamic" id="createFarmBody"></div>
 
       <footer class="create-equip__footer" id="createFarmFooter">
-        <button class="create-equip__btn" type="button" id="btnCreateFarmPrev">
-          Anterior
-        </button>
-
         <div class="create-equip__footer-right">
-          <button class="create-equip__btn create-equip__btn--ghost" type="button" data-close-farm>
-            Cancelar
+          <button class="create-equip__btn" type="button" id="btnCreateFarmPrev">
+            Anterior
           </button>
 
           <button class="create-equip__btn create-equip__btn--primary" type="button" id="btnCreateFarmNext">
