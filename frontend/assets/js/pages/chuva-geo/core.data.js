@@ -46,7 +46,10 @@
     { id: 'pivo-02', name: 'Pivo 02', center: [-16.7715, -47.603], radius: 520 },
     { id: 'pivo-03', name: 'Pivo 03', center: [-16.7625, -47.620], radius: 430 }
   ];
-})();
 
+  if (window.IcFarmApplyGeo && window.IcFarmActive) {
+    window.IcFarmApplyGeo(window.IcFarmActive);
+  }
+})();
 
 

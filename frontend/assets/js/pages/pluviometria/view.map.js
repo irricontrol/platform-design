@@ -96,6 +96,14 @@
   function renderMarkers() {
     if (!window.icMap || !window.L) return;
 
+    if (!document.body.classList.contains("is-pluviometria")) {
+      if (state.layer) {
+        try { state.layer.remove(); } catch (_) {}
+        state.layer = null;
+      }
+      return;
+    }
+
     if (state.layer) {
       try { state.layer.remove(); } catch (_) {}
       state.layer = null;

@@ -53,7 +53,13 @@
     </div>
 
       <div class="sidebar__search farm-search" id="farmSearch">
-        <input class="input input--dark" id="farmSearchInput" type="text" placeholder="Buscar fazenda" />
+        <div class="farm-search__field">
+          <input class="input input--dark farm-search__input" id="farmSearchInput" type="text" placeholder="Buscar fazenda" />
+          <span class="farm-search__icon" aria-hidden="true">
+            <i class="fa-solid fa-magnifying-glass icon-search"></i>
+            <i class="fa-solid fa-chevron-down icon-chevron"></i>
+          </span>
+        </div>
         <div class="farm-search__panel" id="farmSearchPanel" aria-hidden="true">
           <div class="farm-list" id="farmList" aria-label="Lista de fazendas"></div>
         </div>
@@ -162,135 +168,42 @@
             <span>Pivôs</span>
             <i class="fa-solid fa-chevron-down"></i>
           </button>
-          <div class="map-card__panel" data-panel="pivos" aria-hidden="true">
-            <div class="map-card__equip">
-              <div class="map-card__equip-head">
-                <span class="map-card__equip-name">Pivô 001 s/b</span>
-                <span class="map-card__equip-badge">SEM COMUNICAÇÃO</span>
-              </div>
-
-              <div class="map-card__metrics map-card__metrics--three">
-                <div class="map-card__metric">
-                  <span class="map-card__metric-ico"><i class="fa-solid fa-gauge"></i></span>
-                  <span class="map-card__metric-val">43°</span>
-                  <div class="map-card__tooltip">
-                    <span>Ângulo</span>
-                  </div>
-                </div>
-                <div class="map-card__metric">
-                  <span class="map-card__metric-ico"><i class="fa-solid fa-cloud"></i></span>
-                  <span class="map-card__metric-val">--</span>
-                  <div class="map-card__tooltip">
-                    <span>Pressão (centro)</span>
-                  </div>
-                </div>
-                <div class="map-card__metric">
-                  <span class="map-card__metric-ico"><i class="fa-solid fa-clock"></i></span>
-                  <span class="map-card__metric-val">986h54min</span>
-                </div>
-              </div>
-
-              <div class="map-card__metrics map-card__metrics--two">
-                <div class="map-card__metric">
-                  <span class="map-card__metric-ico"><i class="fa-solid fa-droplet"></i></span>
-                  <span class="map-card__metric-val">0mm</span>
-                  <div class="map-card__tooltip">
-                    <span>Pluviômetro</span>
-                  </div>
-                </div>
-                <div class="map-card__metric map-card__metric--motor">
-                  <span class="map-card__metric-ico"><i class="fa-solid fa-cloud"></i></span>
-                  <span class="map-card__metric-val">--</span>
-                  <div class="map-card__tooltip">
-                    <span>Pressão (motor)</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="map-card__equip-foot">
-                Última comunicação: 26 jan 2023 12:48
-              </div>
-            </div>
-          </div>
+          <div class="map-card__panel" data-panel="pivos" aria-hidden="true" data-equip-list="pivos"></div>
           <button class="map-card__item map-card__item--toggle" type="button" data-panel="bombas" aria-expanded="false">
             <span>Bombas</span>
             <i class="fa-solid fa-chevron-down"></i>
           </button>
-          <div class="map-card__panel" data-panel="bombas" aria-hidden="true">
-            <div class="map-card__equip map-card__equip--pump">
-              <div class="map-card__equip-head">
-                <span class="map-card__equip-name map-card__equip-name--pump">Bomba 01</span>
-                <span class="map-card__equip-badge map-card__equip-badge--pump">DESLIGADA PELA INTERNET</span>
-              </div>
-              <div class="map-card__equip-foot">
-                Última comunicação: 17 jan 2026 12:29
-              </div>
-            </div>
-          </div>
+          <div class="map-card__panel" data-panel="bombas" aria-hidden="true" data-equip-list="bombas"></div>
 
           <button class="map-card__item map-card__item--toggle" type="button" data-panel="medidores" aria-expanded="false">
             <span>Medidores de Nível</span>
             <i class="fa-solid fa-chevron-down"></i>
           </button>
-          <div class="map-card__panel" data-panel="medidores" aria-hidden="true">
-            <div class="map-card__equip map-card__equip--level">
-              <div class="map-card__equip-head">
-                <span class="map-card__equip-name">MDN CSB 05</span>
-                <span class="map-card__equip-badge map-card__equip-badge--level">64,00% (2,24m)</span>
-              </div>
-
-              <div class="map-card__metrics map-card__metrics--two map-card__metrics--level">
-                <div class="map-card__metric map-card__metric--min">
-                  <span class="map-card__metric-ico"><i class="fa-solid fa-weight-scale"></i></span>
-                  <span class="map-card__metric-val">Min: 20%</span>
-                </div>
-                <div class="map-card__metric map-card__metric--max">
-                  <span class="map-card__metric-ico"><i class="fa-solid fa-weight-scale"></i></span>
-                  <span class="map-card__metric-val">Max: 90%</span>
-                </div>
-              </div>
-
-              <div class="map-card__equip-foot">
-                Última comunicação: 27 jan 2026 07:32
-              </div>
-            </div>
-          </div>
+          <div class="map-card__panel" data-panel="medidores" aria-hidden="true" data-equip-list="medidores"></div>
 
           <button class="map-card__item map-card__item--toggle" type="button" data-panel="pluviometros" aria-expanded="false">
             <span>Pluviômetros</span>
             <i class="fa-solid fa-chevron-down"></i>
           </button>
-          <div class="map-card__panel" data-panel="pluviometros" aria-hidden="true">
-            <div class="map-card__equip map-card__equip--level">
-              <div class="map-card__equip-head">
-                <span class="map-card__equip-name">PLV 01</span>
-                <span class="map-card__equip-badge map-card__equip-badge--level">0 mm</span>
-              </div>
-              <div class="map-card__equip-foot">
-                Última comunicação: 27 jan 2026 07:32
-              </div>
-            </div>
-          </div>
+          <div class="map-card__panel" data-panel="pluviometros" aria-hidden="true" data-equip-list="pluviometros"></div>
 
           <button class="map-card__item map-card__item--toggle" type="button" data-panel="repetidoras" aria-expanded="false">
             <span>Repetidoras</span>
             <i class="fa-solid fa-chevron-down"></i>
           </button>
-          <div class="map-card__panel" data-panel="repetidoras" aria-hidden="true">
-            <div class="map-card__equip map-card__equip--repeater">
-              <div class="map-card__equip-head">
-                <span class="map-card__equip-name">Repetidora torre</span>
-              </div>
-              <div class="map-card__repeater-line">
-                <span class="map-card__repeater-ico"><i class="fa-solid fa-arrows-up-down"></i></span>
-                <span class="map-card__repeater-val">m</span>
-              </div>
-            </div>
-          </div>
-          <button class="map-card__item" type="button">
+          <div class="map-card__panel" data-panel="repetidoras" aria-hidden="true" data-equip-list="repetidoras"></div>
+
+          <button class="map-card__item map-card__item--toggle" type="button" data-panel="carreteis" aria-expanded="false">
             <span>Carretéis</span>
-            <i class="fa-solid fa-chevron-right"></i>
+            <i class="fa-solid fa-chevron-down"></i>
           </button>
+          <div class="map-card__panel" data-panel="carreteis" aria-hidden="true" data-equip-list="carreteis"></div>
+
+          <button class="map-card__item map-card__item--toggle" type="button" data-panel="estacoes" aria-expanded="false">
+            <span>Estações Meteorológicas</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="map-card__panel" data-panel="estacoes" aria-hidden="true" data-equip-list="estacoes"></div>
         </nav>
 
         <div class="map-card__footer">
@@ -469,13 +382,9 @@
         </button>
       </div>
       <footer class="create-equip__footer" id="createEquipFooter">
-        <button class="create-equip__btn" type="button" id="btnCreateEquipPrev">
-          Anterior
-        </button>
-
         <div class="create-equip__footer-right">
-          <button class="create-equip__btn create-equip__btn--ghost" type="button" data-close-create>
-            Cancelar
+          <button class="create-equip__btn" type="button" id="btnCreateEquipPrev">
+            Anterior
           </button>
 
           <button class="create-equip__btn create-equip__btn--primary" type="button" id="btnCreateEquipNext">
@@ -532,8 +441,13 @@
   <script src="./assets/js/pages/mapa.js"></script>
 
   <!-- equipamentos -->
+  <script src="./assets/js/pages/equipamentos/smart-connect.js"></script>
+  <script src="./assets/js/pages/equipamentos/smarttouch.js"></script>
   <script src="./assets/js/pages/equipamentos/irripump.js"></script>
   <script src="./assets/js/pages/equipamentos/medidor.js"></script>
+  <script src="./assets/js/pages/equipamentos/rainstar.js"></script>
+  <script src="./assets/js/pages/equipamentos/repetidora.js"></script>
+  <script src="./assets/js/pages/equipamentos/estacao-metereologica.js"></script>
 
   <!-- pages -->
   <script src="./assets/js/pages/create-equipment.js"></script>
@@ -564,6 +478,3 @@
 
 </body>
 </html>
-
-
-

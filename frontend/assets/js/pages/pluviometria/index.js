@@ -54,6 +54,16 @@
       const mapCard = document.getElementById("mapCard");
       if (mapCard) mapCard.style.display = "";
 
+      // remove camada de chuva fora da Pluviometria
+      window.ChuvaGeo?.layers?.rain?.remove?.();
+
+      // restaura ícones do mapa da fazenda ativa
+      const activeFarm = window.IcFarmGetActive?.() || window.IcFarmActive;
+      if (window.IcMapRenderPivots && activeFarm) {
+        window.IcMapRenderPivots(activeFarm);
+      }
+      window.IcFarmShowMarker?.();
+
       // 🔧 FORÇA O LEAFLET A REDESENHAR (evita mapa preto)
       const map = window.icMap;
       if (map && typeof map.invalidateSize === "function") {

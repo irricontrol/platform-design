@@ -71,6 +71,11 @@
     document.body.classList.remove("is-pluviometria-edit");
     document.body.classList.remove("pluv-settings-open");
     Plv.views?.map?.resetPluvPanelState?.();
+    window.IcMapClearPivots?.();
+    window.IcFarmHideMarkers?.();
+    if (window.IcFarmApplyGeo && window.IcFarmActive) {
+      window.IcFarmApplyGeo(window.IcFarmActive);
+    }
 
     const mapCard = $("mapCard");
     if (mapCard) mapCard.style.display = "none";

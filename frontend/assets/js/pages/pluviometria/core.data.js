@@ -384,4 +384,8 @@
   data.EDIT_POWER = EDIT_POWER;
   data.EDIT_UNITS = EDIT_UNITS;
   data.EDIT_SELECTS = EDIT_SELECTS;
+
+  if (window.IcFarmApplyGeo && window.IcFarmActive) {
+    window.IcFarmApplyGeo(window.IcFarmActive);
+  }
 })();

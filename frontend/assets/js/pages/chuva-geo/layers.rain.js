@@ -109,6 +109,13 @@
     const map = window.icMap;
     const handle = ensureLayer();
     if (!map || !handle || !handle.layer) return;
+    const bounds = boundsFromBbox(data.rainAreaBbox) || boundsFromPoints(data.rainPoints || []);
+    if (bounds && handle.setData) {
+      handle.setData({
+        url: data.rainImageUrl || './assets/img/map/testmap.png',
+        bounds,
+      });
+    }
     if (!map.hasLayer(handle.layer)) handle.layer.addTo(map);
     if (handle.setOpacity) handle.setOpacity(state.rainOpacity);
   }

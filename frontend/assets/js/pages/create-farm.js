@@ -329,16 +329,759 @@
   let farmMarkers = new Map();
   let farmLayer = null;
   let currentFarmId = null;
+  let activeFarmSnapshot = null;
+  const farmSelectRegistry = new Set();
+  let farmSelectListenersBound = false;
+  const EQUIP_CATEGORY_BY_TYPE = {
+    smart_connect: "pivos",
+    smarttouch: "pivos",
+    irripump: "bombas",
+    medidor: "medidores",
+    pluviometro: "pluviometros",
+    repetidora: "repetidoras",
+    rainstar: "carreteis",
+    estacao_metereologica: "estacoes",
+  };
+  const EQUIP_LABEL_BY_TYPE = {
+    smart_connect: "Pivô",
+    smarttouch: "Pivô",
+    irripump: "Bomba",
+    medidor: "Medidor",
+    pluviometro: "Pluviômetro",
+    repetidora: "Repetidora",
+    rainstar: "Carretel",
+    estacao_metereologica: "Estação",
+  };
 
   function setHidden(el, hidden) {
     if (!el) return;
     el.classList.toggle("is-hidden", hidden);
     el.setAttribute("aria-hidden", String(hidden));
+    if (el._farmSelect?.wrapper) {
+      el._farmSelect.wrapper.classList.toggle("is-hidden", hidden);
+      el._farmSelect.wrapper.setAttribute("aria-hidden", String(hidden));
+    }
   }
 
   function setText(el, text) {
     if (!el) return;
     el.textContent = text || "";
+  }
+
+  function setActiveFarmSnapshot(farm) {
+    if (!farm) return;
+    activeFarmSnapshot = {
+      id: farm.id,
+      name: farm.name,
+      lat: farm.lat,
+      lng: farm.lng,
+    };
+    window.IcFarmActive = { ...activeFarmSnapshot };
+  }
+
+  function clearActiveFarmSnapshot() {
+    activeFarmSnapshot = null;
+    window.IcFarmActive = null;
+  }
+
+  function ensureDefaultFarm() {
+    if (farms.length) return farms[0];
+    const title = mapCardTitle?.textContent?.trim() || "Fazenda";
+    let lat = -22.008419;
+    let lng = -46.812567;
+    if (window.icMap && typeof window.icMap.getCenter === "function") {
+      const center = window.icMap.getCenter();
+      if (center && Number.isFinite(center.lat) && Number.isFinite(center.lng)) {
+        lat = center.lat;
+        lng = center.lng;
+      }
+    }
+
+    const farm = {
+      id: `farm_${Date.now()}`,
+      name: title,
+      lat,
+      lng,
+    };
+
+    farms.push(farm);
+    saveFarms();
+    addFarmMarker(farm);
+    currentFarmId = farm.id;
+    setActiveFarmSnapshot(farm);
+    renderFarmList(farmSearchInput ? farmSearchInput.value : "");
+    return farm;
+  }
+
+  function formatDateTime(dateInput) {
+    const date = dateInput instanceof Date ? dateInput : new Date(dateInput);
+    if (Number.isNaN(date.getTime())) return "--";
+    const day = String(date.getDate()).padStart(2, "0");
+    const monthNames = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+    const month = monthNames[date.getMonth()] || "";
+    const year = date.getFullYear();
+    const hour = String(date.getHours()).padStart(2, "0");
+    const min = String(date.getMinutes()).padStart(2, "0");
+    return `${day} ${month} ${year} ${hour}:${min}`;
+  }
+
+  function toNumber(value) {
+    const num = Number(String(value ?? "").replace(",", "."));
+    return Number.isFinite(num) ? num : null;
+  }
+
+  function formatDecimal(value, digits) {
+    const num = toNumber(value);
+    if (num === null) return "--";
+    return num.toFixed(digits).replace(".", ",");
+  }
+
+  function parseLatLngText(text) {
+    const raw = String(text || "").trim();
+    if (!raw) return null;
+    const parts = raw
+      .replaceAll(";", ",")
+      .split(/,|\s+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (parts.length < 2) return null;
+    const lat = Number(parts[0].replace(",", "."));
+    const lng = Number(parts[1].replace(",", "."));
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+    return { lat, lng };
+  }
+
+  function getPivotAngleDeg(data) {
+    if (!data) return null;
+    const center =
+      Number.isFinite(Number(data.centerLat)) && Number.isFinite(Number(data.centerLng))
+        ? { lat: Number(data.centerLat), lng: Number(data.centerLng) }
+        : parseLatLngText(data.center);
+    const ref =
+      Number.isFinite(Number(data.refLat)) && Number.isFinite(Number(data.refLng))
+        ? { lat: Number(data.refLat), lng: Number(data.refLng) }
+        : parseLatLngText(data.ref);
+    if (!center || !ref) return null;
+
+    const toRad = (deg) => (deg * Math.PI) / 180;
+    const lat1 = toRad(center.lat);
+    const lat2 = toRad(ref.lat);
+    const dLng = toRad(ref.lng - center.lng);
+    const y = Math.sin(dLng) * Math.cos(lat2);
+    const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+    let deg = (Math.atan2(y, x) * 180) / Math.PI;
+    if (deg < 0) deg += 360;
+    return Math.round(deg);
+  }
+
+  function buildMetric(iconClass, value, tooltip, extraClass) {
+    const metric = document.createElement("div");
+    metric.className = `map-card__metric${extraClass ? ` ${extraClass}` : ""}`;
+
+    const ico = document.createElement("span");
+    ico.className = "map-card__metric-ico";
+    ico.innerHTML = `<i class="${iconClass}"></i>`;
+
+    const val = document.createElement("span");
+    val.className = "map-card__metric-val";
+    val.textContent = value || "--";
+
+    metric.append(ico, val);
+
+    if (tooltip) {
+      const tip = document.createElement("span");
+      tip.className = "map-card__tooltip";
+      tip.textContent = tooltip;
+      metric.appendChild(tip);
+    }
+
+    return metric;
+  }
+
+  function getGeoBaseCenter(plv, cg) {
+    const fallback = { lat: -16.767, lng: -47.613 };
+    const bbox = cg?.__baseRainBbox || cg?.rainAreaBbox;
+    if (bbox && Number.isFinite(bbox.minLat) && Number.isFinite(bbox.maxLat) && Number.isFinite(bbox.minLng) && Number.isFinite(bbox.maxLng)) {
+      return {
+        lat: (bbox.minLat + bbox.maxLat) / 2,
+        lng: (bbox.minLng + bbox.maxLng) / 2,
+      };
+    }
+
+    const polygon = cg?.__baseRainAreaPolygon || cg?.rainAreaPolygon;
+    if (Array.isArray(polygon) && polygon.length) {
+      let sumLat = 0;
+      let sumLng = 0;
+      let count = 0;
+      polygon.forEach((p) => {
+        const lat = Array.isArray(p) ? p[0] : p?.lat;
+        const lng = Array.isArray(p) ? p[1] : p?.lng;
+        if (Number.isFinite(lat) && Number.isFinite(lng)) {
+          sumLat += lat;
+          sumLng += lng;
+          count += 1;
+        }
+      });
+      if (count) {
+        return { lat: sumLat / count, lng: sumLng / count };
+      }
+    }
+
+    if (plv && Array.isArray(plv.PLUVIOS) && plv.PLUVIOS.length) {
+      let sumLat = 0;
+      let sumLng = 0;
+      let count = 0;
+      plv.PLUVIOS.forEach((p) => {
+        const lat = Number.isFinite(p.__baseLat) ? p.__baseLat : p.lat;
+        const lng = Number.isFinite(p.__baseLng) ? p.__baseLng : p.lng;
+        if (Number.isFinite(lat) && Number.isFinite(lng)) {
+          sumLat += lat;
+          sumLng += lng;
+          count += 1;
+        }
+      });
+      if (count) {
+        return { lat: sumLat / count, lng: sumLng / count };
+      }
+    }
+
+    return fallback;
+  }
+
+  function isPluviometriaActive() {
+    return document.body?.classList?.contains("is-pluviometria");
+  }
+
+  function applyFarmGeo(farm) {
+    if (!farm || !Number.isFinite(farm.lat) || !Number.isFinite(farm.lng)) return;
+
+    const plv = window.Plv?.data;
+    const cg = window.ChuvaGeo?.data;
+    const baseCenter = getGeoBaseCenter(plv, cg);
+    const offsetLat = farm.lat - baseCenter.lat;
+    const offsetLng = farm.lng - baseCenter.lng;
+
+    if (plv && Array.isArray(plv.PLUVIOS)) {
+      plv.PLUVIOS.forEach((p) => {
+        if (!Number.isFinite(p.__baseLat) || !Number.isFinite(p.__baseLng)) {
+          p.__baseLat = p.lat;
+          p.__baseLng = p.lng;
+        }
+        p.lat = p.__baseLat + offsetLat;
+        p.lng = p.__baseLng + offsetLng;
+      });
+    }
+
+    if (cg) {
+      if (cg.rainAreaBbox) {
+        if (!cg.__baseRainBbox) cg.__baseRainBbox = { ...cg.rainAreaBbox };
+        const b = cg.__baseRainBbox;
+        cg.rainAreaBbox = {
+          minLat: b.minLat + offsetLat,
+          maxLat: b.maxLat + offsetLat,
+          minLng: b.minLng + offsetLng,
+          maxLng: b.maxLng + offsetLng,
+        };
+      }
+
+      if (Array.isArray(cg.rainAreaPolygon)) {
+        if (!cg.__baseRainAreaPolygon) {
+          cg.__baseRainAreaPolygon = cg.rainAreaPolygon.map((p) => ({ lat: p[0], lng: p[1] }));
+        }
+        cg.rainAreaPolygon = cg.__baseRainAreaPolygon.map((p) => [p.lat + offsetLat, p.lng + offsetLng]);
+      }
+
+      if (Array.isArray(cg.rainPoints)) {
+        cg.rainPoints.forEach((p) => {
+          if (!Number.isFinite(p.__baseLat) || !Number.isFinite(p.__baseLng)) {
+            p.__baseLat = p.lat;
+            p.__baseLng = p.lng;
+          }
+          p.lat = p.__baseLat + offsetLat;
+          p.lng = p.__baseLng + offsetLng;
+        });
+      }
+
+      if (Array.isArray(cg.irrigationAreas)) {
+        cg.irrigationAreas.forEach((area) => {
+          if (!area.__baseCenter && Array.isArray(area.center)) {
+            area.__baseCenter = [area.center[0], area.center[1]];
+          }
+          if (Array.isArray(area.__baseCenter)) {
+            area.center = [area.__baseCenter[0] + offsetLat, area.__baseCenter[1] + offsetLng];
+          }
+        });
+      }
+    }
+
+    if (isPluviometriaActive()) {
+      window.Plv?.views?.map?.renderMarkers?.();
+    }
+
+    if (window.ChuvaGeo?.layers?.rain?.setData && window.L && cg?.rainAreaBbox) {
+      const b = cg.rainAreaBbox;
+      const bounds = L.latLngBounds([b.minLat, b.minLng], [b.maxLat, b.maxLng]);
+      window.ChuvaGeo.layers.rain.setData({ bounds, url: cg.rainImageUrl || "./assets/img/map/testmap.png" });
+      const shouldShowRain = !!window.ChuvaGeo?.state?.showRain && isPluviometriaActive();
+      if (shouldShowRain) window.ChuvaGeo.layers.rain.add?.();
+      else window.ChuvaGeo.layers.rain.remove?.();
+    }
+
+  }
+
+  function getFarmMarkerIcon() {
+    if (!window.L) return null;
+    return L.icon({
+      iconUrl: "./assets/img/svg/central.svg",
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+      className: "map-farm-marker",
+    });
+  }
+
+  function renderEquipmentPanels(farm) {
+    const panels = document.querySelectorAll(".map-card__panel[data-equip-list]");
+    if (!panels.length) return;
+
+    panels.forEach((panel) => {
+      const key = panel.dataset.equipList;
+      const list = (farm?.equipments || []).filter((item) => item.category === key);
+      panel.innerHTML = "";
+
+      if (!list.length) {
+        const empty = document.createElement("div");
+        empty.className = "map-card__equip-empty";
+        empty.textContent = "Nenhum equipamento cadastrado.";
+        panel.appendChild(empty);
+        return;
+      }
+
+      list.forEach((item) => {
+        const equip = document.createElement("div");
+        equip.className = "map-card__equip";
+
+        const head = document.createElement("div");
+        head.className = "map-card__equip-head";
+
+        const name = document.createElement("span");
+        name.className = "map-card__equip-name";
+        name.textContent = item.name || item.label || "Equipamento";
+
+        head.appendChild(name);
+
+        if (item.category === "pivos") {
+          const badge = document.createElement("span");
+          badge.className = "map-card__equip-badge map-card__equip-badge--warn";
+          badge.textContent = "PAINEL DESLIGADO";
+          head.appendChild(badge);
+        }
+
+        if (item.category === "medidores") {
+          const levelPercent =
+            toNumber(item?.data?.levelPercent) ??
+            toNumber(item?.data?.percent) ??
+            toNumber(item?.data?.nivelPercent) ??
+            82.14;
+          const levelMeters =
+            toNumber(item?.data?.levelMeters) ??
+            toNumber(item?.data?.meters) ??
+            toNumber(item?.data?.nivelMeters) ??
+            5.75;
+          const badge = document.createElement("span");
+          badge.className = "map-card__equip-badge map-card__equip-badge--info";
+          badge.textContent = `${formatDecimal(levelPercent, 2)}% (${formatDecimal(levelMeters, 2)}m)`;
+          head.appendChild(badge);
+        }
+
+        equip.appendChild(head);
+
+        if (item.category === "pivos") {
+          const angle = getPivotAngleDeg(item.data);
+
+          const metricsTop = document.createElement("div");
+          metricsTop.className = "map-card__metrics map-card__metrics--three";
+          metricsTop.append(
+            buildMetric("fa-solid fa-location-arrow", angle === null ? "--" : `${angle}\u00b0`, "\u00c2ngulo"),
+            buildMetric("fa-solid fa-cloud", "--", "Press\u00e3o (centro)"),
+            buildMetric("fa-regular fa-clock", "00h00min", "Tempo ligado")
+          );
+
+          const metricsBottom = document.createElement("div");
+          metricsBottom.className = "map-card__metrics map-card__metrics--two";
+          metricsBottom.append(
+            buildMetric("fa-solid fa-droplet", "0mm", "Pluvi\u00f4metro"),
+            buildMetric("fa-solid fa-cloud", "--", "Press\u00e3o (motor)", "map-card__metric--motor")
+          );
+
+          equip.append(metricsTop, metricsBottom);
+        }
+
+        if (item.category === "medidores") {
+          const minPercent = toNumber(item?.data?.minPercent) ?? 20;
+          const maxPercent = toNumber(item?.data?.maxPercent) ?? 100;
+          const status = item?.data?.status || "Carregada";
+
+          const metricsRow = document.createElement("div");
+          metricsRow.className = "map-card__metrics map-card__metrics--three";
+          metricsRow.append(
+            buildMetric("fa-solid fa-arrow-down-long", `Min.: ${formatDecimal(minPercent, 0)}%`),
+            buildMetric("fa-solid fa-arrow-up-long", `Max.: ${formatDecimal(maxPercent, 0)}%`, null, "map-card__metric--danger"),
+            buildMetric("fa-solid fa-battery-full", status, null, "map-card__metric--success")
+          );
+
+          equip.append(metricsRow);
+        }
+
+        if (item.category === "repetidoras") {
+          const height = toNumber(item?.data?.height);
+          const metricsRow = document.createElement("div");
+          metricsRow.className = "map-card__metrics map-card__metrics--one";
+          metricsRow.append(
+            buildMetric("fa-solid fa-up-down", height === null ? "-- m" : `${formatDecimal(height, 1)} m`)
+          );
+          equip.append(metricsRow);
+        }
+
+        const foot = document.createElement("div");
+        foot.className = "map-card__equip-foot";
+        foot.textContent = `Última comunicação: ${formatDateTime(item.createdAt)}`;
+        equip.appendChild(foot);
+
+        panel.appendChild(equip);
+      });
+    });
+  }
+
+  function clearEquipmentPanels(message) {
+    const panels = document.querySelectorAll(".map-card__panel[data-equip-list]");
+    if (!panels.length) return;
+    const text = message || "Selecione uma fazenda para ver equipamentos.";
+    panels.forEach((panel) => {
+      panel.innerHTML = "";
+      const empty = document.createElement("div");
+      empty.className = "map-card__equip-empty";
+      empty.textContent = text;
+      panel.appendChild(empty);
+    });
+  }
+
+  function clearFarmSelection() {
+    currentFarmId = null;
+    clearActiveFarmSnapshot();
+    if (farmSearchHost) farmSearchHost.classList.remove("has-selection");
+    if (farmSearchInput) delete farmSearchInput.dataset.selected;
+    updateActiveFarm();
+    clearEquipmentPanels();
+    window.IcMapClearPivots?.();
+    clearFarmMarkers();
+  }
+
+  function getNextNameForCategory(farm, category, baseLabel) {
+    const list = (farm?.equipments || []).filter((item) => item.category === category);
+    const nextIndex = list.length + 1;
+    return `${baseLabel} ${String(nextIndex).padStart(2, "0")}`;
+  }
+
+  function isPlainObject(value) {
+    if (!value || typeof value !== "object") return false;
+    const proto = Object.getPrototypeOf(value);
+    return proto === Object.prototype || proto === null;
+  }
+
+  function sanitizeValue(value, depth = 0) {
+    if (depth > 6) return undefined;
+    if (value === null) return null;
+    if (typeof value === "function") return undefined;
+    if (typeof value !== "object") return value;
+    if (value instanceof Date) return value.toISOString();
+    if (Array.isArray(value)) {
+      const out = value
+        .map((item) => sanitizeValue(item, depth + 1))
+        .filter((item) => item !== undefined);
+      return out;
+    }
+    if (!isPlainObject(value)) return undefined;
+    const out = {};
+    Object.keys(value).forEach((key) => {
+      if (key.startsWith("_")) return;
+      const clean = sanitizeValue(value[key], depth + 1);
+      if (clean !== undefined) out[key] = clean;
+    });
+    return out;
+  }
+
+  function sanitizeEquipmentData(data) {
+    if (!data || typeof data !== "object") return {};
+    const clean = sanitizeValue(data);
+    return isPlainObject(clean) ? clean : {};
+  }
+
+  function addEquipmentToFarm(equipPayload) {
+    if (!equipPayload) return;
+    const farmId = equipPayload.farmId || currentFarmId || activeFarmSnapshot?.id;
+    let farm = farmId ? farms.find((item) => item.id === farmId) : null;
+    if (!farm) farm = ensureDefaultFarm();
+    if (!farm) return;
+    if (!currentFarmId) currentFarmId = farm.id;
+    setActiveFarmSnapshot(farm);
+
+    const type = equipPayload.type;
+    const category = EQUIP_CATEGORY_BY_TYPE[type] || "outros";
+    const baseLabel = EQUIP_LABEL_BY_TYPE[type] || "Equipamento";
+    const name = equipPayload.name || getNextNameForCategory(farm, category, baseLabel);
+
+    const equipItem = {
+      id: `equip_${Date.now()}`,
+      type,
+      category,
+      name,
+      createdAt: equipPayload.createdAt || new Date().toISOString(),
+      data: sanitizeEquipmentData(equipPayload.data),
+    };
+
+    farm.equipments = farm.equipments || [];
+    farm.equipments.push(equipItem);
+    saveFarms();
+    renderEquipmentPanels(farm);
+    if (window.IcMapRenderPivots) window.IcMapRenderPivots(farm);
+    if (mapCardTitle) mapCardTitle.textContent = farm.name;
+  }
+
+  function bindFarmSelectGlobalEvents() {
+    if (farmSelectListenersBound) return;
+    farmSelectListenersBound = true;
+    document.addEventListener("click", (event) => {
+      if (event.target.closest(".farm-select")) return;
+      closeAllFarmSelects();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      closeAllFarmSelects();
+    });
+    window.addEventListener("resize", () => {
+      farmSelectRegistry.forEach((select) => {
+        if (select?._farmSelect?.wrapper.classList.contains("is-open")) {
+          positionFarmSelectList(select);
+        }
+      });
+    });
+    if (modal && !modal._farmSelectScrollBound) {
+      modal._farmSelectScrollBound = true;
+      modal.addEventListener(
+        "scroll",
+        () => {
+          closeAllFarmSelects();
+        },
+        true
+      );
+    }
+  }
+
+  function closeFarmSelect(select) {
+    const data = select?._farmSelect;
+    if (!data) return;
+    data.wrapper.classList.remove("is-open");
+    data.trigger.setAttribute("aria-expanded", "false");
+  }
+
+  function closeAllFarmSelects(except) {
+    farmSelectRegistry.forEach((select) => {
+      if (select === except) return;
+      closeFarmSelect(select);
+    });
+  }
+
+  function positionFarmSelectList(select) {
+    const data = select?._farmSelect;
+    if (!data) return;
+    const rect = data.trigger.getBoundingClientRect();
+    const margin = 12;
+    const spacing = 6;
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    const spaceBelow = viewportHeight - rect.bottom - margin;
+    const spaceAbove = rect.top - margin;
+    const openUp = spaceBelow < 160 && spaceAbove > spaceBelow;
+    const maxHeight = Math.max(120, openUp ? spaceAbove : spaceBelow);
+    const top = openUp
+      ? Math.max(margin, rect.top - maxHeight - spacing)
+      : rect.bottom + spacing;
+    const width = Math.min(rect.width, viewportWidth - margin * 2);
+    const left = Math.max(margin, Math.min(rect.left, viewportWidth - width - margin));
+    data.list.style.left = `${left}px`;
+    data.list.style.top = `${top}px`;
+    data.list.style.width = `${width}px`;
+    data.list.style.maxHeight = `${maxHeight}px`;
+  }
+
+  function syncFarmSelectDisabled(select) {
+    const data = select?._farmSelect;
+    if (!data) return;
+    const disabled = !!select.disabled;
+    data.wrapper.classList.toggle("is-disabled", disabled);
+    data.trigger.disabled = disabled;
+  }
+
+  function syncFarmSelectHidden(select) {
+    const data = select?._farmSelect;
+    if (!data) return;
+    const hidden = select.classList.contains("is-hidden");
+    data.wrapper.classList.toggle("is-hidden", hidden);
+    data.wrapper.setAttribute("aria-hidden", String(hidden));
+  }
+
+  function updateFarmSelectValue(select) {
+    const data = select?._farmSelect;
+    if (!data) return;
+    const option = select.selectedOptions[0] || select.options[0];
+    const value = option ? option.value : "";
+    const label = option ? option.textContent : "";
+    data.valueEl.textContent = label || "";
+    data.valueEl.classList.toggle("is-placeholder", value === "");
+    Array.from(data.list.children).forEach((btn) => {
+      const isSelected = btn.dataset.value === value;
+      btn.classList.toggle("is-selected", isSelected);
+      btn.setAttribute("aria-selected", String(isSelected));
+    });
+  }
+
+  function rebuildFarmSelectOptions(select) {
+    const data = select?._farmSelect;
+    if (!data) return;
+    data.list.innerHTML = "";
+    Array.from(select.options).forEach((option) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "farm-select__option";
+      btn.dataset.value = option.value;
+      btn.textContent = option.textContent;
+      btn.setAttribute("role", "option");
+      if (option.disabled) {
+        btn.disabled = true;
+        btn.setAttribute("aria-disabled", "true");
+      }
+      btn.addEventListener("click", () => {
+        if (btn.disabled) return;
+        select.value = option.value;
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+        updateFarmSelectValue(select);
+        closeFarmSelect(select);
+        data.trigger.focus();
+      });
+      data.list.appendChild(btn);
+    });
+    updateFarmSelectValue(select);
+  }
+
+  function refreshFarmSelect(select) {
+    if (!select?._farmSelect) return;
+    rebuildFarmSelectOptions(select);
+    syncFarmSelectDisabled(select);
+    syncFarmSelectHidden(select);
+  }
+
+  function enhanceFarmSelect(select, root) {
+    if (!select || select._farmSelect) return;
+    const wrapper = document.createElement("div");
+    wrapper.className = "farm-select";
+    wrapper.dataset.farmSelect = "true";
+
+    const trigger = document.createElement("button");
+    trigger.type = "button";
+    trigger.className = "farm-select__trigger";
+    trigger.setAttribute("aria-haspopup", "listbox");
+    trigger.setAttribute("aria-expanded", "false");
+
+    const valueEl = document.createElement("span");
+    valueEl.className = "farm-select__value";
+    const chev = document.createElement("i");
+    chev.className = "fa-solid fa-chevron-down";
+    trigger.append(valueEl, chev);
+
+    const list = document.createElement("div");
+    list.className = "farm-select__list";
+    list.setAttribute("role", "listbox");
+    const listId = select.id
+      ? `${select.id}__list`
+      : `farmSelectList_${Math.random().toString(36).slice(2)}`;
+    list.id = listId;
+    trigger.setAttribute("aria-controls", listId);
+
+    select.classList.add("farm-select__native");
+    select.setAttribute("aria-hidden", "true");
+    select.tabIndex = -1;
+
+    select.parentNode.insertBefore(wrapper, select);
+    wrapper.append(trigger, list, select);
+
+    select._farmSelect = { wrapper, trigger, valueEl, list };
+    farmSelectRegistry.add(select);
+
+    trigger.addEventListener("click", () => {
+      if (select.disabled) return;
+      const isOpen = wrapper.classList.contains("is-open");
+      closeAllFarmSelects(select);
+      if (isOpen) {
+        closeFarmSelect(select);
+      } else {
+        positionFarmSelectList(select);
+        wrapper.classList.add("is-open");
+        trigger.setAttribute("aria-expanded", "true");
+      }
+    });
+
+    select.addEventListener("change", () => updateFarmSelectValue(select));
+    select.addEventListener("input", () => updateFarmSelectValue(select));
+
+    if (select.id && root) {
+      const escapeId = window.CSS && CSS.escape ? CSS.escape(select.id) : select.id;
+      const label = root.querySelector(`label[for="${escapeId}"]`);
+      if (label && !label.dataset.farmSelectBound) {
+        label.dataset.farmSelectBound = "true";
+        label.addEventListener("click", (event) => {
+          event.preventDefault();
+          if (select.disabled) return;
+          closeAllFarmSelects(select);
+          wrapper.classList.add("is-open");
+          trigger.setAttribute("aria-expanded", "true");
+          trigger.focus();
+        });
+      }
+    }
+
+    const observer = new MutationObserver((mutations) => {
+      let needsRebuild = false;
+      let needsSync = false;
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") needsRebuild = true;
+        if (mutation.type === "attributes") needsSync = true;
+      });
+      if (needsRebuild) rebuildFarmSelectOptions(select);
+      if (needsRebuild || needsSync) {
+        updateFarmSelectValue(select);
+        syncFarmSelectDisabled(select);
+        syncFarmSelectHidden(select);
+      }
+    });
+    observer.observe(select, { childList: true, attributes: true, attributeFilter: ["disabled", "class"] });
+
+    refreshFarmSelect(select);
+  }
+
+  function initFarmSelects(root) {
+    if (!root) return;
+    bindFarmSelectGlobalEvents();
+    farmSelectRegistry.forEach((select) => {
+      if (!document.contains(select)) farmSelectRegistry.delete(select);
+    });
+    root.querySelectorAll("select.equip-input").forEach((select) => {
+      if (!root.closest("#createFarmModal") && !select.closest("#createFarmModal")) return;
+      if (select._farmSelect) {
+        refreshFarmSelect(select);
+        return;
+      }
+      enhanceFarmSelect(select, root);
+    });
   }
 
   function setFieldState(field, config) {
@@ -380,6 +1123,7 @@
       }
       select.appendChild(option);
     });
+    refreshFarmSelect(select);
   }
 
   function loadFarms() {
@@ -413,9 +1157,30 @@
       existing.bindPopup(farm.name);
       return;
     }
-    const marker = L.marker([farm.lat, farm.lng]).addTo(layer);
+    const icon = getFarmMarkerIcon();
+    const marker = L.marker([farm.lat, farm.lng], icon ? { icon } : undefined).addTo(layer);
     marker.bindPopup(farm.name);
     farmMarkers.set(farm.id, marker);
+  }
+
+  function clearFarmMarkers() {
+    if (farmLayer) farmLayer.clearLayers();
+    farmMarkers.clear();
+  }
+
+  function getActiveFarmForMarker() {
+    if (currentFarmId) return farms.find((item) => item.id === currentFarmId) || null;
+    if (activeFarmSnapshot?.id) {
+      return farms.find((item) => item.id === activeFarmSnapshot.id) || activeFarmSnapshot;
+    }
+    return null;
+  }
+
+  function showActiveFarmMarker() {
+    const farm = getActiveFarmForMarker();
+    if (!farm) return;
+    clearFarmMarkers();
+    addFarmMarker(farm);
   }
 
   function updateActiveFarm() {
@@ -429,18 +1194,32 @@
     if (!farmSearchPanel) return;
     farmSearchPanel.classList.add("is-open");
     farmSearchPanel.setAttribute("aria-hidden", "false");
+    farmSearchPanel.removeAttribute("inert");
+    if (farmSearchHost) farmSearchHost.classList.add("is-open");
   }
 
   function closeFarmPanel() {
     if (!farmSearchPanel) return;
+    const activeEl = document.activeElement;
+    if (activeEl && farmSearchPanel.contains(activeEl)) {
+      if (farmSearchInput) {
+        farmSearchInput.focus();
+      } else if (typeof activeEl.blur === "function") {
+        activeEl.blur();
+      }
+    }
     farmSearchPanel.classList.remove("is-open");
     farmSearchPanel.setAttribute("aria-hidden", "true");
+    farmSearchPanel.setAttribute("inert", "");
+    if (farmSearchHost) farmSearchHost.classList.remove("is-open");
   }
 
   function selectFarm(farmId) {
     const farm = farms.find((item) => item.id === farmId);
     if (!farm) return;
     currentFarmId = farmId;
+    setActiveFarmSnapshot(farm);
+    clearFarmMarkers();
     addFarmMarker(farm);
     if (window.icMap) {
       window.icMap.setView([farm.lat, farm.lng], 16);
@@ -448,7 +1227,15 @@
     const marker = farmMarkers.get(farmId);
     if (marker) marker.openPopup();
     if (mapCardTitle) mapCardTitle.textContent = farm.name;
+    if (farmSearchInput) {
+      farmSearchInput.value = farm.name;
+      farmSearchInput.dataset.selected = farmId;
+    }
+    if (farmSearchHost) farmSearchHost.classList.add("has-selection");
     updateActiveFarm();
+    applyFarmGeo(farm);
+    renderEquipmentPanels(farm);
+    if (window.IcMapRenderPivots) window.IcMapRenderPivots(farm);
     closeFarmPanel();
   }
 
@@ -490,20 +1277,27 @@
   function initFarmList() {
     if (!farmListHost && !window.icMap) return;
     loadFarms();
-    farms.forEach(addFarmMarker);
+    if (!currentFarmId) {
+      clearEquipmentPanels();
+      window.IcMapClearPivots?.();
+      clearFarmMarkers();
+    }
     renderFarmList(farmSearchInput ? farmSearchInput.value : "");
     if (farmSearchInput) {
       farmSearchInput.addEventListener("focus", () => {
         openFarmPanel();
         renderFarmList(farmSearchInput.value);
+        farmSearchInput.select();
       });
       farmSearchInput.addEventListener("click", () => {
         openFarmPanel();
         renderFarmList(farmSearchInput.value);
+        farmSearchInput.select();
       });
       farmSearchInput.addEventListener("input", (e) => {
         openFarmPanel();
         renderFarmList(e.target.value);
+        clearFarmSelection();
       });
       farmSearchInput.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeFarmPanel();
@@ -552,7 +1346,10 @@
     if (!root) return;
     const countrySelect = root.querySelector("[data-country]");
     const country = farmBillingState.country || countrySelect?.value || "";
-    if (countrySelect) countrySelect.value = country;
+    if (countrySelect) {
+      countrySelect.value = country;
+      refreshFarmSelect(countrySelect);
+    }
     if (!country) return;
     applyBillingRules(root, country);
 
@@ -570,6 +1367,7 @@
     const regionInput = root.querySelector("[data-region-input]");
     if (regionSelect && !regionSelect.classList.contains("is-hidden")) {
       regionSelect.value = farmBillingState.regionCode || farmBillingState.region || "";
+      refreshFarmSelect(regionSelect);
     } else if (regionInput) {
       regionInput.value = farmBillingState.region || farmBillingState.regionCode || "";
     }
@@ -588,7 +1386,10 @@
 
     const regionSelect = root.querySelector("[data-region-select]");
     const regionInput = root.querySelector("[data-region-input]");
-    if (regionSelect) regionSelect.value = "";
+    if (regionSelect) {
+      regionSelect.value = "";
+      refreshFarmSelect(regionSelect);
+    }
     if (regionInput) regionInput.value = "";
   }
 
@@ -632,6 +1433,7 @@
     if (docTypeSelect) {
       buildSelectOptions(docTypeSelect, rules.docTypes || DEFAULT_BILLING.docTypes, null);
       docTypeSelect.selectedIndex = 0;
+      refreshFarmSelect(docTypeSelect);
     }
   }
 
@@ -714,6 +1516,7 @@
       if (toggle.checked) {
         if (!countrySelect.value && farmBillingState.country) {
           countrySelect.value = farmBillingState.country;
+          refreshFarmSelect(countrySelect);
         }
         setDetailsState(!!countrySelect.value);
         applyBillingState(root);
@@ -872,7 +1675,8 @@
       { maxZoom: 19, opacity: 0.85 }
     ).addTo(farmLocationMap);
 
-    farmLocationMarker = L.marker([center.lat, center.lng]).addTo(farmLocationMap);
+    const icon = getFarmMarkerIcon();
+    farmLocationMarker = L.marker([center.lat, center.lng], icon ? { icon } : undefined).addTo(farmLocationMap);
 
     farmLocationMap.on("click", (e) => {
       applyLocation(e.latlng.lat, e.latlng.lng, false);
@@ -979,6 +1783,7 @@
         </div>
       `;
       bindGeneralStep();
+      initFarmSelects(bodyHost);
       return;
     }
 
@@ -1108,6 +1913,7 @@
         </div>
       `;
       bindBillingForm(null, { applyState: true, syncState: true });
+      initFarmSelects(bodyHost);
       return;
     }
 
@@ -1118,6 +1924,14 @@
             <header class="farm-billing__section-head">
               <h4 class="farm-billing__section-title">Endere\u00e7o de Contato</h4>
             </header>
+
+            <div class="farm-billing__details farm-contact__toggle is-hidden" data-contact-details>
+              <label class="farm-switch">
+                <input class="farm-switch__input" type="checkbox" data-contact-same />
+                <span class="farm-switch__track" aria-hidden="true"></span>
+                <span class="farm-switch__label">Mesmo do endere\u00e7o de faturamento</span>
+              </label>
+            </div>
 
             <div class="equip-form farm-billing__grid farm-billing__grid--country">
               <div class="equip-field farm-billing__field" data-field="country">
@@ -1152,12 +1966,6 @@
             </div>
 
             <div class="farm-billing__details is-hidden" data-contact-details>
-              <label class="farm-switch">
-                <input class="farm-switch__input" type="checkbox" data-contact-same />
-                <span class="farm-switch__track" aria-hidden="true"></span>
-                <span class="farm-switch__label">Mesmo do endere\u00e7o de faturamento</span>
-              </label>
-
               <div class="equip-form farm-billing__grid farm-billing__grid--address" data-contact-address>
                 <div class="equip-field farm-billing__field farm-billing__field--span-2" data-field="address">
                   <label class="equip-label" for="farmContactAddress">
@@ -1210,6 +2018,7 @@
         </div>
       `;
       bindContactForm();
+      initFarmSelects(bodyHost);
       return;
     }
 
@@ -1348,4 +2157,14 @@
 
   nextBtn.addEventListener("click", goNext);
   if (prevBtn) prevBtn.addEventListener("click", goPrev);
+
+  window.IcFarmsAddEquipment = addEquipmentToFarm;
+  window.IcFarmApplyGeo = applyFarmGeo;
+  window.IcFarmHideMarkers = clearFarmMarkers;
+  window.IcFarmShowMarker = showActiveFarmMarker;
+  window.IcFarmGetActive = getActiveFarmForMarker;
+  window.IcFarmsRenderEquipment = () => {
+    const farm = farms.find((item) => item.id === currentFarmId) || farms[0];
+    if (farm) renderEquipmentPanels(farm);
+  };
 })();

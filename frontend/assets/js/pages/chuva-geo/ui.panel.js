@@ -91,8 +91,13 @@
       rainToggle.addEventListener('change', () => {
         state.userTouched = true;
         state.showRain = !!rainToggle.checked;
-        if (state.showRain) layers.rain?.add?.();
-        else layers.rain?.remove?.();
+        const isPluvActive = document.body?.classList?.contains('is-pluviometria');
+        if (state.showRain) {
+          window.IcFarmApplyGeo?.(window.IcFarmActive);
+          if (isPluvActive) layers.rain?.add?.();
+        } else {
+          layers.rain?.remove?.();
+        }
         updateDisabled();
       });
     }

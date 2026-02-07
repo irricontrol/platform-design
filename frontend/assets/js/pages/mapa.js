@@ -5,7 +5,7 @@
 
   // Centro inicial (ajusta depois pra sua fazenda)
   const map = L.map("map", {
-    zoomControl: true,
+    zoomControl: false,
     scrollWheelZoom: false
   }).setView([-16.767, -47.613], 12);
 
@@ -30,8 +30,6 @@
     }
   ).addTo(map);
 
-  // Exemplo: um marcador só pra você ver que tá vivo
-  L.marker([-16.767, -47.613]).addTo(map).bindPopup("Mapa carregado ✅");
 
   // Hint de zoom com Ctrl + scroll
   const zoomHint = document.createElement("div");
@@ -95,6 +93,257 @@
     requestAnimationFrame(invalidate);
     setTimeout(invalidate, 180);
   });
+
+  // =========================
+  // Pivos no mapa
+  // =========================
+  const pivotLayer = L.layerGroup().addTo(map);
+  const mdnLayer = L.layerGroup().addTo(map);
+  const repLayer = L.layerGroup().addTo(map);
+  const pumpLayer = L.layerGroup().addTo(map);
+
+  const toNumber = (value) => {
+    const num = Number(String(value ?? "").replace(",", "."));
+    return Number.isFinite(num) ? num : null;
+  };
+
+  const parseLatLngText = (text) => {
+    const raw = String(text || "").trim();
+    if (!raw) return null;
+    const parts = raw
+      .replaceAll(";", ",")
+      .split(/,|\s+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (parts.length < 2) return null;
+    const lat = toNumber(parts[0]);
+    const lng = toNumber(parts[1]);
+    if (lat === null || lng === null) return null;
+    return { lat, lng };
+  };
+
+  const bearingRad = (from, to) => {
+    const toRad = (deg) => (deg * Math.PI) / 180;
+    const lat1 = toRad(from.lat);
+    const lat2 = toRad(to.lat);
+    const dLng = toRad(to.lng - from.lng);
+    const y = Math.sin(dLng) * Math.cos(lat2);
+    const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+    return Math.atan2(y, x);
+  };
+
+  const destinationPoint = (origin, distance, bearing) => {
+    const R = 6378137;
+    const toRad = (deg) => (deg * Math.PI) / 180;
+    const toDeg = (rad) => (rad * 180) / Math.PI;
+    const delta = distance / R;
+    const theta = bearing;
+    const phi1 = toRad(origin.lat);
+    const lambda1 = toRad(origin.lng);
+
+    const sinPhi1 = Math.sin(phi1);
+    const cosPhi1 = Math.cos(phi1);
+    const sinDelta = Math.sin(delta);
+    const cosDelta = Math.cos(delta);
+
+    const sinPhi2 = sinPhi1 * cosDelta + cosPhi1 * sinDelta * Math.cos(theta);
+    const phi2 = Math.asin(Math.max(-1, Math.min(1, sinPhi2)));
+    const y = Math.sin(theta) * sinDelta * cosPhi1;
+    const x = cosDelta - sinPhi1 * Math.sin(phi2);
+    const lambda2 = lambda1 + Math.atan2(y, x);
+
+    return { lat: toDeg(phi2), lng: toDeg(lambda2) };
+  };
+
+  const extractPivotData = (equip) => {
+    if (!equip || !equip.type || !equip.data) return null;
+
+    if (equip.type === "smart_connect") {
+      const centerLat = toNumber(equip.data.centerLat);
+      const centerLng = toNumber(equip.data.centerLng);
+      const refLat = toNumber(equip.data.refLat);
+      const refLng = toNumber(equip.data.refLng);
+      const center =
+        Number.isFinite(centerLat) && Number.isFinite(centerLng)
+          ? { lat: centerLat, lng: centerLng }
+          : parseLatLngText(equip.data.center);
+      const ref =
+        Number.isFinite(refLat) && Number.isFinite(refLng)
+          ? { lat: refLat, lng: refLng }
+          : parseLatLngText(equip.data.ref);
+
+      if (!center) return null;
+      let radius = toNumber(equip.data.radius);
+      if ((!radius || radius <= 0) && ref) {
+        radius = L.latLng(center.lat, center.lng).distanceTo([ref.lat, ref.lng]);
+      }
+      if (!radius || radius <= 0) return null;
+
+      return { center, radius, ref };
+    }
+
+    if (equip.type === "smarttouch") {
+      const lat = toNumber(equip.data.lat);
+      const lng = toNumber(equip.data.lng);
+      const center =
+        Number.isFinite(lat) && Number.isFinite(lng)
+          ? { lat, lng }
+          : parseLatLngText(equip.data.loc);
+      const radius = toNumber(equip.data.radius);
+      if (!center || !radius || radius <= 0) return null;
+      return { center, radius, ref: null };
+    }
+
+    return null;
+  };
+
+  const extractMdnData = (equip) => {
+    if (!equip || equip.type !== "medidor" || !equip.data) return null;
+    const lat = toNumber(equip.data.lat);
+    const lng = toNumber(equip.data.lng);
+    const center =
+      Number.isFinite(lat) && Number.isFinite(lng)
+        ? { lat, lng }
+        : parseLatLngText(equip.data.loc);
+    if (!center) return null;
+
+    const percentRaw =
+      toNumber(equip.data.levelPercent) ??
+      toNumber(equip.data.percent) ??
+      toNumber(equip.data.nivelPercent);
+    const percent = percentRaw === null ? 53 : Math.max(0, Math.min(100, percentRaw));
+    return { center, percent };
+  };
+
+  const extractRepeaterData = (equip) => {
+    if (!equip || equip.type !== "repetidora" || !equip.data) return null;
+    const lat = toNumber(equip.data.lat);
+    const lng = toNumber(equip.data.lng);
+    const center =
+      Number.isFinite(lat) && Number.isFinite(lng)
+        ? { lat, lng }
+        : parseLatLngText(equip.data.loc);
+    if (!center) return null;
+    return { center };
+  };
+
+  const extractPumpData = (equip) => {
+    if (!equip || equip.type !== "irripump" || !equip.data) return null;
+    const lat = toNumber(equip.data.lat);
+    const lng = toNumber(equip.data.lng);
+    const center =
+      Number.isFinite(lat) && Number.isFinite(lng)
+        ? { lat, lng }
+        : parseLatLngText(equip.data.loc);
+    if (!center) return null;
+    return { center };
+  };
+
+  const drawPivot = (pivot) => {
+    L.circle([pivot.center.lat, pivot.center.lng], {
+      radius: pivot.radius,
+      color: "#c78a1d",
+      weight: 2,
+      fillColor: "#d39b2b",
+      fillOpacity: 0.55,
+    }).addTo(pivotLayer);
+
+    if (!pivot.ref) return;
+
+    const ang = bearingRad(pivot.center, pivot.ref);
+    const lineEnd = destinationPoint(pivot.center, pivot.radius, ang);
+    L.polyline(
+      [
+        [pivot.center.lat, pivot.center.lng],
+        [lineEnd.lat, lineEnd.lng],
+      ],
+      { color: "#ffffff", weight: 2, opacity: 0.95 }
+    ).addTo(pivotLayer);
+
+    const wedgeAngle = (8 * Math.PI) / 180;
+    const left = destinationPoint(pivot.center, pivot.radius, ang - wedgeAngle);
+    const right = destinationPoint(pivot.center, pivot.radius, ang + wedgeAngle);
+    const inner = destinationPoint(pivot.center, pivot.radius * 0.7, ang);
+    L.polygon(
+      [
+        [left.lat, left.lng],
+        [right.lat, right.lng],
+        [inner.lat, inner.lng],
+      ],
+      { color: "#ffffff", weight: 1, fillColor: "#ffffff", fillOpacity: 0.95 }
+    ).addTo(pivotLayer);
+  };
+
+  const drawMdn = (mdn) => {
+    const label = `${mdn.percent.toFixed(2)}%`;
+    const icon = L.divIcon({
+      className: "",
+      html: `<div class="map-mdn-marker"><span class="map-mdn-marker__value">${label}</span></div>`,
+      iconSize: [48, 48],
+      iconAnchor: [24, 24],
+    });
+    L.marker([mdn.center.lat, mdn.center.lng], { icon }).addTo(mdnLayer);
+  };
+
+  const drawRepeater = (rep) => {
+    const icon = L.icon({
+      iconUrl: "./assets/img/svg/radio.svg",
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+      className: "map-rep-marker",
+    });
+    L.marker([rep.center.lat, rep.center.lng], { icon }).addTo(repLayer);
+  };
+
+  const drawPump = (pump) => {
+    const icon = L.icon({
+      iconUrl: "./assets/img/svg/irripump.svg",
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+      className: "map-pump-marker",
+    });
+    L.marker([pump.center.lat, pump.center.lng], { icon }).addTo(pumpLayer);
+  };
+
+  const renderMapEquipments = (farm) => {
+    pivotLayer.clearLayers();
+    mdnLayer.clearLayers();
+    repLayer.clearLayers();
+    pumpLayer.clearLayers();
+    if (!farm || !Array.isArray(farm.equipments)) return;
+
+    farm.equipments.forEach((equip) => {
+      const pivot = extractPivotData(equip);
+      if (!pivot) return;
+      drawPivot(pivot);
+    });
+
+    farm.equipments.forEach((equip) => {
+      const mdn = extractMdnData(equip);
+      if (!mdn) return;
+      drawMdn(mdn);
+    });
+
+    farm.equipments.forEach((equip) => {
+      const rep = extractRepeaterData(equip);
+      if (!rep) return;
+      drawRepeater(rep);
+    });
+
+    farm.equipments.forEach((equip) => {
+      const pump = extractPumpData(equip);
+      if (!pump) return;
+      drawPump(pump);
+    });
+  };
+
+  window.IcMapRenderPivots = renderMapEquipments;
+  window.IcMapClearPivots = () => {
+    pivotLayer.clearLayers();
+    mdnLayer.clearLayers();
+    repLayer.clearLayers();
+    pumpLayer.clearLayers();
+  };
 })();
 
 (function initMapCard() {

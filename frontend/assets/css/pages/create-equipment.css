@@ -278,12 +278,12 @@ body.is-modal-open{ overflow: hidden; }
 .equip-form{
   display:flex;
   flex-direction:column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .equip-form__row{
   display:flex;
-  gap: 12px;
+  gap: 14px;
   align-items:flex-end;
 }
 @media (max-width: 720px){
@@ -691,6 +691,719 @@ body.is-modal-open{ overflow: hidden; }
   font-size: 12px;
   color: #6b7280;
   margin-top: 6px;
+}
+
+/* =========================================================
+   SMARTCONNECT — STEP 2 (LOCALIZAÇÃO)
+   ========================================================= */
+.sc-loc{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sc-loc__field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sc-loc__label{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+}
+.sc-loc__label i{
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.sc-loc__row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.sc-loc__input{
+  position: relative;
+}
+.sc-loc__input i{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 12px;
+}
+.sc-loc__input .equip-input{
+  padding-left: 28px;
+}
+
+.sc-loc__btn{
+  min-width: 170px;
+}
+.sc-loc__btn i{
+  margin-right: 6px;
+}
+.sc-loc__btn--center i{
+  color: #16a34a;
+}
+.sc-loc__btn--ref i{
+  color: #ef4444;
+}
+.sc-loc__btn.is-active{
+  border-color: rgba(22,163,74,.65);
+  box-shadow: 0 0 0 3px rgba(22,163,74,.12);
+}
+.sc-loc__btn--ref.is-active{
+  border-color: rgba(239,68,68,.65);
+  box-shadow: 0 0 0 3px rgba(239,68,68,.12);
+}
+
+.sc-loc__hint{
+  font-size: 12px;
+  color: #64748b;
+}
+
+.sc-loc__map{
+  height: 360px;
+}
+
+.pivot-pin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 32px;
+  color: #16a34a;
+  text-shadow: 0 4px 8px rgba(15,23,42,.22);
+  transform: translateY(-4px);
+}
+.pivot-pin i{
+  font-size: 24px;
+}
+.pivot-pin--ref{
+  color: #ef4444;
+}
+
+/* =========================================================
+   SMARTTOUCH — STEP 2 (LOCALIZAÇÃO)
+   ========================================================= */
+.st-loc{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.st-loc__field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.st-loc__row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.st-loc__input{
+  position: relative;
+}
+.st-loc__input i{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 12px;
+}
+.st-loc__input .equip-input{
+  padding-left: 28px;
+}
+
+.st-loc__btn{
+  min-width: 170px;
+}
+.st-loc__btn i{
+  margin-right: 6px;
+  color: #16a34a;
+}
+
+.st-loc__map{
+  height: 360px;
+}
+
+.st-input-group{
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgba(15,23,42,.12);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.st-input-group:focus-within{
+  border-color: rgba(22,163,74,.72);
+  box-shadow: var(--ce-ring);
+}
+.st-input-group .st-input{
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.st-input-group .st-input:focus,
+.st-input-group .st-input:focus-visible{
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+.st-input-suffix{
+  border-left: 1px solid rgba(15,23,42,.12);
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #64748b;
+  background: #f8fafc;
+  display: inline-flex;
+  align-items: center;
+  min-width: 40px;
+  justify-content: center;
+}
+
+.st-pin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 32px;
+  color: #16a34a;
+  text-shadow: 0 4px 8px rgba(15,23,42,.22);
+  transform: translateY(-4px);
+}
+.st-pin i{
+  font-size: 24px;
+}
+
+.st-config .equip-field.is-error .equip-input{
+  border-color: #ef4444;
+}
+
+.st-error{
+  font-size: 11.5px;
+  color: #ef4444;
+}
+.st-error.is-hidden{
+  display: none;
+}
+
+/* =========================================================
+   REPETIDORA — STEP 2 (LOCALIZAÇÃO)
+   ========================================================= */
+.rp-loc{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rp-loc__field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rp-loc__row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.rp-loc__input{
+  position: relative;
+}
+.rp-loc__input i{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 12px;
+}
+.rp-loc__input .equip-input{
+  padding-left: 28px;
+}
+
+.rp-loc__btn{
+  min-width: 170px;
+}
+.rp-loc__btn i{
+  margin-right: 6px;
+  color: #16a34a;
+}
+
+.rp-loc__map{
+  height: 360px;
+}
+
+.rp-pin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 32px;
+  color: #16a34a;
+  text-shadow: 0 4px 8px rgba(15,23,42,.22);
+  transform: translateY(-4px);
+}
+.rp-pin i{
+  font-size: 24px;
+}
+
+.rp-config .equip-field.is-error .equip-input,
+.rp-config .equip-field.is-error select{
+  border-color: #ef4444;
+}
+
+.rp-error{
+  font-size: 11.5px;
+  color: #ef4444;
+}
+.rp-error.is-hidden{
+  display: none;
+}
+
+.rp-input-group{
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgba(15,23,42,.12);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.rp-input-group:focus-within{
+  border-color: rgba(22,163,74,.72);
+  box-shadow: var(--ce-ring);
+}
+.rp-input-group .rp-input{
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.rp-input-group .rp-input:focus,
+.rp-input-group .rp-input:focus-visible{
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+.rp-input-suffix{
+  border-left: 1px solid rgba(15,23,42,.12);
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #64748b;
+  background: #f8fafc;
+  display: inline-flex;
+  align-items: center;
+  min-width: 40px;
+  justify-content: center;
+}
+
+/* =========================================================
+   ESTAÇÃO METEOROLÓGICA — CONFIGURAÇÃO
+   ========================================================= */
+.ws-config{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ws-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ws-grid--top{
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ws-field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ws-field.is-error .equip-input,
+.ws-field.is-error select{
+  border-color: #ef4444;
+}
+
+.ws-error{
+  font-size: 11.5px;
+  color: #ef4444;
+}
+.ws-error.is-hidden{
+  display: none;
+}
+
+/* =========================================================
+   CUSTOM SELECT — CREATE EQUIPAMENTO
+   ========================================================= */
+.equip-select{
+  position: relative;
+  width: 100%;
+}
+.equip-select__native{
+  position: absolute;
+  inset: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.equip-select__trigger{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(15,23,42,.12);
+  background: #ffffff;
+  padding: 10px 12px;
+  min-height: 40px;
+  color: #0f172a;
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.equip-select__trigger:hover{
+  border-color: rgba(15,23,42,.18);
+}
+.equip-select__trigger:focus-visible{
+  outline: none;
+  border-color: rgba(22,163,74,.72);
+  box-shadow: var(--ce-ring);
+}
+.equip-select__value{
+  flex: 1;
+  text-align: left;
+  font-size: 13px;
+}
+.equip-select__value.is-placeholder{
+  color: #94a3b8;
+}
+.equip-select__trigger i{
+  color: #64748b;
+  font-size: 12px;
+}
+.equip-select.is-open .equip-select__trigger{
+  border-color: rgba(22,163,74,.55);
+  box-shadow: var(--ce-ring);
+}
+.equip-select__list{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,.14);
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(15,23,42,.12);
+  padding: 6px 0;
+  max-height: 240px;
+  overflow: auto;
+  display: none;
+  z-index: 2001;
+}
+.equip-select.is-open .equip-select__list{
+  display: block;
+}
+.equip-select__option{
+  width: 100%;
+  text-align: left;
+  background: #ffffff;
+  border: 0;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #0f172a;
+}
+.equip-select__option:hover{
+  background: #dcfce7;
+}
+.equip-select__option.is-selected{
+  background: #dcfce7;
+}
+.equip-select__option[disabled]{
+  color: #94a3b8;
+  cursor: not-allowed;
+  background: #ffffff;
+}
+.equip-select.is-disabled .equip-select__trigger{
+  background: #f8fafc;
+  color: #94a3b8;
+  cursor: not-allowed;
+  border-color: rgba(15,23,42,.10);
+}
+.equip-select.is-disabled .equip-select__trigger i{
+  color: #94a3b8;
+}
+
+@media (max-width: 860px){
+  .ws-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px){
+  .rp-loc__row{
+    grid-template-columns: 1fr;
+  }
+  .rp-loc__btn{
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   CARRETEL (RAINSTAR) — CONFIGURAÇÃO
+   ========================================================= */
+.rs-config{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rs-section{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(15,23,42,.06);
+  padding-bottom: 8px;
+  margin-top: 4px;
+}
+.rs-section__title{
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.rs-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 14px;
+}
+
+.rs-field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.rs-field.is-error .equip-input,
+.rs-field.is-error select{
+  border-color: #ef4444;
+}
+
+.rs-error{
+  font-size: 11.5px;
+  color: #ef4444;
+}
+.rs-error.is-hidden{
+  display: none;
+}
+
+.rs-input-group{
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgba(15,23,42,.12);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.rs-input-group:focus-within{
+  border-color: rgba(22,163,74,.72);
+  box-shadow: var(--ce-ring);
+}
+.rs-input-group .rs-input{
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.rs-input-group .rs-input:focus,
+.rs-input-group .rs-input:focus-visible{
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+.rs-input-suffix{
+  border-left: 1px solid rgba(15,23,42,.12);
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #64748b;
+  background: #f8fafc;
+  display: inline-flex;
+  align-items: center;
+  min-width: 46px;
+  justify-content: center;
+}
+
+@media (max-width: 860px){
+  .rs-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px){
+  .st-loc__row{
+    grid-template-columns: 1fr;
+  }
+  .st-loc__btn{
+    width: 100%;
+  }
+}
+/* =========================================================
+   SMARTCONNECT — STEP 3 (CONFIGURAÇÃO)
+   ========================================================= */
+.sc-config{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sc-config__grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 14px;
+}
+
+.sc-config__grid--power{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sc-field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sc-field.is-hidden{
+  display: none;
+}
+.sc-field.is-error .equip-input,
+.sc-field.is-error select{
+  border-color: #ef4444;
+}
+
+.sc-error{
+  font-size: 11.5px;
+  color: #ef4444;
+}
+.sc-error.is-hidden{
+  display: none;
+}
+
+.sc-field--check{
+  align-items: flex-start;
+}
+
+.sc-check{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #0f172a;
+}
+.sc-check__input{
+  width: 14px;
+  height: 14px;
+  accent-color: #16a34a;
+}
+
+.sc-config__block{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sc-radio-group{
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+}
+.sc-radio{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #0f172a;
+}
+.sc-radio__input{
+  width: 14px;
+  height: 14px;
+  accent-color: #16a34a;
+}
+
+.sc-input-group{
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgba(15,23,42,.12);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.sc-input-group:focus-within{
+  border-color: rgba(22,163,74,.72);
+  box-shadow: var(--ce-ring);
+}
+.sc-input-group .sc-input{
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.sc-input-group .sc-input:focus,
+.sc-input-group .sc-input:focus-visible{
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+.sc-input-group .sc-input:disabled{
+  background: #f8fafc;
+  color: #94a3b8;
+}
+.sc-input-suffix{
+  border-left: 1px solid rgba(15,23,42,.12);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #64748b;
+  background: #f8fafc;
+  display: inline-flex;
+  align-items: center;
+  min-width: 46px;
+  justify-content: center;
+}
+
+@media (max-width: 860px){
+  .sc-config__grid{
+    grid-template-columns: 1fr;
+  }
+  .sc-config__grid--power{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px){
+  .sc-loc__row{
+    grid-template-columns: 1fr;
+  }
+  .sc-loc__btn{
+    width: 100%;
+  }
 }
 
 /* =========================================================
@@ -1689,7 +2402,7 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .equip-form{
-  gap: 12px;
+  gap: 14px;
 }
 
 .equip-field{
@@ -1817,11 +2530,11 @@ body.is-modal-open{ overflow: hidden; }
   z-index: 20;
   margin: 14px -22px -14px;
   padding: 10px 22px 12px;
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 -10px 24px rgba(15,23,42,.06);
+  border-top: none;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
 }
 
 .create-equip__footer{
@@ -2125,6 +2838,10 @@ body.is-modal-open{ overflow: hidden; }
   color: inherit;
 }
 
+.create-farm .farm-contact__toggle{
+  margin: 4px 0 2px;
+}
+
 @media (max-width: 860px){
   .farm-billing__grid{
     grid-template-columns: 1fr;
@@ -2155,6 +2872,121 @@ body.is-modal-open{ overflow: hidden; }
   line-height: 1.2;
   padding-top: 4px;
   padding-bottom: 4px;
+}
+
+.create-farm .farm-select{
+  position: relative;
+  width: 100%;
+}
+.create-farm .farm-select.is-hidden{
+  display: none;
+}
+.create-farm .farm-select__native{
+  position: absolute;
+  inset: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.create-farm .farm-select__trigger{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,42,.12);
+  background: #ffffff;
+  padding: 6px 10px;
+  min-height: 34px;
+  line-height: 1.2;
+  color: #0f172a;
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.create-farm .farm-select__trigger:hover{
+  border-color: rgba(15,23,42,.18);
+}
+.create-farm .farm-select__trigger:focus-visible{
+  outline: none;
+  border-color: rgba(22,163,74,.72);
+  box-shadow: var(--ce-ring);
+}
+.create-farm .farm-select__value{
+  flex: 1;
+  text-align: left;
+  font-size: 12.5px;
+}
+.create-farm .farm-select__value.is-placeholder{
+  color: #94a3b8;
+}
+.create-farm .farm-select__trigger i{
+  color: #64748b;
+  font-size: 12px;
+}
+.create-farm .farm-select.is-open .farm-select__trigger{
+  border-color: rgba(22,163,74,.55);
+  box-shadow: var(--ce-ring);
+}
+.create-farm .farm-select__list{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,.14);
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(15,23,42,.12);
+  padding: 6px 0;
+  max-height: 220px;
+  overflow: auto;
+  display: none;
+  z-index: 2001;
+}
+.create-farm .farm-select.is-open .farm-select__list{
+  display: block;
+}
+.create-farm .farm-select__option{
+  width: 100%;
+  text-align: left;
+  background: #ffffff;
+  border: 0;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 12.5px;
+  color: #0f172a;
+}
+.create-farm .farm-select__option:hover{
+  background: #dcfce7;
+}
+.create-farm .farm-select__option.is-selected{
+  background: #dcfce7;
+}
+.create-farm .farm-select__option[disabled]{
+  color: #94a3b8;
+  cursor: not-allowed;
+  background: #ffffff;
+}
+.create-farm .farm-select.is-disabled .farm-select__trigger{
+  background: #f8fafc;
+  color: #94a3b8;
+  cursor: not-allowed;
+  border-color: rgba(15,23,42,.10);
+}
+.create-farm .farm-select.is-disabled .farm-select__trigger i{
+  color: #94a3b8;
+}
+
+.create-farm select.equip-input option{
+  background: #ffffff;
+  color: #0f172a;
+}
+.create-farm select.equip-input option:hover,
+.create-farm select.equip-input option:checked,
+.create-farm select.equip-input option:focus{
+  background: #dcfce7;
+  color: #0f172a;
 }
 
 .create-farm .create-equip__btn{
