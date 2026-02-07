@@ -19,6 +19,29 @@
   --border: rgba(15,23,32,.10);
   --shadow: 0 12px 28px rgba(0,0,0,.12);
 
+  /* Design tokens */
+  --ink-900: #0f172a;
+  --ink-800: #111827;
+  --muted-600: #64748b;
+  --muted-500: #6b7280;
+  --slate-100: #f1f5f9;
+  --slate-50: #f8fafc;
+  --border-200: #e5e7eb;
+  --border-300: #d1d5db;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #2563eb;
+  --success: #16a34a;
+
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+
+  --shadow-sm: 0 6px 16px rgba(15,23,32,.08);
+  --shadow-md: 0 10px 24px rgba(15,23,32,.18);
+  --shadow-lg: 0 18px 40px rgba(15,23,32,.18);
+
   --radius: 14px;
 }
 
