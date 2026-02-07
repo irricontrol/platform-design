@@ -102,7 +102,7 @@
                 <label class="equip-label"><span class="equip-required">*</span> ID / Serial Number</label>
                 <input class="equip-input" id="ipSerial" placeholder="Ex: GH2-001234" value="${escapeHtml(serial)}" />
               </div>
-              <button class="equip-btn equip-btn--primary" type="button" data-action="ip-test">Tentar Conexão</button>
+              <button class="equip-btn btn equip-btn--primary" type="button" data-action="ip-test">Tentar Conexão</button>
             </div>
 
             <div class="equip-field">
@@ -237,9 +237,9 @@
       const cards = state.modules
         .map(
           (m) => `
-            <div class="ip-mod-card">
+            <div class="ip-mod-card card">
               <div class="ip-mod-card__top">
-                <span class="ip-mod-badge">${escapeHtml(m.source)}</span>
+                <span class="ip-mod-badge pill">${escapeHtml(m.source)}</span>
                 <button
                   class="ip-mod-del"
                   type="button"
@@ -265,7 +265,7 @@
               <div class="ip-step__sub">Adicione os módulos manualmente</div>
             </div>
 
-            <button class="equip-btn equip-btn--primary" type="button" data-action="ip-mod-open">
+            <button class="equip-btn btn equip-btn--primary" type="button" data-action="ip-mod-open">
               <i class="fa-solid fa-plus"></i> Adicionar Módulo
             </button>
           </div>
@@ -294,8 +294,8 @@
             </div>
 
             <div class="ip-modal__foot">
-              <button class="create-equip__btn create-equip__btn--ghost" type="button" data-ip-close>Cancelar</button>
-              <button class="create-equip__btn create-equip__btn--primary" type="button" data-action="ip-mod-add">Adicionar</button>
+              <button class="create-equip__btn btn create-equip__btn--ghost" type="button" data-ip-close>Cancelar</button>
+              <button class="create-equip__btn btn create-equip__btn--primary" type="button" data-action="ip-mod-add">Adicionar</button>
             </div>
           </div>
         </div>
@@ -422,7 +422,7 @@
               <span class="func-row__title">${escapeHtml(f.title)}</span>
               <span class="func-row__sub">${escapeHtml(f.selectLabel)}</span>
             </span>
-            ${pending ? `<span class="func-row__badge">Pendente</span>` : ""}
+            ${pending ? `<span class="func-row__badge pill">Pendente</span>` : ""}
           </label>
 
           <div class="func-row__body ${checked ? "" : "is-disabled"}">
@@ -456,7 +456,7 @@
           <div class="equip-page__title">Configuração de Módulos e Funções</div>
           <div class="equip-page__sub">Configure as funções de cada módulo detectado. Ative as funcionalidades desejadas e selecione os tipos correspondentes.</div>
 
-          <div class="mod-panel">
+          <div class="mod-panel card">
             <div class="mod-panel__head">
               <div class="mod-panel__module">
                 <span class="mod-panel__ico"><i class="fa-solid fa-microchip"></i></span>
@@ -464,10 +464,10 @@
                   <div class="mod-panel__title">${escapeHtml(mod.name)}</div>
                   <div class="mod-panel__meta">Serial: ${escapeHtml(mod.serial)} • ${escapeHtml(mod.source)}</div>
                 </div>
-                <span class="mod-panel__badge">${escapeHtml(mod.source || "Manual")}</span>
+                <span class="mod-panel__badge pill">${escapeHtml(mod.source || "Manual")}</span>
               </div>
 
-              <button class="mod-panel__danger" type="button" data-action="ip-mod-del-first">
+              <button class="mod-panel__danger btn" type="button" data-action="ip-mod-del-first">
                 <i class="fa-solid fa-trash"></i> Excluir módulo
               </button>
             </div>
@@ -642,7 +642,7 @@ renderStep6(container, state) {
             <div class="summary-func ${hasParam ? "is-ok" : "is-missing"}">
               <div class="summary-func__head">
                 <span class="summary-func__title">${escapeHtml(x.name)}</span>
-                <span class="summary-func__badge">${hasParam ? "OK" : "Pendente"}</span>
+                <span class="summary-func__badge pill">${hasParam ? "OK" : "Pendente"}</span>
               </div>
               <div class="summary-func__param">
                 ${hasParam ? escapeHtml(x.param) : "Tipo não selecionado"}
@@ -696,7 +696,7 @@ renderStep6(container, state) {
       ${warn}
 
       <div class="summary-grid2">
-        <div class="summary-card">
+        <div class="summary-card card">
           <div class="summary-card__head">Informações Gerais</div>
           <div class="kv-grid">
             <div class="kv">
@@ -722,7 +722,7 @@ renderStep6(container, state) {
           </div>
         </div>
 
-        <div class="summary-card">
+        <div class="summary-card card">
           <div class="summary-card__head">Status do Cadastro</div>
           <div class="summary-progress" role="group" aria-label="Progresso do cadastro">
             <div class="summary-progress__label">Pronto para finalizar</div>
@@ -759,7 +759,7 @@ renderStep6(container, state) {
       </div>
 
       <div class="summary-grid2 summary-grid2--stack">
-        <div class="summary-card">
+        <div class="summary-card card">
           <div class="summary-card__head">Funções e Parâmetros</div>
           <div class="summary-card__sub">Confira os tipos selecionados para cada função ativa.</div>
           <div class="summary-funcs">
@@ -767,7 +767,7 @@ renderStep6(container, state) {
           </div>
         </div>
 
-        <div class="summary-card">
+        <div class="summary-card card">
           <div class="summary-card__head">Módulos Configurados (${modules.length})</div>
           <div class="summary-card__sub">Lista dos módulos vinculados a este equipamento.</div>
           <div class="table-wrap">
@@ -787,20 +787,20 @@ renderStep6(container, state) {
         </div>
       </div>
 
-      <div class="summary-card">
+      <div class="summary-card card">
         <div class="summary-card__head">Finalizar Cadastro</div>
         <div class="summary-card__sub">Escolha como deseja finalizar o cadastro deste equipamento.</div>
 
         <div class="summary-actions">
-          <button class="summary-btn" type="button" data-action="save-draft">
+          <button class="summary-btn btn" type="button" data-action="save-draft">
             <i class="fa-solid fa-floppy-disk"></i> Salvar como Rascunho
           </button>
 
-          <button class="summary-btn summary-btn--primary" type="button" data-action="finish">
+          <button class="summary-btn btn summary-btn--primary" type="button" data-action="finish">
             <i class="fa-solid fa-check"></i> Concluir Cadastro e Ativar
           </button>
 
-          <button class="summary-btn" type="button" data-action="advanced">
+          <button class="summary-btn btn" type="button" data-action="advanced">
             <i class="fa-solid fa-gear"></i> Seguir para Configuração Avançada
           </button>
         </div>
@@ -810,3 +810,4 @@ renderStep6(container, state) {
     },
   };
 })();
+

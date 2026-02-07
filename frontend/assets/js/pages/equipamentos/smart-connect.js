@@ -76,7 +76,7 @@
                 <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
                 <input class="equip-input sc-loc__input-field" id="scCenter" placeholder="-23.289023, -46.640897" value="${escapeHtml(centerText)}" />
               </div>
-              <button class="equip-btn sc-loc__btn sc-loc__btn--center" type="button" data-action="sc-pick-center">
+              <button class="equip-btn btn sc-loc__btn sc-loc__btn--center" type="button" data-action="sc-pick-center">
                 <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Obter Localiza\u00e7\u00e3o
               </button>
             </div>
@@ -92,7 +92,7 @@
                 <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
                 <input class="equip-input sc-loc__input-field" id="scRef" placeholder="-23.289274, -46.642657" value="${escapeHtml(refText)}" />
               </div>
-              <button class="equip-btn sc-loc__btn sc-loc__btn--ref" type="button" data-action="sc-pick-ref">
+              <button class="equip-btn btn sc-loc__btn sc-loc__btn--ref" type="button" data-action="sc-pick-ref">
                 <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Obter Localiza\u00e7\u00e3o
               </button>
             </div>
@@ -633,3 +633,4 @@
     },
   };
 })();
+

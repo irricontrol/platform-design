@@ -91,7 +91,7 @@
                 <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
                 <input class="equip-input st-loc__input-field" id="stLoc" placeholder="-23.289653, -46.642609" value="${escapeHtml(locText)}" />
               </div>
-              <button class="equip-btn st-loc__btn" type="button" data-action="st-get-loc">
+              <button class="equip-btn btn st-loc__btn" type="button" data-action="st-get-loc">
                 <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Obter Localiza\u00e7\u00e3o
               </button>
             </div>
@@ -316,3 +316,4 @@
     },
   };
 })();
+

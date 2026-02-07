@@ -74,7 +74,7 @@
                 <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
                 <input class="equip-input rp-loc__input-field" id="rpLoc" placeholder="-23.486974, -46.828956" value="${escapeHtml(locText)}" />
               </div>
-              <button class="equip-btn rp-loc__btn" type="button" data-action="rp-get-loc">
+              <button class="equip-btn btn rp-loc__btn" type="button" data-action="rp-get-loc">
                 <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Obter Localiza\u00e7\u00e3o
               </button>
             </div>
@@ -301,3 +301,4 @@
     },
   };
 })();
+
