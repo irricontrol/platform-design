@@ -196,9 +196,9 @@
     const statusRight = (!p.semComunicacao && p.statusMeta) ? p.statusMeta : "";
     const statusClass = "pluv-card__status";
     const statusBadge = isRaining(p)
-      ? `<span class="pluv-card__status-badge pluv-card__status-badge--rain"><span class="pluv-card__status-text">${statusLeft}</span></span>`
+      ? `<span class="pluv-card__status-badge pluv-card__status-badge--rain pill pill--info"><span class="pluv-card__status-text">${statusLeft}</span></span>`
       : (p.semComunicacao
-        ? `<span class="pluv-card__status-badge pluv-card__status-badge--alert"><span class="pluv-card__status-text">Sem comunicação</span></span>`
+        ? `<span class="pluv-card__status-badge pluv-card__status-badge--alert pill pill--danger"><span class="pluv-card__status-text">Sem comunicação</span></span>`
         : "");
     const statusText = p.semComunicacao
       ? statusBadge
@@ -223,7 +223,7 @@
     const signalTitle = p.semComunicacao ? "Sem comunicação" : (p.net || "Online");
 
     return `
-      <article class="pluv-card ${tone} ${isSelected ? "is-selected" : ""} ${isOpen ? "is-open" : ""}" data-pluv-card data-id="${p.id}" aria-expanded="${isOpen}">
+      <article class="pluv-card card ${tone} ${isSelected ? "is-selected" : ""} ${isOpen ? "is-open" : ""}" data-pluv-card data-id="${p.id}" aria-expanded="${isOpen}">
         <div class="pluv-card__row">
           <div class="pluv-card__title">
             <span class="pluv-card__name">${p.nome}</span>
@@ -403,7 +403,6 @@
   cards.nowIconStyle = nowIconStyle;
   cards.clearSelection = clearSelection;
 })();
-
 
 
 

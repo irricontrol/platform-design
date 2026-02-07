@@ -143,7 +143,17 @@
             : badge.variant === "warn"
               ? "circle-exclamation"
               : "circle-check";
-      const statusClass = `pluv-status pluv-status--${badge.variant}`;
+      const pillTone =
+        badge.variant === "ok"
+          ? "pill--ok"
+          : badge.variant === "danger"
+            ? "pill--danger"
+            : badge.variant === "info"
+              ? "pill--info"
+              : badge.variant === "warn"
+                ? "pill--warn"
+                : "pill--muted";
+      const statusClass = `pluv-status pill ${pillTone} pluv-status--${badge.variant}`;
       const hasDays = Number.isFinite(entry.daysRemaining);
       const awaitingDue =
         entry.requiresDeviceConfirmation &&
@@ -167,7 +177,7 @@
       .map((entry) => {
         const awaiting = entry.confirmationState === "pending";
         return `
-          <article class="pluv-maint__item" data-status="${entry.status}" data-badge="${entry.badge.variant}" data-awaiting="${awaiting}" data-pluvio="${entry.id}" data-confirmation="${entry.confirmationState}">
+          <article class="pluv-maint__item card" data-status="${entry.status}" data-badge="${entry.badge.variant}" data-awaiting="${awaiting}" data-pluvio="${entry.id}" data-confirmation="${entry.confirmationState}">
             <div class="pluv-maint__head">
               <div class="pluv-maint__left">
                 <span class="pluv-maint__title">${entry.shortName}</span>

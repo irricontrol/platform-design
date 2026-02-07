@@ -36,15 +36,15 @@
     const max = list.reduce((m, p) => Math.max(m, Number(p.mm) || 0), 0);
 
     kpis.innerHTML = `
-      <div class="pluv-box">
+      <div class="pluv-box card">
         <div class="pluv-box__t">Chuva (soma)</div>
         <div class="pluv-box__v">${total.toFixed(1)} mm</div>
       </div>
-      <div class="pluv-box">
+      <div class="pluv-box card">
         <div class="pluv-box__t">Máximo (sensor)</div>
         <div class="pluv-box__v">${max.toFixed(1)} mm</div>
       </div>
-      <div class="pluv-box">
+      <div class="pluv-box card">
         <div class="pluv-box__t">Sem comunicação</div>
         <div class="pluv-box__v">${off}</div>
       </div>
