@@ -262,9 +262,9 @@
           </div>
         </div>
         <div class="pluv-mapbar" aria-label="Período e relatório de pluviometria">
-          <div class="pluv-mapbar__period" role="group" aria-label="Período">
+          <div class="pluv-mapbar__period toolbar" role="group" aria-label="Período">
             <span class="pluv-mapbar__label">Período</span>
-            <button class="pluv-mapbar__range" type="button" aria-label="Selecionar período">
+            <button class="pluv-mapbar__range toolbar__btn" type="button" aria-label="Selecionar período">
               <span class="pluv-mapbar__range-start">29/01/2026</span>
               <span class="pluv-mapbar__sep">&rarr;</span>
               <span class="pluv-mapbar__range-end">30/01/2026</span>
@@ -301,7 +301,7 @@
       <div class="create-equip__steps" id="createEquipSteps" aria-hidden="true"></div>
 
       <div class="create-equip__grid" role="list">
-        <button class="create-equip__card" type="button" role="listitem" data-equip="smart_connect">
+        <button class="create-equip__card card" type="button" role="listitem" data-equip="smart_connect">
           <img class="create-equip__img" src="./assets/img/equipamentos/smart_connect.png" alt="" />
           <div class="create-equip__card-body">
             <div class="create-equip__card-title">SmartConnect ou Nexus</div>
@@ -311,7 +311,7 @@
           </div>
         </button>
 
-        <button class="create-equip__card" type="button" role="listitem" data-equip="smarttouch">
+        <button class="create-equip__card card" type="button" role="listitem" data-equip="smarttouch">
           <img class="create-equip__img" src="./assets/img/equipamentos/smarttouch.png" alt="" />
           <div class="create-equip__card-body">
             <div class="create-equip__card-title">SmartTouch</div>
@@ -321,7 +321,7 @@
           </div>
         </button>
 
-        <button class="create-equip__card" type="button" role="listitem" data-equip="rainstar">
+        <button class="create-equip__card card" type="button" role="listitem" data-equip="rainstar">
           <img class="create-equip__img" src="./assets/img/equipamentos/rainstar.png" alt="" />
           <div class="create-equip__card-body">
             <div class="create-equip__card-title">Carretel</div>
@@ -331,7 +331,7 @@
           </div>
         </button>
 
-        <button class="create-equip__card" type="button" role="listitem" data-equip="irripump">
+        <button class="create-equip__card card" type="button" role="listitem" data-equip="irripump">
           <img class="create-equip__img" src="./assets/img/equipamentos/irripump.png" alt="" />
           <div class="create-equip__card-body">
             <div class="create-equip__card-title">Irripump</div>
@@ -341,7 +341,7 @@
           </div>
         </button>
 
-        <button class="create-equip__card" type="button" role="listitem" data-equip="repetidora">
+        <button class="create-equip__card card" type="button" role="listitem" data-equip="repetidora">
           <img class="create-equip__img" src="./assets/img/equipamentos/repetidora.png" alt="" />
           <div class="create-equip__card-body">
             <div class="create-equip__card-title">Repetidora</div>
@@ -351,7 +351,7 @@
           </div>
         </button>
 
-        <button class="create-equip__card" type="button" role="listitem" data-equip="medidor">
+        <button class="create-equip__card card" type="button" role="listitem" data-equip="medidor">
           <img class="create-equip__img" src="./assets/img/equipamentos/medidor.png" alt="" />
           <div class="create-equip__card-body">
             <div class="create-equip__card-title">Medidor de Nível</div>
@@ -361,7 +361,7 @@
           </div>
         </button>
 
-        <button class="create-equip__card" type="button" role="listitem" data-equip="estacao_metereologica">
+        <button class="create-equip__card card" type="button" role="listitem" data-equip="estacao_metereologica">
           <img class="create-equip__img" src="./assets/img/equipamentos/estacao_metereologica.png" alt="" />
           <div class="create-equip__card-body">
             <div class="create-equip__card-title">Estação Meteorológica</div>
@@ -371,7 +371,7 @@
           </div>
         </button>
 
-        <button class="create-equip__card" type="button" role="listitem" data-equip="pluviometro">
+        <button class="create-equip__card card" type="button" role="listitem" data-equip="pluviometro">
           <img class="create-equip__img" src="./assets/img/equipamentos/pluviometro.png" alt="" />
           <div class="create-equip__card-body">
             <div class="create-equip__card-title">Pluviômetro</div>
@@ -383,11 +383,11 @@
       </div>
       <footer class="create-equip__footer" id="createEquipFooter">
         <div class="create-equip__footer-right">
-          <button class="create-equip__btn" type="button" id="btnCreateEquipPrev">
+          <button class="create-equip__btn btn" type="button" id="btnCreateEquipPrev">
             Anterior
           </button>
 
-          <button class="create-equip__btn create-equip__btn--primary" type="button" id="btnCreateEquipNext">
+          <button class="create-equip__btn create-equip__btn--primary btn" type="button" id="btnCreateEquipNext">
             Próximo
           </button>
         </div>
@@ -416,11 +416,11 @@
 
       <footer class="create-equip__footer" id="createFarmFooter">
         <div class="create-equip__footer-right">
-          <button class="create-equip__btn" type="button" id="btnCreateFarmPrev">
+          <button class="create-equip__btn btn" type="button" id="btnCreateFarmPrev">
             Anterior
           </button>
 
-          <button class="create-equip__btn create-equip__btn--primary" type="button" id="btnCreateFarmNext">
+          <button class="create-equip__btn create-equip__btn--primary btn" type="button" id="btnCreateFarmNext">
             Próximo
           </button>
         </div>
@@ -451,7 +451,12 @@
 
   <!-- pages -->
   <script src="./assets/js/pages/create-equipment.js"></script>
-  <script src="./assets/js/pages/create-farm.js"></script>
+  <script src="./assets/js/pages/create-farm/core.state.js"></script>
+  <script src="./assets/js/pages/create-farm/core.rules.js"></script>
+  <script src="./assets/js/pages/create-farm/view.map.js"></script>
+  <script src="./assets/js/pages/create-farm/view.render.js"></script>
+  <script src="./assets/js/pages/create-farm/feature.events.js"></script>
+  <script src="./assets/js/pages/create-farm/index.js"></script>
   <script src="./assets/js/pages/pluviometria.js"></script>
   <script src="./assets/js/pages/pluviometria/core.data.js"></script>
   <script src="./assets/js/pages/pluviometria/core.state.js"></script>

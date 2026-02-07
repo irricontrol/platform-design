@@ -437,9 +437,9 @@
 
   function renderPlaceholder(label) {
     dynamicHost.innerHTML = `
-      <div style="padding:14px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;">
+      <div class="card create-equip__placeholder">
         <strong>${label}</strong><br/>
-        <span style="color:#6b7280;">Tela ainda não implementada para este equipamento.</span>
+        <span class="create-equip__placeholder-muted">Tela ainda não implementada para este equipamento.</span>
       </div>
     `;
   }
@@ -854,3 +854,4 @@
     }
   });
 })();
+

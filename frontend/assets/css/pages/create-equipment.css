@@ -179,12 +179,11 @@
   gap: 10px;
   min-height: 140px;
   text-align: left;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #ffffff;
   padding: 10px 12px;
   cursor: pointer;
   transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+  border-radius: var(--radius-sm);
+  box-shadow: none;
 }
 .create-equip__card:hover{
   border-color: #16a34a;
@@ -240,14 +239,11 @@
 }
 
 .create-equip__btn{
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  border-color: var(--border-300);
   padding: 8px 18px;
-  font-weight: 700;
   font-size: 14px;
-  background: #ffffff;
-  color: #111827;
-  cursor: pointer;
+  background: var(--surface);
+  color: var(--ink-800);
 }
 .create-equip__btn:hover{ background: #f9fafb; }
 
@@ -269,6 +265,15 @@ body.is-modal-open{ overflow: hidden; }
    STEP DINÂMICO / FORMS (Light)
    ========================================================= */
 .create-equip__dynamic{ margin-top: 14px; }
+
+.create-equip__placeholder{
+  padding: 14px;
+  box-shadow: none;
+}
+
+.create-equip__placeholder-muted{
+  color: var(--muted-500);
+}
 
 /* (mantive seus estilos, só normalizei espaçamento) */
 .equip-wizard__head{ margin: 6px 0 14px; }
@@ -345,12 +350,10 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .equip-btn{
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
+  border-color: var(--border-300);
   padding: 10px 14px;
   font-weight: 800;
-  cursor:pointer;
-  background:#fff;
+  background: var(--surface);
 }
 .equip-btn--primary{
   border-color:#16a34a;
@@ -470,18 +473,14 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .mod-panel__badge{
-  font-size: 11px;
   font-weight: 600;
   color:#16a34a;
   background: rgba(22,163,74,.12);
   padding: 4px 8px;
   border-radius: 999px;
-  white-space: nowrap;
+  border: none;
+  letter-spacing: 0;
   margin-left: 6px;
-}
-
-.mod-panel__danger{
-  font-weight: 600;
 }
 
 .mod-panel__stats{
@@ -608,14 +607,14 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .func-row__badge{
-  font-size: 11px;
   font-weight: 600;
   color:#b45309;
   background: rgba(245,158,11,.2);
   padding: 2px 8px;
   border-radius: 999px;
+  border: none;
+  letter-spacing: 0;
   margin-left: auto;
-  white-space: nowrap;
 }
 
 .func-row__select{
@@ -1449,12 +1448,10 @@ body.is-modal-open{ overflow: hidden; }
 /* Card do módulo */
 .ip-mod-card{
   width: 260px;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
   padding: 12px;
-  background:#fff;
   position: relative;
   box-shadow: 0 6px 16px rgba(15,23,42,.06);
+  overflow: visible;
 }
 
 .ip-mod-card__top{
@@ -1465,12 +1462,13 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .ip-mod-badge{
-  font-size: 11px;
   font-weight: 800;
   color:#16a34a;
   background: rgba(22,163,74,.1);
   padding: 4px 8px;
   border-radius: 999px;
+  border: none;
+  letter-spacing: 0;
 }
 
 .ip-mod-del{
@@ -1568,10 +1566,10 @@ body.is-modal-open{ overflow: hidden; }
    IRRIPUMP — STEP 4: FUNÇÕES
    ========================================================= */
 .mod-panel{
-  border: 1px solid rgba(15,23,32,.12);
   border-radius: 14px;
-  background: #fff;
   overflow: hidden;
+  border-color: rgba(15,23,32,.12);
+  box-shadow: none;
 }
 
 .mod-panel__head{
@@ -1592,13 +1590,12 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .mod-panel__danger{
-  border: 1px solid rgba(239,68,68,.35);
+  border-color: rgba(239,68,68,.35);
   color: #ef4444;
-  background:#fff;
+  background: var(--surface);
   border-radius: 10px;
   padding: 8px 10px;
   font-weight: 600;
-  cursor:pointer;
 }
 .mod-panel__danger:hover{ background: rgba(239,68,68,.06); }
 
@@ -1780,11 +1777,11 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .summary-card{
-  border: 1px solid rgba(15,23,32,.08);
   border-radius: 14px;
   padding: 14px 16px;
-  background: #fff;
+  border-color: rgba(15,23,32,.08);
   box-shadow: 0 8px 18px rgba(15,23,32,.06);
+  overflow: visible;
 }
 
 .summary-card__head{
@@ -2027,10 +2024,11 @@ body.is-modal-open{ overflow: hidden; }
 .summary-func__badge{
   padding: 2px 8px;
   border-radius: 999px;
-  font-size: 11px;
   font-weight: 900;
   background: #e5e7eb;
   color:#475569;
+  border: none;
+  letter-spacing: 0;
 }
 
 .summary-func.is-ok .summary-func__badge{
@@ -2109,13 +2107,10 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .summary-btn{
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
+  border-color: var(--border-300);
   padding: 10px 12px;
-  font-weight: 700;
   color: #1f2937;
-  background:#fff;
-  cursor:pointer;
+  background: var(--surface);
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -2450,13 +2445,11 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .equip-btn{
-  border: 1px solid rgba(15,23,42,.14);
-  border-radius: 12px;
+  border-color: rgba(15,23,42,.14);
   padding: 8px 12px;
   font-weight: 600;
-  color: #0f172a;
-  background: #ffffff;
-  cursor: pointer;
+  color: var(--ink-900);
+  background: var(--surface);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2552,14 +2545,12 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .create-equip__btn{
-  border: 1px solid rgba(15,23,42,.14);
-  border-radius: 12px;
+  border-color: rgba(15,23,42,.14);
   padding: 8px 14px;
   font-weight: 600;
   font-size: 13px;
-  background: #ffffff;
-  color: #0f172a;
-  cursor: pointer;
+  background: var(--surface);
+  color: var(--ink-900);
   transition: border-color .15s ease, background-color .15s ease, color .15s ease, box-shadow .15s ease, transform .15s ease;
 }
 .create-equip__btn:hover{
@@ -2596,7 +2587,6 @@ body.is-modal-open{ overflow: hidden; }
 
 /* FIX Step 4 — FUNÇÕES (remove faixa branca e unifica fundo) */
 .mod-panel{
-  background: #ffffff;
   border-color: rgba(15,23,32,.10);
 }
 
