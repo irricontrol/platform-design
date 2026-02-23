@@ -631,8 +631,8 @@ body.is-pluviometria.pluv-panel-open #pageSlot{ display: block; }
   padding: 10px 14px;
   display:flex;
   flex-direction:column;
-  gap: 6px;
-  min-height: 92px;
+  gap: 3px;
+  min-height: 100px;
   transition: border-color .12s ease, box-shadow .12s ease, background .12s ease;
   cursor: pointer;
 }
@@ -645,25 +645,62 @@ body.is-pluviometria.pluv-panel-open #pageSlot{ display: block; }
 /* Card alerta */
 .pluv-card--alert{
   min-height: 92px;
-  border-color: rgba(239,68,68,.55);
+  border-color: var(--border-200);
 }
 .pluv-card--alert.is-open{
   background: #fff;
-  border-color: rgba(239,68,68,.55);
+  border-color: var(--border-200);
 }
 .pluv-card--alert.is-selected{
-  border-color: var(--danger);
+  border-color: rgba(15,23,42,.32);
   background: var(--surface);
-  box-shadow: 0 0 0 1px rgba(239,68,68,.2), var(--shadow-sm);
+  box-shadow: 0 0 0 1px rgba(15,23,42,.08), var(--shadow-sm);
 }
 
 /* Card chuva */
 .pluv-card--rain{
-  border-color: rgba(37,99,235,.45);
+  border-color: var(--border-200);
+  box-shadow:
+    var(--shadow-sm),
+    0 0 16px rgba(37,99,235,.6),
+    0 0 0 1px rgba(37,99,235,.28);
+  animation: pluv-rain-glow 2.2s ease-in-out infinite;
 }
 .pluv-card--rain.is-selected{
-  border-color: rgba(37,99,235,.75);
-  box-shadow: 0 0 0 1px rgba(37,99,235,.2), var(--shadow-sm);
+  border-color: rgba(15,23,42,.32);
+  box-shadow:
+    0 0 0 1px rgba(15,23,42,.08),
+    var(--shadow-sm),
+    0 0 16px rgba(37,99,235,.6),
+    0 0 0 1px rgba(37,99,235,.28);
+  animation: pluv-rain-glow 2.2s ease-in-out infinite;
+}
+
+@keyframes pluv-rain-glow{
+  0%{
+    box-shadow:
+      var(--shadow-sm),
+      0 0 10px rgba(37,99,235,.45),
+      0 0 0 1px rgba(37,99,235,.2);
+  }
+  50%{
+    box-shadow:
+      var(--shadow-sm),
+      0 0 18px rgba(37,99,235,.7),
+      0 0 0 1px rgba(37,99,235,.35);
+  }
+  100%{
+    box-shadow:
+      var(--shadow-sm),
+      0 0 10px rgba(37,99,235,.45),
+      0 0 0 1px rgba(37,99,235,.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .pluv-card--rain{
+    animation: none;
+  }
 }
 
 .pluv-card__row{
@@ -678,7 +715,7 @@ body.is-pluviometria.pluv-panel-open #pageSlot{ display: block; }
 .pluv-card__main{
   display:flex;
   flex-direction:column;
-  gap: 2px;
+  gap: 0;
   min-width: 0;
 }
 
@@ -696,6 +733,13 @@ body.is-pluviometria.pluv-panel-open #pageSlot{ display: block; }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.pluv-card__rain-context{
+  font-size: 10px;
+  color: var(--muted-600);
+  font-weight: 400;
+  line-height: 1.3;
 }
 
 .pluv-card__signal{
@@ -758,6 +802,28 @@ body.is-pluviometria.pluv-panel-open #pageSlot{ display: block; }
   gap: 6px;
 }
 
+.pluv-card__mm-block{
+  display:grid;
+  grid-template-columns: 18px auto;
+  align-items:start;
+  column-gap: 4px;
+}
+
+.pluv-card__mm-ico{
+  width: 18px;
+  height: 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.pluv-card__mm-text{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap: 2px;
+}
+
 .pluv-card__mm{
   display:inline-flex;
   align-items:baseline;
@@ -786,6 +852,61 @@ body.is-pluviometria.pluv-panel-open #pageSlot{ display: block; }
   font-size: 12px;
   color: var(--muted-600);
   font-weight: 500;
+}
+
+.pluv-card__metric{
+  display:flex;
+  align-items:center;
+  margin-top: 8px;
+}
+
+.pluv-card__duration{
+  font-size: 10px;
+  color: var(--muted-600);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.pluv-card__pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  align-self:flex-start;
+  padding: 2px 8px;
+  margin-top: 1px;
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #2563eb;
+  border: 0;
+}
+
+.pluv-card__pill--alert{
+  background: #ef4444;
+}
+
+.pluv-card__pill--ghost{
+  visibility: hidden;
+  background: transparent;
+}
+
+.pluv-card__footline{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap: 10px;
+  margin-top: 2px;
+  transform: translateY(2px);
+}
+
+.pluv-card__accum{
+  font-size: 10px;
+  color: var(--muted-600);
+  font-weight: 400;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-right: 8px;
 }
 
 .pluv-card__status{
@@ -903,6 +1024,8 @@ body.is-pluviometria.pluv-panel-open #pageSlot{ display: block; }
   align-items:center;
   justify-content:center;
   color: var(--muted-600);
+  align-self: flex-start;
+  margin-top: 1px;
 }
 .pluv-card__toggle i{ transition: transform .2s ease; }
 .pluv-card.is-open .pluv-card__toggle i{ transform: rotate(180deg); }
@@ -1609,7 +1732,7 @@ button.pluv-panel__badge{ cursor: pointer; }
 
 /* Scroll para listas longas */
 .pluv-scroll{
-  max-height: var(--pluv-scroll-max, 320px);
+  max-height: var(--pluv-scroll-max, 340px);
   overflow-y: auto;
   padding-right: 6px;
   scrollbar-gutter: stable;
@@ -1747,10 +1870,11 @@ button.pluv-panel__badge{ cursor: pointer; }
 }
 
 .pluv-maint__item{
-  padding: 16px 18px;
+  padding: 14px 16px 16px;
   display:flex;
   flex-direction:column;
   gap: 10px;
+  min-height: 80px;
   cursor:pointer;
   transition: border-color .2s ease, box-shadow .2s ease;
   border-radius: calc(var(--radius-lg) + 4px);

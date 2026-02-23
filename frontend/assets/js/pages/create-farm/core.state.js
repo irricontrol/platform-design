@@ -7,12 +7,18 @@
   const setters = (CreateFarm.setters = CreateFarm.setters || {});
 
   if (!state.steps) {
-    state.steps = ["Geral", "Faturamento", "Contato", "Faixas de Energia", "Localiza??o"];
+    state.steps = ["Geral", "Faturamento", "Contato", "Faixas de Energia", "Localização"];
   }
 
   if (!state.farmState) {
     state.farmState = {
       name: "",
+      clientName: "",
+      energyBillDay: "",
+      waterBillDay: "",
+      timezone: "America/Sao_Paulo",
+      hasCentral: false,
+      centralRadio: "",
       loc: "",
       lat: -22.008419,
       lng: -46.812567,
@@ -29,6 +35,11 @@
       region: "",
       regionCode: "",
       neighborhood: "",
+      legalName: "",
+      docType: "",
+      docNumber: "",
+      phone: "",
+      email: "",
     };
   }
 

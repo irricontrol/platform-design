@@ -76,7 +76,7 @@
           <div class="equip-page__title"></div>
           <div class="equip-page__sub"></div>
 
-          <div class="st-loc__field">
+          <div class="st-loc__field st-loc__field--radius">
             <label class="equip-label"><span class="equip-required">*</span> Raio da \u00faltima torre</label>
             <div class="st-input-group">
               <input class="equip-input st-input" id="stRadius" type="number" min="0" step="1" value="${escapeHtml(radiusValue)}" />
@@ -88,7 +88,6 @@
             <label class="equip-label"><span class="equip-required">*</span> Localiza\u00e7\u00e3o do dispositivo</label>
             <div class="st-loc__row">
               <div class="st-loc__input">
-                <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
                 <input class="equip-input st-loc__input-field" id="stLoc" placeholder="-23.289653, -46.642609" value="${escapeHtml(locText)}" />
               </div>
               <button class="equip-btn btn st-loc__btn" type="button" data-action="st-get-loc">
@@ -316,4 +315,3 @@
     },
   };
 })();
-

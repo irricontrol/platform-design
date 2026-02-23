@@ -11,11 +11,13 @@
     <div class="pluv-header__right page-header__actions">
       <div class="pluv-header__farm page-header__meta">
         <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-        <span>Fazenda Santa Clara</span>
+        <span id="pluvHeaderFarmName">Fazenda Santa Clara</span>
         <span class="pluv-header__sep">•</span>
         <span class="pluv-header__count">5 pluviômetros</span>
       </div>
-      <button class="pluv-header__gear pluv-header__edit" type="button" id="pluvEditBtn" aria-label="Editar pluviômetro">
+
+      <button class="pluv-header__gear pluv-header__edit" type="button" id="pluvEditBtn"
+        aria-label="Editar pluviômetro">
         <i class="fa-solid fa-pen"></i>
         <span>Editar</span>
       </button>
@@ -47,18 +49,21 @@
 
       <label class="pluv-search" for="pluvSearchInput" aria-label="Buscar pluviômetro">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input
-          id="pluvSearchInput"
-          type="search"
-          placeholder="Buscar pluviômetro..."
-          autocomplete="off"
-        />
+        <input id="pluvSearchInput" type="search" placeholder="Buscar pluviômetro..." autocomplete="off" />
       </label>
     </div>
   </div>
 
   <!-- Cards do topo -->
-  <div class="pluv-cards" id="pluvCards" aria-label="Lista de pluviômetros"></div>
+  <div class="pluv-cards" id="pluvCards" aria-label="Lista de pluviômetros">
+    <div class="pluv-empty-state" style="display:none; text-align:center; padding: 40px; color: #64748b; width: 100%;">
+      <i class="fa-solid fa-cloud-rain" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
+      <p>Nenhum pluviômetro cadastrado.</p>
+      <button class="btn-primary" onclick="document.getElementById('pluvNewBtn').click()" style="margin-top: 16px;">
+        Cadastrar Pluviômetro
+      </button>
+    </div>
+  </div>
 
   <!-- ========= GRÁFICO / IMPACTO ========= -->
   <section class="rain" aria-label="Impacto de chuva">
@@ -78,9 +83,11 @@
       <div class="rain__right">
         <button class="rain__period-btn" type="button" id="rainBtnCalendarPeriod">
           <i class="fa-solid fa-calendar-days"></i>
-          <span class="rain__period-label pluv-period-trigger" role="button" tabindex="0" aria-label="Selecionar período">Período: 29/01/2026 → 30/01/2026</span>
+          <span class="rain__period-label pluv-period-trigger" role="button" tabindex="0"
+            aria-label="Selecionar período">Período: 29/01/2026 → 30/01/2026</span>
         </button>
-        <button class="rain__view-btn" type="button" id="rainBtnMonthlyView" aria-label="Calendário mensal de precipitação">
+        <button class="rain__view-btn" type="button" id="rainBtnMonthlyView"
+          aria-label="Calendário mensal de precipitação">
           <i class="fa-solid fa-calendar-days"></i>
           Calendário mensal de precipitação
         </button>
@@ -142,7 +149,8 @@
 
     <div class="rain-cal is-hidden" id="rainMonthlyPanel" aria-label="Calendário mensal de precipitação">
       <div class="rain-cal__top">
-        <button class="rain-cal__btn rain-cal__btn--back" type="button" id="rainBtnChartView" aria-label="Voltar para gráfico">
+        <button class="rain-cal__btn rain-cal__btn--back" type="button" id="rainBtnChartView"
+          aria-label="Voltar para gráfico">
           <i class="fa-solid fa-arrow-left"></i>
           Voltar para gráfico
         </button>
@@ -295,17 +303,20 @@
               Acompanhe manutenções pendentes, atrasadas e concluídas dos pluviômetros.
             </p>
           </div>
-        <div class="pluv-panel__badges section-header__actions">
-          <button class="pluv-panel__badge pluv-panel__badge--ok pill pill--ok" type="button" data-maint-filter="concluded">
-            4 concluídas
-          </button>
-          <button class="pluv-panel__badge pluv-panel__badge--warn pill pill--danger" type="button" data-maint-filter="overdue">
-            1 atrasadas
-          </button>
-          <button class="pluv-panel__badge pluv-panel__badge--info pill pill--info" type="button" data-maint-filter="scheduled">
-            Manutenção programada
-          </button>
-        </div>
+          <div class="pluv-panel__badges section-header__actions">
+            <button class="pluv-panel__badge pluv-panel__badge--ok pill pill--ok" type="button"
+              data-maint-filter="concluded">
+              4 concluídas
+            </button>
+            <button class="pluv-panel__badge pluv-panel__badge--warn pill pill--danger" type="button"
+              data-maint-filter="overdue">
+              1 atrasadas
+            </button>
+            <button class="pluv-panel__badge pluv-panel__badge--info pill pill--info" type="button"
+              data-maint-filter="scheduled">
+              Manutenção programada
+            </button>
+          </div>
         </header>
 
         <div class="pluv-maint__list pluv-scroll" data-maint-list></div>
@@ -323,7 +334,8 @@
         <div class="pluv-reports__actions section-header__actions">
           <button class="pluv-reports__btn pluv-reports__btn--filter" type="button">
             <i class="fa-solid fa-calendar-days"></i>
-            <span class="pluv-reports__filter-label pluv-period-trigger" role="button" tabindex="0" aria-label="Selecionar período">Período: últimas 24h</span>
+            <span class="pluv-reports__filter-label pluv-period-trigger" role="button" tabindex="0"
+              aria-label="Selecionar período">Período: últimas 24h</span>
             <i class="fa-solid fa-chevron-down"></i>
           </button>
           <button class="pluv-reports__btn" type="button">

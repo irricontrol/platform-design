@@ -3,11 +3,11 @@
   const el = document.getElementById("map");
   if (!el) return;
 
-  // Centro inicial (ajusta depois pra sua fazenda)
+  // Centro inicial (Brasil) ao recarregar a pagina
   const map = L.map("map", {
     zoomControl: false,
     scrollWheelZoom: false
-  }).setView([-16.767, -47.613], 12);
+  }).setView([-14.235, -51.9253], 5);
 
   // Expõe referência para debug/integrações e corrige resize após mudanças de layout
   window.icMap = map;
@@ -239,14 +239,38 @@
     return { center };
   };
 
-  const drawPivot = (pivot) => {
-    L.circle([pivot.center.lat, pivot.center.lng], {
+
+  const drawPivot = (pivot, equip) => {
+    const layer = L.circle([pivot.center.lat, pivot.center.lng], {
       radius: pivot.radius,
       color: "#c78a1d",
       weight: 2,
       fillColor: "#d39b2b",
       fillOpacity: 0.55,
     }).addTo(pivotLayer);
+
+    // Tooltip customizado ("Balão")
+    const tooltipHtml = `
+      <div class="pivot-tooltip">
+        <span class="pivot-tooltip__name">${equip.name || "Pivô"}</span>
+        <span class="pivot-tooltip__status">PAINEL ENERGIZADO</span>
+        <span class="pivot-tooltip__date">20 fev 2026 17:41</span>
+      </div>
+    `;
+
+    layer.bindTooltip(tooltipHtml, {
+      permanent: false,
+      direction: "top",
+      className: "pivot-tooltip-wrap",
+      opacity: 1,
+      offset: [0, -10]
+    });
+
+    layer.on("click", () => {
+      if (window.IcPivos && typeof window.IcPivos.open === "function") {
+        window.IcPivos.open({ pivotId: equip.id });
+      }
+    });
 
     if (!pivot.ref) return;
 
@@ -315,7 +339,7 @@
     farm.equipments.forEach((equip) => {
       const pivot = extractPivotData(equip);
       if (!pivot) return;
-      drawPivot(pivot);
+      drawPivot(pivot, equip);
     });
 
     farm.equipments.forEach((equip) => {

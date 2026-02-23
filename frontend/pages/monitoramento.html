@@ -1,0 +1,392 @@
+<section class="monitor-view" aria-label="Monitoramento da Fazenda">
+    <div class="monitor-view__crumbs">Sensoriamento Remoto <span>/</span> Monitoramento</div>
+
+    <header class="monitor-view__header">
+        <h2 class="monitor-view__title">
+            Monitoramento - <span data-monitor-farm>Fazenda Agro Brasil</span>
+        </h2>
+    </header>
+
+    <div class="monitor-view__tabs" role="tablist" aria-label="Período">
+        <button class="monitor-view__tab is-active" type="button" role="tab" aria-selected="true"
+            data-tab="weekly">Semanal</button>
+        <button class="monitor-view__tab" type="button" role="tab" aria-selected="false"
+            data-tab="monthly">Mensal</button>
+        <button class="monitor-view__tab" type="button" role="tab" aria-selected="false"
+            data-tab="quarterly">Trimestral</button>
+    </div>
+
+    <div class="monitor-view__filters">
+        <div class="monitor-view__multi" data-monitor-multi>
+            <div class="monitor-view__multi-control" data-monitor-multi-control>
+                <div class="monitor-view__chips" data-monitor-chips>
+                    <div class="monitor-view__chip">
+                        Pivô 1
+                        <button type="button">&times;</button>
+                    </div>
+                    <div class="monitor-view__chip">
+                        Pivô 2
+                        <button type="button">&times;</button>
+                    </div>
+                    <div class="monitor-view__chip">
+                        Pivô 3
+                        <button type="button">&times;</button>
+                    </div>
+                </div>
+                <input class="monitor-view__search" type="text" placeholder="Selecionar pivôs" data-monitor-search />
+                <span class="monitor-view__chev" aria-hidden="true">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="monitor-view__period">
+            <button class="monitor-view__date-input" type="button">
+                <span>2026-10</span>
+                <i class="fa-regular fa-calendar"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Seletor de Camadas (Aba com Check) -->
+    <div class="monitor-view__layers" data-monitor-layers>
+        <button class="monitor-layer is-active" type="button" data-layer="images">
+            <i class="fa-solid fa-circle-check"></i>
+            Imagens
+        </button>
+        <button class="monitor-layer" type="button" data-layer="ndvi">
+            <i class="fa-solid fa-circle-check"></i>
+            NDVI
+        </button>
+        <button class="monitor-layer" type="button" data-layer="uniformity">
+            <i class="fa-solid fa-circle-check"></i>
+            Uniformidade
+        </button>
+    </div>
+
+    <div class="monitor-view__content" data-current-layer="images">
+        <div class="monitor-view__timeline-wrap">
+            <!-- Cabeçalho (Estrutura do Grid) -->
+            <div class="monitor-view__timeline-header" data-monitor-header>
+                <div class="monitor-view__grid">
+                    <div class="monitor-view__cell monitor-view__cell--spacer"></div>
+                    <div class="monitor-view__cell monitor-view__cell--head"></div>
+                    <div class="monitor-view__cell monitor-view__cell--head"></div>
+                    <div class="monitor-view__cell monitor-view__cell--head"></div>
+                    <div class="monitor-view__cell monitor-view__cell--head"></div>
+                    <div class="monitor-view__cell monitor-view__cell--head"></div>
+                </div>
+            </div>
+
+            <!-- Corpo com Pivôs e Imagens -->
+            <div class="monitor-view__timeline-body" data-monitor-body>
+
+                <!-- Pivô 01 -->
+                <div class="monitor-view__row-group">
+                    <!-- Visão de Imagens -->
+                    <div class="monitor-view__grid monitor-view__grid--images">
+                        <div class="monitor-view__label">Pivô 01</div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P01/pivo1-1.png" alt="Pivô 1 - 10/02">
+                                <span class="monitor-view__img-date">10/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P01/pivo1-2.png" alt="Pivô 1 - 11/02">
+                                <span class="monitor-view__img-date">11/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P01/pivo1-3.png" alt="Pivô 1 - 12/02">
+                                <span class="monitor-view__img-date">12/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P01/pivo1-4.png" alt="Pivô 1 - 13/02">
+                                <span class="monitor-view__img-date">13/02/2026</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Visão de Gráficos -->
+                    <div class="monitor-view__grid monitor-view__grid--charts">
+                        <div class="monitor-view__label">Pivô 01</div>
+                        <div class="monitor-view__chart-container">
+                            <div class="monitor-view__chart-main">
+                                <div class="monitor-view__chart-info-title" data-chart-title>Índice NDVI (Média do
+                                    Período)</div>
+                                <div class="monitor-view__chart-placeholder-full">
+                                    <div class="monitor-view__chart-axis-y" data-axis-y>
+                                        <span>1.00</span>
+                                        <span>0.75</span>
+                                        <span>0.50</span>
+                                        <span>0.25</span>
+                                        <span>0.00</span>
+                                    </div>
+                                    <div class="monitor-view__chart-canvas">
+                                        <svg class="monitor-view__chart-svg" preserveAspectRatio="none"
+                                            viewBox="0 0 1000 100">
+                                            <defs>
+                                                <linearGradient id="ndviGradient" x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="0%" stop-color="#22c55e" stop-opacity="1" />
+                                                    <stop offset="50%" stop-color="#84cc16" stop-opacity="0.6" />
+                                                    <stop offset="100%" stop-color="#ef4444" stop-opacity="0.2" />
+                                                </linearGradient>
+                                            </defs>
+                                            <path class="monitor-view__chart-area"
+                                                d="M0 80 Q 150 75, 300 40 T 500 25 T 700 20 T 1000 35 L 1000 100 L 0 100 Z" />
+                                            <path class="monitor-view__chart-line"
+                                                d="M0 80 Q 150 75, 300 40 T 500 25 T 700 20 T 1000 35" />
+
+                                            <!-- Pontos de captura (Layout Diamante Tecnológico) -->
+                                            <path class="monitor-view__chart-marker"
+                                                d="M100 72 L104 76 L100 80 L96 76 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M300 36 L304 40 L300 44 L296 40 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M500 21 L504 25 L500 29 L496 25 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M700 16 L704 20 L700 24 L696 20 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M900 26 L904 30 L900 34 L896 30 Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="monitor-view__chart-side">
+                                <div class="monitor-view__chart-info-title">Status da Cultura</div>
+                                <div class="monitor-view__chart-metrics">
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label">Média</span>
+                                        <span class="monitor-view__metric-value is-good">0.82</span>
+                                    </div>
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label">Tendência</span>
+                                        <span class="monitor-view__metric-value is-good">+4%</span>
+                                    </div>
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label" data-metric-label-vigor>Vigor</span>
+                                        <span class="monitor-view__metric-value" data-metric-value-vigor>Ótimo</span>
+                                    </div>
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label">Uniform.</span>
+                                        <span class="monitor-view__metric-value">92%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pivô 02 -->
+                <div class="monitor-view__row-group">
+                    <!-- Visão de Imagens -->
+                    <div class="monitor-view__grid monitor-view__grid--images">
+                        <div class="monitor-view__label">Pivô 02</div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P02/pivo2-1.png" alt="Pivô 2 - 10/02">
+                                <span class="monitor-view__img-date">10/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P02/pivo2-2.png" alt="Pivô 2 - 11/02">
+                                <span class="monitor-view__img-date">11/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P02/pivo2-3.png" alt="Pivô 2 - 12/02">
+                                <span class="monitor-view__img-date">12/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P02/pivo2-4.png" alt="Pivô 2 - 13/02">
+                                <span class="monitor-view__img-date">13/02/2026</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Visão de Gráficos -->
+                    <div class="monitor-view__grid monitor-view__grid--charts">
+                        <div class="monitor-view__label">Pivô 02</div>
+                        <div class="monitor-view__chart-container">
+                            <div class="monitor-view__chart-main">
+                                <div class="monitor-view__chart-info-title" data-chart-title>Índice NDVI (Média do
+                                    Período)</div>
+                                <div class="monitor-view__chart-placeholder-full">
+                                    <div class="monitor-view__chart-axis-y" data-axis-y>
+                                        <span>1.00</span>
+                                        <span>0.75</span>
+                                        <span>0.50</span>
+                                        <span>0.25</span>
+                                        <span>0.00</span>
+                                    </div>
+                                    <div class="monitor-view__chart-canvas">
+                                        <svg class="monitor-view__chart-svg" preserveAspectRatio="none"
+                                            viewBox="0 0 1000 100">
+                                            <defs>
+                                                <linearGradient id="ndviGradient" x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="0%" stop-color="#16a34a" />
+                                                    <stop offset="100%" stop-color="#ef4444" />
+                                                </linearGradient>
+                                            </defs>
+                                            <path class="monitor-view__chart-area"
+                                                d="M0 80 Q 150 75, 300 40 T 500 25 T 700 20 T 1000 35 L 1000 100 L 0 100 Z" />
+                                            <path class="monitor-view__chart-line"
+                                                d="M0 80 Q 150 75, 300 40 T 500 25 T 700 20 T 1000 35" />
+
+                                            <!-- Pontos de captura (Layout Diamante Tecnológico) -->
+                                            <path class="monitor-view__chart-marker"
+                                                d="M100 72 L104 76 L100 80 L96 76 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M300 36 L304 40 L300 44 L296 40 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M500 21 L504 25 L500 29 L496 25 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M700 16 L704 20 L700 24 L696 20 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M900 26 L904 30 L900 34 L896 30 Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="monitor-view__chart-side">
+                                <div class="monitor-view__chart-info-title">Status da Cultura</div>
+                                <div class="monitor-view__chart-metrics">
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label">Média</span>
+                                        <span class="monitor-view__metric-value is-good">0.75</span>
+                                    </div>
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label">Tendência</span>
+                                        <span class="monitor-view__metric-value is-warn">-2%</span>
+                                    </div>
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label" data-metric-label-vigor>Vigor</span>
+                                        <span class="monitor-view__metric-value" data-metric-value-vigor>Alerta</span>
+                                    </div>
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label">Uniform.</span>
+                                        <span class="monitor-view__metric-value">85%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pivô 03 -->
+                <div class="monitor-view__row-group">
+                    <!-- Visão de Imagens -->
+                    <div class="monitor-view__grid monitor-view__grid--images">
+                        <div class="monitor-view__label">Pivô 03</div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P03/pivo3-1.png" alt="Pivô 3 - 10/02">
+                                <span class="monitor-view__img-date">10/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P03/pivo3-2.png" alt="Pivô 3 - 11/02">
+                                <span class="monitor-view__img-date">11/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P03/pivo3-3.png" alt="Pivô 3 - 12/02">
+                                <span class="monitor-view__img-date">12/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P03/pivo3-4.png" alt="Pivô 3 - 13/02">
+                                <span class="monitor-view__img-date">13/02/2026</span>
+                            </div>
+                        </div>
+                        <div class="monitor-view__cell">
+                            <div class="monitor-view__img-card">
+                                <img src="./assets/img/monitoramento/pivot_P03/pivo3-5.png" alt="Pivô 3 - 14/02">
+                                <span class="monitor-view__img-date">14/02/2026</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Visão de Gráficos -->
+                    <div class="monitor-view__grid monitor-view__grid--charts">
+                        <div class="monitor-view__label">Pivô 03</div>
+                        <div class="monitor-view__chart-container">
+                            <div class="monitor-view__chart-main">
+                                <div class="monitor-view__chart-info-title" data-chart-title>Índice NDVI (Média do
+                                    Período)</div>
+                                <div class="monitor-view__chart-placeholder-full">
+                                    <div class="monitor-view__chart-axis-y" data-axis-y>
+                                        <span>1.00</span>
+                                        <span>0.75</span>
+                                        <span>0.50</span>
+                                        <span>0.25</span>
+                                        <span>0.00</span>
+                                    </div>
+                                    <div class="monitor-view__chart-canvas">
+                                        <svg class="monitor-view__chart-svg" preserveAspectRatio="none"
+                                            viewBox="0 0 1000 100">
+                                            <defs>
+                                                <linearGradient id="ndviGradient" x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="0%" stop-color="#16a34a" />
+                                                    <stop offset="100%" stop-color="#ef4444" />
+                                                </linearGradient>
+                                            </defs>
+                                            <path class="monitor-view__chart-area"
+                                                d="M0 80 Q 150 75, 300 40 T 500 25 T 700 20 T 1000 35 L 1000 100 L 0 100 Z" />
+                                            <path class="monitor-view__chart-line"
+                                                d="M0 80 Q 150 75, 300 40 T 500 25 T 700 20 T 1000 35" />
+
+                                            <!-- Pontos de captura (Layout Diamante Tecnológico) -->
+                                            <path class="monitor-view__chart-marker"
+                                                d="M100 72 L104 76 L100 80 L96 76 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M300 36 L304 40 L300 44 L296 40 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M500 21 L504 25 L500 29 L496 25 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M700 16 L704 20 L700 24 L696 20 Z" />
+                                            <path class="monitor-view__chart-marker"
+                                                d="M900 26 L904 30 L900 34 L896 30 Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="monitor-view__chart-side">
+                                <div class="monitor-view__chart-info-title">Status da Cultura</div>
+                                <div class="monitor-view__chart-metrics">
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label">Média</span>
+                                        <span class="monitor-view__metric-value is-good">0.88</span>
+                                    </div>
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label">Tendência</span>
+                                        <span class="monitor-view__metric-value is-good">+7%</span>
+                                    </div>
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label" data-metric-label-vigor>Vigor</span>
+                                        <span class="monitor-view__metric-value"
+                                            data-metric-value-vigor>Excelente</span>
+                                    </div>
+                                    <div class="monitor-view__metric">
+                                        <span class="monitor-view__metric-label">Uniform.</span>
+                                        <span class="monitor-view__metric-value">95%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

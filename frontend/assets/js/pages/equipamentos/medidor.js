@@ -75,11 +75,9 @@
     label: "Medidor de Nível",
 
     // =================
-    // STEP 2 — Cadastro inicial
+    // STEP 2 — Localização
     // =================
     renderStep2(container, state) {
-      const serial = state.serial ?? "";
-      const nome = state.nome ?? "";
       const loc = state.loc ?? "";
 
       container.innerHTML = `
@@ -88,19 +86,6 @@
           <div class="equip-page__sub"></div>
 
           <div class="equip-form">
-            <div class="equip-form__row">
-              <div class="equip-field">
-                <label class="equip-label"><span class="equip-required">*</span> ID / Serial Number</label>
-                <input class="equip-input" id="mdSerial" placeholder="Ex: MDN-001234" value="${escapeHtml(serial)}" />
-              </div>
-              <button class="equip-btn btn equip-btn--primary" type="button" data-action="md-test">Tentar Conexão</button>
-            </div>
-
-            <div class="equip-field">
-              <label class="equip-label"><span class="equip-required">*</span> Nome do Equipamento</label>
-              <input class="equip-input" id="mdNome" placeholder="Ex: MDN Reservatório, Poço 01" value="${escapeHtml(nome)}" />
-            </div>
-
             <div class="equip-field">
               <label class="equip-label"><span class="equip-required">*</span> Localização (Latitude, Longitude)</label>
               <input class="equip-input" id="mdLoc" placeholder="Ex: -23.5505, -46.6333" value="${escapeHtml(loc)}" />
@@ -167,15 +152,11 @@
     },
 
     readStep2(container) {
-      const serial = container.querySelector("#mdSerial")?.value?.trim() || "";
-      const nome = container.querySelector("#mdNome")?.value?.trim() || "";
       const loc = container.querySelector("#mdLoc")?.value?.trim() || "";
 
       const parsed = parseLatLng(loc);
 
       return {
-        serial,
-        nome,
         loc,
         lat: parsed?.lat ?? null,
         lng: parsed?.lng ?? null,
@@ -183,8 +164,6 @@
     },
 
     validateStep2(data) {
-      if (!data.serial) return { ok: false, msg: "Informe o ID / Serial Number." };
-      if (!data.nome) return { ok: false, msg: "Informe o Nome do Equipamento." };
       if (data.lat === null || data.lng === null) {
         return { ok: false, msg: "Informe uma Localização válida (Latitude, Longitude) ou clique no mapa." };
       }
@@ -194,29 +173,77 @@
     // =================
     // STEP 3 — Módulos
     // =================
+    readStep3(container) {
+      const nome = container.querySelector("#mdNome")?.value?.trim() || "";
+      const serial = container.querySelector("#mdSerial")?.value?.trim() || "";
+      return { nome, serial };
+    },
+
+    validateStep3(data) {
+      if (!data.nome) return { ok: false, msg: "Informe o Nome do Equipamento." };
+      if (!data.serial) return { ok: false, msg: "Informe o ID / Serial Number." };
+      return { ok: true, msg: "" };
+    },
+
     renderStep3(container, state) {
+      const nome = state.nome ?? "";
+      const serial = state.serial ?? "";
       state.modules = state.modules || [
-        { id: "m1", name: "Módulo 1", serial: "MDN-01-01-01", source: "Manual" },
+        {
+          id: "m1",
+          name: "Módulo 1",
+          title: "Medidor de Nível",
+          desc: "Sensor remoto de nível",
+          serial: "MDN-01-01-01",
+          lastSeen: "há 2 min",
+          status: "online",
+          source: "Manual",
+        },
       ];
 
       const modulesHtml = state.modules
-        .map(
-          (m) => `
+        .map((m) => {
+          const title = m.title || "Medidor de Nível";
+          const desc = m.desc || "Sensor remoto de nível";
+          const radio = m.serial || "—";
+          const lastSeen = m.lastSeen || "há 2 min";
+          const status = m.status === "offline" ? "is-offline" : "is-online";
+          const statusLabel = status === "is-online" ? "Online" : "Offline";
+
+          return `
             <div class="ip-mod-card card">
               <div class="ip-mod-card__top">
-                <span class="ip-mod-badge pill">${escapeHtml(m.source)}</span>
+                <div class="ip-mod-head">
+                  <span class="ip-mod-title">${escapeHtml(title)}</span>
+                  <span class="ip-mod-status ${status}" aria-label="${statusLabel}"></span>
+                </div>
                 <button class="ip-mod-del" type="button" data-action="md-mod-del" data-id="${escapeHtml(m.id)}" aria-label="Excluir módulo">
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </div>
-              <div class="ip-mod-name">${escapeHtml(m.name)}</div>
-              <div class="ip-mod-serial">Serial: ${escapeHtml(m.serial)}</div>
+              <div class="ip-mod-desc">${escapeHtml(desc)}</div>
+              <div class="ip-mod-meta">Número do Rádio: ${escapeHtml(radio)}</div>
+              <div class="ip-mod-meta">Última comunicação: ${escapeHtml(lastSeen)}</div>
             </div>
-          `
-        )
+          `;
+        })
         .join("");
 
       container.innerHTML = `
+        <div class="equip-form ip-mod-form">
+          <div class="equip-form__row">
+            <div class="equip-field">
+              <label class="equip-label"><span class="equip-required">*</span> ID / Serial Number</label>
+              <input class="equip-input" id="mdSerial" placeholder="Ex: MDN-001234" value="${escapeHtml(serial)}" />
+            </div>
+            <button class="equip-btn btn equip-btn--primary" type="button" data-action="md-test">Tentar Conexão</button>
+          </div>
+          <div class="equip-field">
+            <label class="equip-label"><span class="equip-required">*</span> Nome do Equipamento</label>
+            <input class="equip-input" id="mdNome" placeholder="Ex: MDN Reservatório, Poço 01" value="${escapeHtml(nome)}" />
+          </div>
+        </div>
+
         <div class="ip-step">
           <div class="ip-step__row">
             <div>
@@ -262,6 +289,16 @@
         const btn = e.target.closest("[data-action], [data-md-close]");
         if (!btn) return;
 
+        const equipNameInput = container.querySelector("#mdNome");
+        if (equipNameInput) {
+          state.nome = equipNameInput.value.trim();
+        }
+
+        const equipSerialInput = container.querySelector("#mdSerial");
+        if (equipSerialInput) {
+          state.serial = equipSerialInput.value.trim();
+        }
+
         const modalEl = container.querySelector("[data-md-modal]");
         const serialInput = container.querySelector("#mdModSerial");
         if (!modalEl) return;
@@ -294,7 +331,11 @@
           state.modules.push({
             id,
             name: `Módulo ${state.modules.length + 1}`,
+            title: "Medidor de Nível",
+            desc: "Sensor remoto de nível",
             serial,
+            lastSeen: "agora",
+            status: "online",
             source: "Manual",
           });
 
@@ -723,27 +764,8 @@
             </div>
           </div>
 
-          <div class="summary-card card">
-            <div class="summary-card__head">Finalizar Cadastro</div>
-            <div class="summary-card__sub">Escolha como deseja finalizar o cadastro deste equipamento.</div>
-
-            <div class="summary-actions">
-              <button class="summary-btn btn" type="button" data-action="save-draft">
-                <i class="fa-solid fa-floppy-disk"></i> Salvar como Rascunho
-              </button>
-
-              <button class="summary-btn btn summary-btn--primary" type="button" data-action="finish">
-                <i class="fa-solid fa-check"></i> Concluir Cadastro e Ativar
-              </button>
-
-              <button class="summary-btn btn" type="button" data-action="advanced">
-                <i class="fa-solid fa-gear"></i> Seguir para Configuração Avançada
-              </button>
-            </div>
-          </div>
         </div>
       `;
     },
   };
 })();
-

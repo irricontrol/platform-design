@@ -647,14 +647,16 @@
       const key = panel.dataset.equipList;
       const list = (farm?.equipments || []).filter((item) => item.category === key);
       panel.innerHTML = "";
+      const toggle = document.querySelector(`.map-card__item--toggle[data-panel="${panel.dataset.panel}"]`);
 
       if (!list.length) {
-        const empty = document.createElement("div");
-        empty.className = "map-card__equip-empty";
-        empty.textContent = "Nenhum equipamento cadastrado.";
-        panel.appendChild(empty);
+        if (toggle) toggle.style.display = "none";
+        panel.style.display = "none";
         return;
       }
+
+      if (toggle) toggle.style.display = "";
+      panel.style.display = "";
 
       list.forEach((item) => {
         const equip = document.createElement("div");
@@ -747,6 +749,16 @@
         foot.textContent = `Última comunicação: ${formatDateTime(item.createdAt)}`;
         equip.appendChild(foot);
 
+        if (item.category === "pivos") {
+          equip.style.cursor = "pointer";
+          equip.classList.add("is-clickable");
+          equip.addEventListener("click", () => {
+            if (window.IcPivos && typeof window.IcPivos.open === "function") {
+              window.IcPivos.open({ pivotId: item.id });
+            }
+          });
+        }
+
         panel.appendChild(equip);
       });
     });
@@ -755,13 +767,11 @@
   function clearEquipmentPanels(message) {
     const panels = document.querySelectorAll(".map-card__panel[data-equip-list]");
     if (!panels.length) return;
-    const text = message || "Selecione uma fazenda para ver equipamentos.";
     panels.forEach((panel) => {
       panel.innerHTML = "";
-      const empty = document.createElement("div");
-      empty.className = "map-card__equip-empty";
-      empty.textContent = text;
-      panel.appendChild(empty);
+      const toggle = document.querySelector(`.map-card__item--toggle[data-panel="${panel.dataset.panel}"]`);
+      if (toggle) toggle.style.display = "none";
+      panel.style.display = "none";
     });
   }
 
@@ -816,6 +826,66 @@
     return isPlainObject(clean) ? clean : {};
   }
 
+  function getPluvioCoords(data, farm) {
+    const lat = toNumber(data?.lat);
+    const lng = toNumber(data?.lng);
+    if (Number.isFinite(lat) && Number.isFinite(lng)) return { lat, lng };
+    const parsed = parseLatLngText(data?.loc);
+    if (parsed) return parsed;
+    if (farm && Number.isFinite(farm.lat) && Number.isFinite(farm.lng)) {
+      return { lat: farm.lat, lng: farm.lng };
+    }
+    return null;
+  }
+
+  function addPluvioToPluviometria(equipItem, farm) {
+    if (!equipItem || equipItem.type !== "pluviometro") return;
+    const plvData = window.Plv?.data;
+    if (!plvData) return;
+    const list = Array.isArray(plvData.PLUVIOS) ? plvData.PLUVIOS : (plvData.PLUVIOS = []);
+    const exists = list.some((p) => p.sourceEquipId === equipItem.id || p.id === equipItem.id);
+    if (exists) return;
+
+    const coords = getPluvioCoords(equipItem.data || {}, farm);
+    if (!coords) return;
+
+    const name = equipItem.name || equipItem.data?.nome || "Pluviômetro";
+    const sub = equipItem.data?.sub || "Talhão não informado";
+
+    list.push({
+      id: equipItem.id || `pluv_${Date.now()}`,
+      sourceEquipId: equipItem.id || null,
+      serial: equipItem.data?.serial || "",
+      nome: name,
+      sub,
+      pivos: [],
+      pivosAssoc: [],
+      lat: coords.lat,
+      lng: coords.lng,
+      status: "none",
+      statusLabel: "Sem chuva no momento",
+      statusMeta: "sem dados",
+      mm: 0,
+      intensidade: "Sem chuva",
+      intensidadeMeta: "",
+      updated: "Recém cadastrado",
+      unidade: "mm",
+      uso: { irrigacao: false, alertas: false, relatorios: false },
+      semComunicacao: false,
+    });
+
+    if (isPluviometriaActive()) {
+      const plv = window.Plv;
+      plv?.cards?.renderCards?.();
+      plv?.cards?.syncSelectionUI?.();
+      plv?.views?.map?.renderMarkers?.();
+      plv?.views?.data?.renderData?.();
+      plv?.maintenance?.renderMaintenanceCards?.();
+      plv?.views?.edit?.renderEditSelect?.();
+      plv?.views?.edit?.renderEditSummary?.();
+    }
+  }
+
   function addEquipmentToFarm(equipPayload) {
     if (!equipPayload) return;
     const farmId = equipPayload.farmId || currentFarmId || activeFarmSnapshot?.id;
@@ -841,6 +911,7 @@
 
     farm.equipments = farm.equipments || [];
     farm.equipments.push(equipItem);
+    addPluvioToPluviometria(equipItem, farm);
     saveFarms();
     renderEquipmentPanels(farm);
     if (window.IcMapRenderPivots) window.IcMapRenderPivots(farm);

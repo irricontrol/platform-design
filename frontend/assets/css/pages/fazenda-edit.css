@@ -1,0 +1,113 @@
+/* =========================================================
+   Fazenda - Editar Fazenda
+   ========================================================= */
+
+body.is-farm-edit #map,
+body.is-farm-edit .map{
+  display: none;
+}
+
+body.is-farm-edit #pageSlot{
+  display: block;
+  background: #f8fafc;
+}
+
+body.is-farm-edit .main--map{
+  height: auto;
+  min-height: 100vh;
+}
+
+body.is-farm-edit .map-card{
+  display: none;
+}
+
+.farm-edit__section-sub{
+  font-size: 12px;
+  color: #64748b;
+  margin: 0 0 14px;
+}
+
+.farm-edit .pluv-edit__field-box-label{
+  display:block;
+  font-size: 11px;
+  color:#0f172a;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.farm-edit__field-box{
+  display:flex;
+  flex-direction:column;
+  gap: 8px;
+  width: 100%;
+  max-width: 440px;
+}
+
+.farm-edit__field-box-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 8px;
+}
+
+.farm-edit__field-box-head label{
+  margin-bottom: 0;
+}
+
+.farm-edit__field-edit{
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px;
+  line-height: 1;
+}
+
+.farm-edit__field-box .pluv-edit__input[readonly]{
+  background: #f8fafc;
+  color: #94a3b8;
+}
+
+.farm-edit__loc-row{
+  align-items: center;
+}
+
+.farm-edit__loc-input{
+  position: relative;
+  flex: 1;
+}
+
+.farm-edit__loc-input i{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.farm-edit__loc-input .pluv-edit__input{
+  padding-left: 30px;
+}
+
+.farm-edit__loc-btn{
+  min-width: 160px;
+}
+
+.farm-edit .pluv-edit__location{
+  grid-template-columns: 1.3fr 1fr;
+}
+.farm-edit .pluv-edit__input,
+.farm-edit .pluv-edit__select-btn{
+  border-color: #d1d5db;
+}
+
+.farm-edit .pluv-edit__input:focus,
+.farm-edit .pluv-edit__input:focus-visible,
+.farm-edit .pluv-edit__select-btn:focus,
+.farm-edit .pluv-edit__select-btn:focus-visible{
+  outline: none;
+  border-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22,163,74,.12);
+}

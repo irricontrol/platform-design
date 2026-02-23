@@ -21,7 +21,7 @@
 
     if (!deviceConfirmed && requiresDeviceConfirmation) {
       if (hasDays && daysRemaining > 0) {
-        return { label: "Manutenção programada", variant: "info" };
+        return { label: "Programada", variant: "info" };
       }
       return { label: "Atrasada", variant: "danger" };
     }
@@ -35,7 +35,7 @@
     }
 
     if (status === "scheduled") {
-      return { label: "Manutenção programada", variant: "info" };
+      return { label: "Programada", variant: "info" };
     }
 
     return { label: "Pendente", variant: "muted" };
@@ -45,6 +45,31 @@
     const host = document.querySelector("[data-maint-list]");
     if (!host) return;
 
+    const formatDateBR = (Plv.dom && Plv.dom.formatDateBR) || ((d) => {
+      const dd = String(d.getDate()).padStart(2, "0");
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const yy = d.getFullYear();
+      return `${dd}/${mm}/${yy}`;
+    });
+
+    const pickDateLabel = (...candidates) => {
+      for (const candidate of candidates) {
+        if (!candidate) continue;
+        if (candidate instanceof Date && !Number.isNaN(candidate.getTime())) {
+          return formatDateBR(candidate);
+        }
+        if (typeof candidate === "string") {
+          const match = candidate.match(/\b\d{2}\/\d{2}\/\d{4}\b/);
+          if (match) return match[0];
+          const parsed = new Date(candidate);
+          if (!Number.isNaN(parsed.getTime())) {
+            return formatDateBR(parsed);
+          }
+        }
+      }
+      return "";
+    };
+
     const entries = Object.entries(data.PLUV_MAINTENANCE || {})
       .map(([id, dataItem]) => {
         const pluvio = (data.PLUVIOS || []).find((p) => p.id === id);
@@ -53,10 +78,32 @@
         const shortName = /^Pluviômetro\s*/i.test(rawName)
           ? rawName
           : `Pluviômetro ${rawName}`;
+        const hasCompleted =
+          dataItem.device_confirmed ||
+          Boolean(dataItem.completed_at) ||
+          dataItem.allow_completion_without_device;
         const metaParts = [];
-        if (dataItem.meta) metaParts.push(dataItem.meta);
-        else if (dataItem.lastDate) metaParts.push(dataItem.lastDate);
-        if (typeof dataItem.daysRemaining === "number") {
+        const isLate = String(dataItem.status || "").toLowerCase() === "late";
+        if (hasCompleted) {
+          const doneDate = pickDateLabel(
+            dataItem.completed_at,
+            dataItem.lastDate,
+            dataItem.meta
+          );
+          if (doneDate) metaParts.push(`Concluída em ${doneDate}`);
+          if (dataItem.meta) metaParts.push(dataItem.meta);
+        } else if (isLate) {
+          if (dataItem.meta) {
+            metaParts.push(dataItem.meta);
+          } else if (typeof dataItem.daysRemaining === "number") {
+            const atraso = Math.abs(Number(dataItem.daysRemaining));
+            metaParts.push(`${atraso} dia${atraso === 1 ? "" : "s"} atrasado`);
+          }
+        } else {
+          if (dataItem.meta) metaParts.push(dataItem.meta);
+          else if (dataItem.lastDate) metaParts.push(dataItem.lastDate);
+        }
+        if (!hasCompleted && !isLate && typeof dataItem.daysRemaining === "number") {
           const days = Math.abs(Number(dataItem.daysRemaining));
           let label = "";
           if (dataItem.daysRemaining === 0) {
@@ -193,13 +240,13 @@
                   ? `<span><i class="fa-regular fa-calendar"></i> ${entry.meta}</span>`
                   : ""
               }
-              <span><i class="fa-solid fa-user"></i> ${entry.responsible}</span>
+              ${
+                entry.badge.variant === "ok" && entry.responsible
+                  ? `<span><i class="fa-solid fa-user"></i> ${entry.responsible}</span>`
+                  : ""
+              }
             </div>
-            ${
-              entry.description
-                ? `<div class="pluv-maint__desc">${entry.description}</div>`
-                : ""
-            }
+            
           </article>
         `;
       })
@@ -219,7 +266,7 @@
     const scheduledBadge = document.querySelector("[data-maint-filter='scheduled']");
     if (scheduledBadge) {
       const scheduledLabel =
-        scheduledCount === 1 ? "manutenção programada" : "manutenções programadas";
+        scheduledCount === 1 ? "programada" : "programadas";
       scheduledBadge.textContent = `${scheduledCount} ${scheduledLabel}`;
     }
 

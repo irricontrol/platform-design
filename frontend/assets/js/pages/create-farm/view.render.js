@@ -17,14 +17,16 @@
       const key = panel.dataset.equipList;
       const list = (farm?.equipments || []).filter((item) => item.category === key);
       panel.innerHTML = "";
+      const toggle = document.querySelector(`.map-card__item--toggle[data-panel="${panel.dataset.panel}"]`);
 
       if (!list.length) {
-        const empty = document.createElement("div");
-        empty.className = "map-card__equip-empty";
-        empty.textContent = "Nenhum equipamento cadastrado.";
-        panel.appendChild(empty);
+        if (toggle) toggle.style.display = "none";
+        panel.style.display = "none";
         return;
       }
+
+      if (toggle) toggle.style.display = "";
+      panel.style.display = "";
 
       list.forEach((item) => {
         const equip = document.createElement("div");
@@ -71,16 +73,16 @@
           const metricsTop = document.createElement("div");
           metricsTop.className = "map-card__metrics map-card__metrics--three";
           metricsTop.append(
-            helpers.buildMetric("fa-solid fa-location-arrow", angle === null ? "--" : `${angle}?`, "?ngulo"),
-            helpers.buildMetric("fa-solid fa-cloud", "--", "Press?o (centro)"),
+            helpers.buildMetric("fa-solid fa-location-arrow", angle === null ? "--" : `${angle}°`, "Ângulo"),
+            helpers.buildMetric("fa-solid fa-cloud", "--", "Pressão (centro)"),
             helpers.buildMetric("fa-regular fa-clock", "00h00min", "Tempo ligado")
           );
 
           const metricsBottom = document.createElement("div");
           metricsBottom.className = "map-card__metrics map-card__metrics--two";
           metricsBottom.append(
-            helpers.buildMetric("fa-solid fa-droplet", "0mm", "Pluvi?metro"),
-            helpers.buildMetric("fa-solid fa-cloud", "--", "Press?o (motor)", "map-card__metric--motor")
+            helpers.buildMetric("fa-solid fa-droplet", "0mm", "Pluviômetro"),
+            helpers.buildMetric("fa-solid fa-cloud", "--", "Pressão (motor)", "map-card__metric--motor")
           );
 
           equip.append(metricsTop, metricsBottom);
@@ -114,8 +116,18 @@
 
         const foot = document.createElement("div");
         foot.className = "map-card__equip-foot";
-        foot.textContent = `?ltima comunica??o: ${helpers.formatDateTime(item.createdAt)}`;
+        foot.textContent = `Última comunicação: ${helpers.formatDateTime(item.createdAt)}`;
         equip.appendChild(foot);
+
+        if (item.category === "pivos") {
+          equip.style.cursor = "pointer";
+          equip.classList.add("is-clickable");
+          equip.addEventListener("click", () => {
+            if (window.IcPivos && typeof window.IcPivos.open === "function") {
+              window.IcPivos.open({ pivotId: item.id });
+            }
+          });
+        }
 
         panel.appendChild(equip);
       });
@@ -125,13 +137,11 @@
   function clearEquipmentPanels(message) {
     const panels = document.querySelectorAll(".map-card__panel[data-equip-list]");
     if (!panels.length) return;
-    const text = message || "Selecione uma fazenda para ver equipamentos.";
     panels.forEach((panel) => {
       panel.innerHTML = "";
-      const empty = document.createElement("div");
-      empty.className = "map-card__equip-empty";
-      empty.textContent = text;
-      panel.appendChild(empty);
+      const toggle = document.querySelector(`.map-card__item--toggle[data-panel="${panel.dataset.panel}"]`);
+      if (toggle) toggle.style.display = "none";
+      panel.style.display = "none";
     });
   }
 
@@ -206,14 +216,14 @@
 
   function setButtons() {
     const isLast = state.currentStepIndex === state.steps.length - 1;
-    state.nextBtn.textContent = isLast ? "Finalizar" : "Pr?ximo";
+    state.nextBtn.textContent = isLast ? "Finalizar" : "Próximo";
   }
 
   function renderPlaceholder(label) {
     state.bodyHost.innerHTML = `
       <div style="padding:14px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;">
         <strong>${label}</strong><br/>
-        <span style="color:#6b7280;">Conte?do em constru??o.</span>
+        <span style="color:#6b7280;">Conteúdo em construção.</span>
       </div>
     `;
   }
@@ -225,8 +235,8 @@
       "Faturamento": "billing",
       "Contato": "contact",
       "Faixas de Energia": "energy",
-      "Localiza??o": "location",
-      "Localiza????o": "location",
+      "Localização": "location",
+      "Localizacao": "location",
     };
     const stepKey = stepKeyMap[label] || label;
     renderSteps();
@@ -242,33 +252,33 @@
         <div class="equip-form">
           <div class="equip-field">
             <label class="equip-label"><span class="equip-required">*</span>Nome da fazenda</label>
-            <input class="equip-input" type="text" placeholder="Recanto da Serra" data-farm-name />
+            <input class="equip-input" id="farmGeneralName" name="farm_name" type="text" placeholder="Recanto da Serra" data-farm-name />
           </div>
 
           <div class="equip-form__row">
             <div class="equip-field">
               <label class="equip-label"><span class="equip-required">*</span>Dia da fatura de energia</label>
-              <input class="equip-input" type="number" min="1" max="31" inputmode="numeric" placeholder="1" />
+              <input class="equip-input" id="farmGeneralEnergyDay" name="farm_energy_bill_day" type="number" min="1" max="31" inputmode="numeric" placeholder="1" data-farm-energy-day />
             </div>
             <div class="equip-field">
-              <label class="equip-label"><span class="equip-required">*</span>Dia da fatura de ?gua</label>
-              <input class="equip-input" type="number" min="1" max="31" inputmode="numeric" placeholder="1" />
+              <label class="equip-label"><span class="equip-required">*</span>Dia da fatura de água</label>
+              <input class="equip-input" id="farmGeneralWaterDay" name="farm_water_bill_day" type="number" min="1" max="31" inputmode="numeric" placeholder="1" data-farm-water-day />
             </div>
           </div>
 
           <label class="equip-check">
-            <input class="equip-check__input" type="checkbox" />
+            <input class="equip-check__input" id="farmGeneralHasCentral" name="farm_has_central" type="checkbox" data-farm-has-central />
             <span>A fazenda possui Central?</span>
           </label>
 
           <div class="equip-field">
-            <label class="equip-label"><span class="equip-required">*</span>Fuso hor?rio</label>
-            <select class="equip-input">
-              <option value="Africa/Abidjan">?frica/Abidjan (GMT+00)</option>
-              <option value="America/Sao_Paulo">Am?rica/Sao_Paulo (GMT-03)</option>
-              <option value="America/Cuiaba">Am?rica/Cuiab? (GMT-04)</option>
-              <option value="America/Manaus">Am?rica/Manaus (GMT-04)</option>
-              <option value="America/Rio_Branco">Am?rica/Rio Branco (GMT-05)</option>
+            <label class="equip-label"><span class="equip-required">*</span>Fuso horário</label>
+            <select class="equip-input" id="farmGeneralTimezone" name="farm_timezone" data-farm-timezone>
+              <option value="Africa/Abidjan">África/Abidjan (GMT+00)</option>
+              <option value="America/Sao_Paulo">América/Sao_Paulo (GMT-03)</option>
+              <option value="America/Cuiaba">América/Cuiabá (GMT-04)</option>
+              <option value="America/Manaus">América/Manaus (GMT-04)</option>
+              <option value="America/Rio_Branco">América/Rio Branco (GMT-05)</option>
               <option value="UTC">UTC (GMT+00)</option>
             </select>
           </div>
@@ -285,30 +295,30 @@
           <div class="farm-billing__intro">
             <div class="equip-alert farm-billing__alert" role="note">
               <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-              <span>As informa??es devem ser do cliente!</span>
+              <span>As informações devem ser do cliente!</span>
             </div>
             <p class="farm-billing__hint">
-              Essas informa??es ser?o utilizadas para emitir faturas relacionadas ao uso da plataforma Irricontrol.
+              Essas informações serão utilizadas para emitir faturas relacionadas ao uso da plataforma Irricontrol.
             </p>
           </div>
 
           <section class="farm-billing__section">
             <header class="farm-billing__section-head">
-              <h4 class="farm-billing__section-title">Endere?o de Faturamento</h4>
+              <h4 class="farm-billing__section-title">Endereço de Faturamento</h4>
             </header>
 
             <div class="equip-form farm-billing__grid farm-billing__grid--country">
               <div class="equip-field farm-billing__field" data-field="country">
                 <label class="equip-label" for="farmBillingCountry">
-                  <span data-label-text>Pa?s</span>
+                  <span data-label-text>País</span>
                   <span class="equip-required">*</span>
                 </label>
                 <select class="equip-input" id="farmBillingCountry" name="billing_country" data-country data-input required>
-                  <option value="">Selecione o pa?s</option>
+                  <option value="">Selecione o país</option>
                   <option value="BR">Brasil</option>
                   <option value="US">Estados Unidos</option>
                   <option value="DE">Alemanha</option>
-                  <option value="ZA">?frica do Sul</option>
+                  <option value="ZA">África do Sul</option>
                 </select>
               </div>
 
@@ -325,7 +335,7 @@
                   <span data-label-text>Cidade</span>
                   <span class="equip-required">*</span>
                 </label>
-                <input class="equip-input" id="farmBillingCity" name="billing_city" data-input type="text" placeholder="Ex: Goi?nia" required />
+                <input class="equip-input" id="farmBillingCity" name="billing_city" data-input type="text" placeholder="Ex: Goiânia" required />
               </div>
             </div>
 
@@ -333,7 +343,7 @@
               <div class="equip-form farm-billing__grid farm-billing__grid--address">
                 <div class="equip-field farm-billing__field farm-billing__field--span-2" data-field="address">
                   <label class="equip-label" for="farmBillingAddress">
-                    <span data-label-text>Endere?o</span>
+                    <span data-label-text>Endereço</span>
                     <span class="equip-required">*</span>
                   </label>
                   <input class="equip-input" id="farmBillingAddress" name="billing_address" data-input type="text" placeholder="Ex: Av. Brasil, 120" required />
@@ -360,7 +370,7 @@
 
           <section class="farm-billing__section farm-billing__details is-hidden" data-billing-details>
             <header class="farm-billing__section-head">
-              <h4 class="farm-billing__section-title">Informa??es de Faturamento</h4>
+              <h4 class="farm-billing__section-title">Informações de Faturamento</h4>
             </header>
 
             <div class="equip-form farm-billing__grid farm-billing__grid--billing-top">
@@ -371,7 +381,7 @@
                 </label>
                 <div class="farm-billing__doc">
                   <select class="equip-input" id="farmBillingDocType" name="billing_document_type" data-doc-type aria-label="Tipo de documento" required></select>
-                  <input class="equip-input" id="farmBillingDocNumber" name="billing_document_number" type="text" placeholder="000.000.000-00" aria-label="N?mero do documento" required />
+                  <input class="equip-input" id="farmBillingDocNumber" name="billing_document_number" type="text" placeholder="000.000.000-00" aria-label="Número do documento" required />
                 </div>
               </div>
 
@@ -414,29 +424,29 @@
         <div class="farm-billing farm-contact" data-farm-contact>
           <section class="farm-billing__section">
             <header class="farm-billing__section-head">
-              <h4 class="farm-billing__section-title">Endere?o de Contato</h4>
+              <h4 class="farm-billing__section-title">Endereço de Contato</h4>
             </header>
 
             <div class="farm-billing__details farm-contact__toggle is-hidden" data-contact-details>
               <label class="farm-switch">
                 <input class="farm-switch__input" type="checkbox" data-contact-same />
                 <span class="farm-switch__track" aria-hidden="true"></span>
-                <span class="farm-switch__label">Mesmo do endere?o de faturamento</span>
+                <span class="farm-switch__label">Mesmo do endereço de faturamento</span>
               </label>
             </div>
 
             <div class="equip-form farm-billing__grid farm-billing__grid--country">
               <div class="equip-field farm-billing__field" data-field="country">
                 <label class="equip-label" for="farmContactCountry">
-                  <span data-label-text>Pa?s</span>
+                  <span data-label-text>País</span>
                   <span class="equip-required">*</span>
                 </label>
                 <select class="equip-input" id="farmContactCountry" name="contact_country" data-country data-input required>
-                  <option value="">Selecione o pa?s</option>
+                  <option value="">Selecione o país</option>
                   <option value="BR">Brasil</option>
                   <option value="US">Estados Unidos</option>
                   <option value="DE">Alemanha</option>
-                  <option value="ZA">?frica do Sul</option>
+                  <option value="ZA">África do Sul</option>
                 </select>
               </div>
 
@@ -453,7 +463,7 @@
                   <span data-label-text>Cidade</span>
                   <span class="equip-required">*</span>
                 </label>
-                <input class="equip-input" id="farmContactCity" name="contact_city" data-input type="text" placeholder="Ex: Goi?nia" required />
+                <input class="equip-input" id="farmContactCity" name="contact_city" data-input type="text" placeholder="Ex: Goiânia" required />
               </div>
             </div>
 
@@ -461,7 +471,7 @@
               <div class="equip-form farm-billing__grid farm-billing__grid--address" data-contact-address>
                 <div class="equip-field farm-billing__field farm-billing__field--span-2" data-field="address">
                   <label class="equip-label" for="farmContactAddress">
-                    <span data-label-text>Endere?o</span>
+                    <span data-label-text>Endereço</span>
                     <span class="equip-required">*</span>
                   </label>
                   <input class="equip-input" id="farmContactAddress" name="contact_address" data-input type="text" placeholder="Ex: Av. Brasil, 120" required />
@@ -488,7 +498,7 @@
 
           <section class="farm-billing__section farm-billing__details is-hidden" data-contact-details>
             <header class="farm-billing__section-head">
-              <h4 class="farm-billing__section-title">Informa??es de Contato</h4>
+              <h4 class="farm-billing__section-title">Informações de Contato</h4>
             </header>
 
             <div class="equip-form farm-billing__grid">
@@ -518,27 +528,27 @@
       state.bodyHost.innerHTML = `
         <div class="farm-energy">
           <div class="farm-energy__note" role="note">
-            Faixas de energia s?o per?odos espec?ficos durante o dia nos quais o custo da energia el?trica pode variar. Voc? pode personalizar as faixas da sua fazenda no menu de configura??es.
+            Faixas de energia são períodos específicos durante o dia nos quais o custo da energia elétrica pode variar. Você pode personalizar as faixas da sua fazenda no menu de configurações.
           </div>
 
           <p class="farm-energy__lead">
-            Selecione o padr?o que melhor te atende baseado nas faixas de energia por hor?rio da sua regi?o
+            Selecione o padrão que melhor te atende baseado nas faixas de energia por horário da sua região
           </p>
 
           <div class="farm-energy__grid">
             <button class="farm-energy__card" type="button" data-energy-card aria-pressed="false">
               <span class="farm-energy__card-title">Ponta entre 17:00 e 20:00</span>
-              <span class="farm-energy__card-desc">Define hor?rio de ponta entre 17:00 e 20:00 durante dias ?teis.</span>
+              <span class="farm-energy__card-desc">Define horário de ponta entre 17:00 e 20:00 durante dias úteis.</span>
             </button>
 
             <button class="farm-energy__card" type="button" data-energy-card aria-pressed="false">
               <span class="farm-energy__card-title">Ponta entre 18:00 e 21:00</span>
-              <span class="farm-energy__card-desc">Define hor?rio de ponta entre 18:00 e 21:00 durante dias ?teis.</span>
+              <span class="farm-energy__card-desc">Define horário de ponta entre 18:00 e 21:00 durante dias úteis.</span>
             </button>
 
             <button class="farm-energy__card is-selected" type="button" data-energy-card aria-pressed="true">
               <span class="farm-energy__card-title">Personalizado</span>
-              <span class="farm-energy__card-desc">Personalize mais tarde no menu de configura??es da sua fazenda.</span>
+              <span class="farm-energy__card-desc">Personalize mais tarde no menu de configurações da sua fazenda.</span>
             </button>
           </div>
         </div>
@@ -553,7 +563,7 @@
           <div class="farm-location__row">
             <div class="equip-field farm-location__field">
               <label class="equip-label" for="farmLocationInput">
-                <span>Localiza??o da fazenda</span>
+                <span>Localização da fazenda</span>
                 <span class="equip-required">*</span>
               </label>
               <div class="farm-location__input">
@@ -574,7 +584,7 @@
 
             <button class="equip-btn equip-btn--primary farm-location__btn" type="button" data-location-btn>
               <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
-              <span>Obter Localiza??o</span>
+              <span>Obter Localização</span>
             </button>
           </div>
 

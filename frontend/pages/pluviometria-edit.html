@@ -1,4 +1,4 @@
-<section class="pluv-edit" id="pluvEditPanel" aria-label="Editar pluviômetro">
+﻿<section class="pluv-edit" id="pluvEditPanel" aria-label="Editar pluviômetro">
   <div class="pluv-edit__crumbs">Pluviometria / <strong>Editar Pluviômetro</strong></div>
 
   <div class="pluv-edit__titlebar">
@@ -10,7 +10,8 @@
     <div class="pluv-edit__actions">
       <div class="pluv-edit__select-wrap">
         <div class="pluv-edit__select-field" data-pluv-select>
-          <button class="pluv-edit__select-btn" type="button" id="pluvEditSelectBtn" data-pluv-select-trigger aria-expanded="false" aria-label="Selecionar pluviômetro"></button>
+          <button class="pluv-edit__select-btn" type="button" id="pluvEditSelectBtn" data-pluv-select-trigger
+            aria-expanded="false" aria-label="Selecionar pluviômetro"></button>
           <i class="fa-solid fa-chevron-down"></i>
           <div class="pluv-edit__select-menu" role="listbox" id="pluvEditSelectMenu" data-pluv-menu="pluvio"></div>
         </div>
@@ -31,13 +32,12 @@
     <div class="pluv-edit__body">
       <aside class="pluv-edit__nav" aria-label="Atalhos">
         <button class="pluv-edit__nav-item is-active" type="button" data-target="#pluvEditGeneral">Geral</button>
-        <button class="pluv-edit__nav-item" type="button" data-target="#pluvEditLocation">Localização e Associação</button>
+        <button class="pluv-edit__nav-item" type="button" data-target="#pluvEditLocation">Localização</button>
+        <button class="pluv-edit__nav-item" type="button" data-target="#pluvEditAssociation">Associação</button>
         <button class="pluv-edit__nav-item" type="button" data-target="#pluvEditMaintenance">Manutenção</button>
         <button class="pluv-edit__nav-item" type="button" data-target="#pluvEditSensors">Sensores</button>
         <button class="pluv-edit__nav-item" type="button" data-target="#pluvEditRedundancy">Redundância</button>
-        <button class="pluv-edit__nav-item" type="button" data-target="#pluvEditComms">Comunicação</button>
         <button class="pluv-edit__nav-item" type="button" data-target="#pluvEditFirmware">Firmware (OTA)</button>
-        <button class="pluv-edit__nav-item" type="button" data-target="#pluvEditDaily">Mensagem Diária</button>
         <div class="pluv-edit__nav-dev">
           <div class="maint__dev">
             <div class="maint__dev-title">Dev Mode</div>
@@ -89,31 +89,25 @@
                 <label>Rede</label>
                 <input class="pluv-edit__input" id="pluvEditNetwork" type="text" value="" />
               </div>
-            <div class="pluv-edit__field">
-              <label>Tipo de pluviômetro</label>
-              <div class="pluv-edit__select-field">
-                <button class="pluv-edit__select-btn" type="button" data-edit-select="type" aria-expanded="false"></button>
-                <i class="fa-solid fa-chevron-down"></i>
-                <div class="pluv-edit__select-menu" role="listbox" data-edit-menu="type"></div>
+              <div class="pluv-edit__field">
+                <label>Tipo de pluviômetro</label>
+                <div class="pluv-edit__select-field">
+                  <button class="pluv-edit__select-btn" type="button" data-edit-select="type"
+                    aria-expanded="false"></button>
+                  <i class="fa-solid fa-chevron-down"></i>
+                  <div class="pluv-edit__select-menu" role="listbox" data-edit-menu="type"></div>
+                </div>
               </div>
-            </div>
-            <div class="pluv-edit__field">
-              <label>Alimentação</label>
-              <div class="pluv-edit__select-field">
-                <button class="pluv-edit__select-btn" type="button" data-edit-select="power" aria-expanded="false"></button>
-                <i class="fa-solid fa-chevron-down"></i>
-                <div class="pluv-edit__select-menu" role="listbox" data-edit-menu="power"></div>
+              <div class="pluv-edit__field">
+                <label>Alimentação</label>
+                <div class="pluv-edit__select-field">
+                  <button class="pluv-edit__select-btn" type="button" data-edit-select="power"
+                    aria-expanded="false"></button>
+                  <i class="fa-solid fa-chevron-down"></i>
+                  <div class="pluv-edit__select-menu" role="listbox" data-edit-menu="power"></div>
+                </div>
+                <span class="pluv-edit__field-hint" id="pluvEditPowerState">Estado: —</span>
               </div>
-              <span class="pluv-edit__field-hint" id="pluvEditPowerState">Estado: —</span>
-            </div>
-            <div class="pluv-edit__field">
-              <label>Unidade de medida</label>
-              <div class="pluv-edit__select-field">
-                <button class="pluv-edit__select-btn" type="button" data-edit-select="unit" aria-expanded="false"></button>
-                <i class="fa-solid fa-chevron-down"></i>
-                <div class="pluv-edit__select-menu" role="listbox" data-edit-menu="unit"></div>
-              </div>
-            </div>
               <div class="pluv-edit__field pluv-edit__field--span">
                 <label>Uso na plataforma</label>
                 <div class="pluv-edit__checks">
@@ -140,17 +134,13 @@
           <div class="pluv-edit__location">
             <div class="pluv-edit__location-left">
               <div class="pluv-edit__map" id="pluvEditMap" aria-label="Mapa de localização"></div>
-
-              <div class="pluv-edit__location-assoc">
-                <div class="pluv-edit__location-title">Associação de pivôs</div>
-                <div class="pluv-edit__checks pluv-edit__checks--stack" id="pluvEditPivotList"></div>
-              </div>
             </div>
 
             <div class="pluv-edit__location-form">
               <div class="pluv-edit__location-block">
                 <div class="pluv-edit__location-title">Localização</div>
-                <p>A localização em campo do pluviômetro é essencial para mostrar geograficamente no mapa a posição do equipamento.</p>
+                <p>A localização em campo do pluviômetro é essencial para mostrar geograficamente no mapa a posição do
+                  equipamento.</p>
               </div>
 
               <div class="pluv-edit__field">
@@ -167,13 +157,70 @@
           </div>
         </section>
 
+        <section class="pluv-edit__section" id="pluvEditAssociation">
+          <div class="pluv-edit__section-title">Associação</div>
+          <p class="pluv-edit__section-head-p" style="margin-bottom: 12px; font-size: 11px; color:#64748b;">
+            Gerencie a associação entre pluviômetros e talhões. Selecione os pluviômetros na lista para visualizar e
+            vincular.
+          </p>
+
+          <div class="pluv-assoc-layout">
+            <aside class="pluv-assoc__sidebar pluv-assoc__sidebar--left">
+              <div class="pluv-assoc__ctx">
+                <div class="pluv-assoc__ctx-head">
+                  <span class="pluv-assoc__ctx-title">Talhões</span>
+                  <div style="display:flex; gap:6px; align-items:center;">
+                    <button type="button" id="btnAutoAssoc" class="pluv-edit__btn"
+                      style="padding:4px 8px; font-size:11px;" title="Associar Automaticamente">
+                      <i class="fa-solid fa-wand-magic-sparkles"></i> Auto
+                    </button>
+                    <span class="pluv-assoc__ctx-badge" id="pluvTalhoesCount">0</span>
+                  </div>
+                </div>
+              </div>
+              <div class="pluv-assoc__list" id="pluvTalhoesList">
+                <div class="pluv-assoc__empty">Carregando...</div>
+              </div>
+            </aside>
+
+            <div class="pluv-assoc__map-wrapper">
+              <div id="pluvAssocMap" class="pluv-assoc__map"></div>
+            </div>
+
+            <aside class="pluv-assoc__sidebar">
+              <div class="pluv-assoc__ctx">
+                <div class="pluv-assoc__ctx-head">
+                  <span class="pluv-assoc__ctx-title">Pluviômetros</span>
+                  <span class="pluv-assoc__ctx-badge" id="pluvAssocCount">0</span>
+                </div>
+                <div class="pluv-assoc__search">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input type="text" placeholder="Buscar pluviômetro..." id="pluvAssocSearch">
+                </div>
+              </div>
+
+              <div class="pluv-assoc__list" id="pluvAssocList">
+                <!-- Mock Items for Visual -->
+                <div class="pluv-assoc__item">
+                  <div class="pluv-assoc__item-row">
+                    <span class="pluv-assoc__item-name">Norte A</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </div>
+                  <div class="pluv-assoc__item-meta">Sem associação</div>
+                </div>
+                <!-- List will be populated by JS later -->
+              </div>
+            </aside>
+          </div>
+        </section>
+
         <section class="pluv-edit__section" id="pluvEditMaintenance">
           <div class="pluv-edit__section-title">Manutenção</div>
           <div class="pluv-edit__section-body" data-section-body="maintenance"></div>
 
           <div class="pluv-edit__maintenance-history-card">
             <div class="pluv-edit__maintenance-history-head">
-              <p>📜 Histórico de manutenções</p>
+              <p>ðŸ“œ Histórico de manutenções</p>
               <button class="pluv-edit__history-cta" type="button">
                 <span></span>
                 <span>Ver histórico completo</span>
@@ -184,7 +231,8 @@
               <li class="pluv-edit__maintenance-history-item">
                 <div class="pluv-edit__history-top">
                   <span class="pluv-edit__history-date">08/01/2026</span>
-              <span class="pluv-pill pluv-pill--ok pluv-edit__history-pill pluv-edit__history-pill--ok">✅ Confirmado no dispositivo</span>
+                  <span class="pluv-pill pluv-pill--ok pluv-edit__history-pill pluv-edit__history-pill--ok">âœ…
+                    Confirmado no dispositivo</span>
                 </div>
                 <div class="pluv-edit__history-meta">
                   <span>Tipo realizado: Verificação periódica</span>
@@ -195,7 +243,8 @@
               <li class="pluv-edit__maintenance-history-item">
                 <div class="pluv-edit__history-top">
                   <span class="pluv-edit__history-date">26/12/2025</span>
-              <span class="pluv-pill pluv-pill--warn pluv-edit__history-pill pluv-edit__history-pill--warn">⚠️ Corretiva fora do ciclo</span>
+                  <span class="pluv-pill pluv-pill--warn pluv-edit__history-pill pluv-edit__history-pill--warn">âš ï¸
+                    Corretiva fora do ciclo</span>
                 </div>
                 <div class="pluv-edit__history-meta">
                   <span>Tipo realizado: Troca de sensor</span>
@@ -206,7 +255,8 @@
               <li class="pluv-edit__maintenance-history-item">
                 <div class="pluv-edit__history-top">
                   <span class="pluv-edit__history-date">14/11/2025</span>
-              <span class="pluv-pill pluv-pill--ok pluv-edit__history-pill pluv-edit__history-pill--ok">✅ Confirmado no dispositivo</span>
+                  <span class="pluv-pill pluv-pill--ok pluv-edit__history-pill pluv-edit__history-pill--ok">âœ…
+                    Confirmado no dispositivo</span>
                 </div>
                 <div class="pluv-edit__history-meta">
                   <span>Tipo realizado: Calibração de leitura</span>
@@ -227,26 +277,54 @@
           <div class="pluv-edit__section-body" data-section-body="redundancy"></div>
         </section>
 
-        <section class="pluv-edit__section" id="pluvEditComms">
-          <div class="pluv-edit__section-title">Comunicação</div>
-          <div class="pluv-edit__section-body">
-            <div class="pluv-edit__empty">Em breve</div>
-          </div>
-        </section>
-
         <section class="pluv-edit__section" id="pluvEditFirmware">
           <div class="pluv-edit__section-title">Firmware (OTA)</div>
           <div class="pluv-edit__section-body">
-            <div class="pluv-edit__empty">Em breve</div>
+            <div class="pluv-fw">
+              <div class="pluv-fw__header">
+                <div class="pluv-fw__title">
+                  <span class="pluv-fw__icon">
+                    <i class="fa-solid fa-download"></i>
+                  </span>
+                  <div class="pluv-fw__title-text">
+                    <span class="pluv-fw__name">Firmware (OTA)</span>
+                    <span class="pluv-fw__sub">Atualização remota do pluviômetro</span>
+                  </div>
+                </div>
+                <button class="pluv-fw__toggle" type="button" aria-label="Recolher">
+                  <i class="fa-solid fa-chevron-up"></i>
+                </button>
+              </div>
+              <div class="pluv-fw__body">
+                <div class="pluv-fw__version-row">
+                  <div class="pluv-fw__version">
+                    <span class="pluv-fw__label">Versão atual</span>
+                    <strong class="pluv-fw__value">2.4.1</strong>
+                  </div>
+                  <div class="pluv-fw__version pluv-fw__version--right">
+                    <span class="pluv-fw__pill">Nova versão disponível</span>
+                    <strong class="pluv-fw__value">2.5.0</strong>
+                  </div>
+                </div>
+                <button class="pluv-fw__cta" type="button">
+                  <i class="fa-solid fa-arrow-down-to-line"></i>
+                  Atualizar para 2.5.0
+                </button>
+                <div class="pluv-fw__last">
+                  <span class="pluv-fw__last-label">Última tentativa</span>
+                  <div class="pluv-fw__last-row">
+                    <span class="pluv-fw__badge">
+                      <i class="fa-solid fa-circle-check"></i>
+                      Sucesso
+                    </span>
+                    <span class="pluv-fw__date">07/02/2026</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section class="pluv-edit__section" id="pluvEditDaily">
-          <div class="pluv-edit__section-title">Mensagem Diária</div>
-          <div class="pluv-edit__section-body">
-            <div class="pluv-edit__empty">Em breve</div>
-          </div>
-        </section>
       </div>
     </div>
   </div>

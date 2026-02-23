@@ -1,4 +1,4 @@
-// assets/js/pages/create-farm/feature.events.js
+﻿// assets/js/pages/create-farm/feature.events.js
 (function initCreateFarmEvents() {
   "use strict";
 
@@ -11,6 +11,32 @@
   const render = view.render || {};
   const viewMap = view.map || {};
   const events = (CreateFarm.events = CreateFarm.events || {});
+
+  const ACTIVE_FARM_STORAGE_KEY = "ic_active_farm";
+  const MAP_CARD_ACTIVE_CLASS = "is-farm-active";
+
+  function getSavedFarmId() {
+    try {
+      return localStorage.getItem(ACTIVE_FARM_STORAGE_KEY);
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function setMapCardActive(isActive) {
+    const mapCard = document.getElementById("mapCard");
+    if (!mapCard) return;
+    mapCard.classList.toggle(MAP_CARD_ACTIVE_CLASS, !!isActive);
+  }
+
+  function setSavedFarmId(farmId) {
+    try {
+      if (farmId) localStorage.setItem(ACTIVE_FARM_STORAGE_KEY, farmId);
+      else localStorage.removeItem(ACTIVE_FARM_STORAGE_KEY);
+    } catch (err) {
+      // ignore storage failures (private mode, blocked, etc.)
+    }
+  }
 
   function bindFarmSelectGlobalEvents() {
     if (state.farmSelectListenersBound) return;
@@ -249,18 +275,78 @@
     });
   }
 
+  const API_TOAST_MESSAGE = "Servidor local offline. Inicie o backend para salvar fazendas.";
+
+  function getApiToast() {
+    return document.getElementById("farmApiToast");
+  }
+
+  function showApiToast(message) {
+    const toast = getApiToast();
+    if (!toast) return;
+    const text = toast.querySelector("[data-toast-text]");
+    if (text && message) text.textContent = message;
+    toast.classList.add("is-visible");
+    toast.setAttribute("aria-hidden", "false");
+  }
+
+  function hideApiToast() {
+    const toast = getApiToast();
+    if (!toast) return;
+    toast.classList.remove("is-visible");
+    toast.setAttribute("aria-hidden", "true");
+  }
+
   function loadFarms() {
-    try {
-      const raw = localStorage.getItem(rules.FARM_STORAGE_KEY);
-      state.farms = raw ? JSON.parse(raw) : [];
-      if (!Array.isArray(state.farms)) state.farms = [];
-    } catch (e) {
-      state.farms = [];
-    }
+    return fetch(rules.FARM_API_URL, { headers: { Accept: "application/json" } })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then((payload) => {
+        const farms = Array.isArray(payload) ? payload : payload?.farms;
+        state.farms = Array.isArray(farms) ? farms : [];
+        try { localStorage.setItem("ic_farms", JSON.stringify(state.farms)); } catch (_) { }
+        hideApiToast();
+      })
+      .catch((err) => {
+        console.warn("[CreateFarm] Falha ao carregar fazendas da API.", err);
+        try {
+          const stored = JSON.parse(localStorage.getItem("ic_farms") || "[]");
+          if (Array.isArray(stored) && stored.length > 0) {
+            state.farms = stored;
+            console.log("[CreateFarm] Usando backup local de fazendas.");
+          } else {
+            state.farms = [];
+          }
+        } catch (e) {
+          state.farms = [];
+        }
+        showApiToast(API_TOAST_MESSAGE + (state.farms.length > 0 ? " (Modo Offline)" : ""));
+      });
   }
 
   function saveFarms() {
-    localStorage.setItem(rules.FARM_STORAGE_KEY, JSON.stringify(state.farms));
+    return fetch(rules.FARM_API_URL, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state.farms),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json().catch(() => null);
+      })
+      .then((payload) => {
+        const farms = Array.isArray(payload) ? payload : payload?.farms;
+        if (Array.isArray(farms)) state.farms = farms;
+        try { localStorage.setItem("ic_farms", JSON.stringify(state.farms)); } catch (_) { }
+        hideApiToast();
+      })
+      .catch((err) => {
+        console.warn("[CreateFarm] Falha ao salvar fazendas na API.", err);
+        try { localStorage.setItem("ic_farms", JSON.stringify(state.farms)); } catch (_) { }
+        showApiToast(API_TOAST_MESSAGE);
+      });
   }
 
   function ensureDefaultFarm() {
@@ -281,12 +367,21 @@
       name: title,
       lat,
       lng,
+      loc: state.farmState.loc || "",
+      clientName: (state.farmState.clientName || state.farmBillingState.legalName || "").trim(),
+      energyBillDay: state.farmState.energyBillDay || "",
+      waterBillDay: state.farmState.waterBillDay || "",
+      timezone: state.farmState.timezone || "",
+      hasCentral: !!state.farmState.hasCentral,
+      centralRadio: state.farmState.centralRadio || "",
     };
 
     state.farms.push(farm);
     saveFarms();
     viewMap.addFarmMarker?.(farm);
     state.currentFarmId = farm.id;
+    setSavedFarmId(state.currentFarmId);
+    setMapCardActive(true);
     setters.setActiveFarmSnapshot?.(farm);
     render.renderFarmList?.(state.farmSearchInput ? state.farmSearchInput.value : "");
     return farm;
@@ -294,6 +389,8 @@
 
   function clearFarmSelection() {
     state.currentFarmId = null;
+    setSavedFarmId(null);
+    setMapCardActive(false);
     setters.clearActiveFarmSnapshot?.();
     if (state.farmSearchHost) state.farmSearchHost.classList.remove("has-selection");
     if (state.farmSearchInput) delete state.farmSearchInput.dataset.selected;
@@ -331,14 +428,15 @@
     const farm = state.farms.find((item) => item.id === farmId);
     if (!farm) return;
     state.currentFarmId = farmId;
+    setSavedFarmId(farmId);
+    setMapCardActive(true);
     setters.setActiveFarmSnapshot?.(farm);
     viewMap.clearFarmMarkers?.();
     viewMap.addFarmMarker?.(farm);
     if (window.icMap) {
       window.icMap.setView([farm.lat, farm.lng], 16);
     }
-    const marker = state.farmMarkers.get(farmId);
-    if (marker) marker.openPopup();
+    // Sem popup do marcador da fazenda.
     if (state.mapCardTitle) state.mapCardTitle.textContent = farm.name;
     if (state.farmSearchInput) {
       state.farmSearchInput.value = farm.name;
@@ -354,13 +452,23 @@
 
   function initFarmList() {
     if (!state.farmListHost && !window.icMap) return;
-    loadFarms();
-    if (!state.currentFarmId) {
-      render.clearEquipmentPanels?.();
-      window.IcMapClearPivots?.();
-      viewMap.clearFarmMarkers?.();
-    }
-    render.renderFarmList?.(state.farmSearchInput ? state.farmSearchInput.value : "");
+    loadFarms().then(() => {
+      const savedFarmId = getSavedFarmId();
+      const savedFarm = savedFarmId ? state.farms.find((item) => item.id === savedFarmId) : null;
+      if (!state.currentFarmId && savedFarm) {
+        render.renderFarmList?.(state.farmSearchInput ? state.farmSearchInput.value : "");
+        selectFarm(savedFarm.id);
+        return;
+      }
+      if (!state.currentFarmId) {
+        render.clearEquipmentPanels?.();
+        window.IcMapClearPivots?.();
+        viewMap.clearFarmMarkers?.();
+        setMapCardActive(false);
+      }
+      render.renderFarmList?.(state.farmSearchInput ? state.farmSearchInput.value : "");
+    });
+
     if (state.farmSearchInput) {
       state.farmSearchInput.addEventListener("focus", () => {
         openFarmPanel();
@@ -399,6 +507,13 @@
       name,
       lat,
       lng,
+      loc: state.farmState.loc || "",
+      clientName: (state.farmState.clientName || state.farmBillingState.legalName || "").trim(),
+      energyBillDay: state.farmState.energyBillDay || "",
+      waterBillDay: state.farmState.waterBillDay || "",
+      timezone: state.farmState.timezone || "",
+      hasCentral: !!state.farmState.hasCentral,
+      centralRadio: state.farmState.centralRadio || "",
     };
 
     state.farms.push(farm);
@@ -418,6 +533,12 @@
     state.farmBillingState.neighborhood = root.querySelector('[data-field="neighborhood"] [data-input]')?.value || "";
     state.farmBillingState.region = root.querySelector("[data-region-input]")?.value || "";
     state.farmBillingState.regionCode = root.querySelector("[data-region-select]")?.value || "";
+    state.farmBillingState.legalName = root.querySelector("#farmBillingName")?.value || "";
+    state.farmBillingState.docType = root.querySelector("#farmBillingDocType")?.value || "";
+    state.farmBillingState.docNumber = root.querySelector("#farmBillingDocNumber")?.value || "";
+    state.farmBillingState.phone = root.querySelector("#farmBillingPhone")?.value || "";
+    state.farmBillingState.email = root.querySelector("#farmBillingEmail")?.value || "";
+    state.farmState.clientName = state.farmBillingState.legalName || state.farmState.clientName || "";
   }
 
   function applyBillingState(root) {
@@ -440,6 +561,11 @@
     setValue('[data-field="city"] [data-input]', state.farmBillingState.city);
     setValue('[data-field="address"] [data-input]', state.farmBillingState.address);
     setValue('[data-field="neighborhood"] [data-input]', state.farmBillingState.neighborhood);
+    setValue("#farmBillingName", state.farmBillingState.legalName);
+    setValue("#farmBillingDocType", state.farmBillingState.docType);
+    setValue("#farmBillingDocNumber", state.farmBillingState.docNumber);
+    setValue("#farmBillingPhone", state.farmBillingState.phone);
+    setValue("#farmBillingEmail", state.farmBillingState.email);
 
     const regionSelect = root.querySelector("[data-region-select]");
     const regionInput = root.querySelector("[data-region-input]");
@@ -599,11 +725,126 @@
 
   function bindGeneralStep() {
     const nameInput = state.bodyHost.querySelector("[data-farm-name]");
-    if (!nameInput) return;
-    nameInput.value = state.farmState.name || "";
-    nameInput.addEventListener("input", () => {
-      state.farmState.name = nameInput.value;
+    const energyInput = state.bodyHost.querySelector("[data-farm-energy-day]");
+    const waterInput = state.bodyHost.querySelector("[data-farm-water-day]");
+    const timezoneSelect = state.bodyHost.querySelector("[data-farm-timezone]");
+    const centralToggle = state.bodyHost.querySelector("[data-farm-has-central]");
+
+    if (nameInput) {
+      nameInput.value = state.farmState.name || "";
+      nameInput.addEventListener("input", () => {
+        state.farmState.name = nameInput.value;
+      });
+    }
+
+    if (energyInput) {
+      energyInput.value = state.farmState.energyBillDay || "";
+      energyInput.addEventListener("input", () => {
+        state.farmState.energyBillDay = energyInput.value;
+      });
+    }
+
+    if (waterInput) {
+      waterInput.value = state.farmState.waterBillDay || "";
+      waterInput.addEventListener("input", () => {
+        state.farmState.waterBillDay = waterInput.value;
+      });
+    }
+
+    if (timezoneSelect) {
+      timezoneSelect.value = state.farmState.timezone || timezoneSelect.value || "America/Sao_Paulo";
+      state.farmState.timezone = timezoneSelect.value;
+      timezoneSelect.addEventListener("change", () => {
+        state.farmState.timezone = timezoneSelect.value;
+      });
+    }
+
+    if (centralToggle) {
+      centralToggle.checked = !!state.farmState.hasCentral;
+      centralToggle.addEventListener("change", () => {
+        state.farmState.hasCentral = centralToggle.checked;
+      });
+    }
+  }
+
+  function getPluvioCoords(data, farm) {
+    const lat = helpers.toNumber?.(data?.lat);
+    const lng = helpers.toNumber?.(data?.lng);
+    if (Number.isFinite(lat) && Number.isFinite(lng)) return { lat, lng };
+    const parsed = helpers.parseLatLngText?.(data?.loc);
+    if (parsed) return parsed;
+    if (farm && Number.isFinite(farm.lat) && Number.isFinite(farm.lng)) {
+      return { lat: farm.lat, lng: farm.lng };
+    }
+    return null;
+  }
+
+  function addPluvioToPluviometria(equipItem, farm) {
+    if (!equipItem || equipItem.type !== "pluviometro") return;
+    const plvData = window.Plv?.data;
+    if (!plvData) return;
+
+    const list = Array.isArray(plvData.PLUVIOS) ? plvData.PLUVIOS : (plvData.PLUVIOS = []);
+    const equipId = equipItem.id;
+    const serial = equipItem.data?.serial || "";
+    const exists = list.some((p) => p.sourceEquipId === equipId || p.id === equipId || (serial && p.serial === serial));
+    if (exists) return;
+
+    const coords = getPluvioCoords(equipItem.data || {}, farm);
+    if (!coords) return;
+
+    const name = equipItem.name || equipItem.data?.nome || "Pluviometro";
+    const sub = equipItem.data?.sub || "Talhao nao informado";
+
+    const pluvioId = equipId || `pluv_${Date.now()}`;
+
+    list.push({
+      id: pluvioId,
+      sourceEquipId: equipId || null,
+      serial,
+      nome: name,
+      sub,
+      pivos: [],
+      pivosAssoc: [],
+      lat: coords.lat,
+      lng: coords.lng,
+      status: "none",
+      statusLabel: "Sem chuva no momento",
+      statusMeta: "sem dados",
+      mm: 0,
+      intensidade: "Sem chuva",
+      intensidadeMeta: "",
+      updated: "Recem cadastrado",
+      unidade: "mm",
+      uso: { irrigacao: false, alertas: false, relatorios: false },
+      semComunicacao: false,
     });
+
+    plvData.PLUV_SENSORS = plvData.PLUV_SENSORS || {};
+    if (!plvData.PLUV_SENSORS[pluvioId]) {
+      plvData.PLUV_SENSORS[pluvioId] = {
+        model: "",
+        pulse: "0.000",
+        thresholdMin: 0,
+        thresholdMinMinutes: 0,
+      };
+    }
+
+    plvData.PLUV_REDUNDANCY = plvData.PLUV_REDUNDANCY || {};
+    if (!plvData.PLUV_REDUNDANCY[pluvioId]) {
+      plvData.PLUV_REDUNDANCY[pluvioId] = { limit: 10, alertAuto: false };
+    }
+
+    if (helpers.isPluviometriaActive?.()) {
+      const plv = window.Plv;
+      plv?.cards?.renderCards?.();
+      plv?.cards?.syncSelectionUI?.();
+      plv?.views?.map?.renderMarkers?.();
+      plv?.views?.data?.renderData?.();
+      plv?.maintenance?.renderMaintenanceCards?.();
+      plv?.views?.edit?.renderEditSelect?.();
+      plv?.views?.edit?.renderEditSummary?.();
+    }
   }
 
   function addEquipmentToFarm(equipPayload) {
@@ -613,6 +854,8 @@
     if (!farm) farm = ensureDefaultFarm();
     if (!farm) return;
     if (!state.currentFarmId) state.currentFarmId = farm.id;
+    setSavedFarmId(state.currentFarmId);
+    setMapCardActive(true);
     setters.setActiveFarmSnapshot?.(farm);
 
     const type = equipPayload.type;
@@ -631,6 +874,7 @@
 
     farm.equipments = farm.equipments || [];
     farm.equipments.push(equipItem);
+    addPluvioToPluviometria(equipItem, farm);
     saveFarms();
     render.renderEquipmentPanels?.(farm);
     if (window.IcMapRenderPivots) window.IcMapRenderPivots(farm);
@@ -658,6 +902,12 @@
     state.modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("is-modal-open");
     state.farmState.name = "";
+    state.farmState.clientName = "";
+    state.farmState.energyBillDay = "";
+    state.farmState.waterBillDay = "";
+    state.farmState.timezone = "America/Sao_Paulo";
+    state.farmState.hasCentral = false;
+    state.farmState.centralRadio = "";
     state.farmState.loc = "";
     state.farmState.lat = -22.008419;
     state.farmState.lng = -46.812567;

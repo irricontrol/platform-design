@@ -23,12 +23,12 @@
 .create-equip__dialog{
   position: relative;
   z-index: 1;
-  width: min(950px, calc(100vw - 48px));
+  width: min(720px, calc(100vw - 80px));
   max-height: calc(100vh - 56px);
   overflow: auto;
   margin: 0;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 10px;
   border: 1px solid #e6ebf0;
   box-shadow: 0 24px 48px rgba(6, 24, 39, 0.22);
   padding: 22px 26px 20px;
@@ -176,10 +176,10 @@
   display: grid;
   grid-template-columns: 78px 1fr;
   align-items: center;
-  gap: 10px;
-  min-height: 140px;
+  gap: 2px;
+  min-height: 120px;
   text-align: left;
-  padding: 10px 12px;
+  padding: 8px 10px;
   cursor: pointer;
   transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
   border-radius: var(--radius-sm);
@@ -213,7 +213,7 @@
 .create-equip__card-body{
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 .create-equip__card-title{
   font-weight: 600;
@@ -473,7 +473,7 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .mod-panel__badge{
-  font-weight: 600;
+  font-weight: 400;
   color:#16a34a;
   background: rgba(22,163,74,.12);
   padding: 4px 8px;
@@ -496,7 +496,7 @@ body.is-modal-open{ overflow: hidden; }
   display:inline-flex;
   align-items:center;
   gap: 6px;
-  font-weight: 600;
+  font-weight: 400;
 }
 .mod-stat__dot{
   width: 6px;
@@ -509,15 +509,15 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .func-list{
-  padding: 12px 14px 14px;
+  padding: 8px 10px 10px;
 }
 
 .func-row{
   display:grid;
   grid-template-columns: 1fr auto;
   align-items:center;
-  gap: 12px;
-  padding: 10px 12px;
+  gap: 10px;
+  padding: 6px 8px;
   background:#fff;
 }
 
@@ -536,18 +536,19 @@ body.is-modal-open{ overflow: hidden; }
   display:flex;
   align-items:center;
   justify-content:center;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex: 0 0 auto;
 }
 .func-row__check input{
   appearance: none;
   width: 18px;
   height: 18px;
-  border-radius: 4px;
+  border-radius: 2px;
   border: 1.5px solid #cbd5e1;
   background: #fff;
   position: relative;
+  box-sizing: border-box;
   cursor: pointer;
 }
 .func-row__check input:checked{
@@ -560,25 +561,25 @@ body.is-modal-open{ overflow: hidden; }
 }
 .func-row__check input:checked + .func-row__checkmark::after{
   content: "";
-  position: absolute;
-  width: 7px;
-  height: 11px;
+  width: 6px;
+  height: 10px;
   border: 2px solid #fff;
   border-top: 0;
   border-left: 0;
-  transform: rotate(45deg);
-  left: 6px;
-  top: 1px;
+  transform: translateY(-1px) rotate(45deg);
 }
 .func-row__checkmark{
   position: absolute;
   inset: 0;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .func-row__ico{
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border-radius: 10px;
   background: #f1f5f9;
   color:#94a3b8;
@@ -586,7 +587,7 @@ body.is-modal-open{ overflow: hidden; }
   align-items:center;
   justify-content:center;
   flex: 0 0 auto;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .func-row__text{
@@ -597,7 +598,7 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .func-row__title{
-  font-weight: 500;
+  font-weight: 400;
   color:#0f172a;
   font-size: 13px;
 }
@@ -607,7 +608,7 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .func-row__badge{
-  font-weight: 600;
+  font-weight: 400;
   color:#b45309;
   background: rgba(245,158,11,.2);
   padding: 2px 8px;
@@ -618,8 +619,8 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .func-row__select{
-  min-width: 180px;
-  padding: 8px 10px;
+  min-width: 160px;
+  padding: 6px 8px;
 }
 
 .func-row.is-active{
@@ -676,10 +677,10 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 /* =========================================================
-   MINI MAP (Step 2 - Cadastro Inicial)
+   MINI MAP (Step 2 - Localização)
    ========================================================= */
 .equip-mini-map{
-  height: 280px;
+  height: 450px;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
   overflow: hidden;
@@ -698,21 +699,21 @@ body.is-modal-open{ overflow: hidden; }
 .sc-loc{
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .sc-loc__field{
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .sc-loc__label{
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11.5px;
+  font-weight: 400;
   color: #0f172a;
 }
 .sc-loc__label i{
@@ -723,7 +724,7 @@ body.is-modal-open{ overflow: hidden; }
 .sc-loc__row{
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -739,7 +740,7 @@ body.is-modal-open{ overflow: hidden; }
   font-size: 12px;
 }
 .sc-loc__input .equip-input{
-  padding-left: 28px;
+  padding-left: 36px;
 }
 
 .sc-loc__btn{
@@ -764,12 +765,13 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .sc-loc__hint{
-  font-size: 12px;
+  font-size: 11.5px;
+  line-height: 1.2;
   color: #64748b;
 }
 
 .sc-loc__map{
-  height: 360px;
+  height: 440px;
 }
 
 .pivot-pin{
@@ -795,19 +797,25 @@ body.is-modal-open{ overflow: hidden; }
 .st-loc{
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  --st-loc-btn-width: 150px;
+  --st-loc-gap: 8px;
 }
 
 .st-loc__field{
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
+}
+
+.st-loc__field--radius{
+  max-width: calc(100% - var(--st-loc-btn-width) - var(--st-loc-gap));
 }
 
 .st-loc__row{
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 10px;
+  gap: var(--st-loc-gap);
   align-items: center;
 }
 
@@ -823,7 +831,7 @@ body.is-modal-open{ overflow: hidden; }
   font-size: 12px;
 }
 .st-loc__input .equip-input{
-  padding-left: 28px;
+  padding-left: 36px;
 }
 
 .st-loc__btn{
@@ -835,14 +843,23 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .st-loc__map{
-  height: 360px;
+  height: 460px;
+}
+
+.st-loc .equip-label{
+  font-weight: 400;
+}
+
+.st-loc .equip-input,
+.st-loc select.equip-input{
+  border-radius: var(--ce-control-radius);
 }
 
 .st-input-group{
   display: flex;
   align-items: stretch;
   border: 1px solid rgba(15,23,42,.12);
-  border-radius: 12px;
+  border-radius: var(--ce-control-radius);
   overflow: hidden;
   background: #ffffff;
   transition: border-color .15s ease, box-shadow .15s ease;
@@ -906,19 +923,19 @@ body.is-modal-open{ overflow: hidden; }
 .rp-loc{
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .rp-loc__field{
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .rp-loc__row{
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -934,7 +951,7 @@ body.is-modal-open{ overflow: hidden; }
   font-size: 12px;
 }
 .rp-loc__input .equip-input{
-  padding-left: 28px;
+  padding-left: 36px;
 }
 
 .rp-loc__btn{
@@ -946,7 +963,7 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .rp-loc__map{
-  height: 360px;
+  height: 440px;
 }
 
 .rp-pin{
@@ -1263,6 +1280,9 @@ body.is-modal-open{ overflow: hidden; }
   .st-loc__btn{
     width: 100%;
   }
+  .st-loc__field--radius{
+    max-width: 100%;
+  }
 }
 /* =========================================================
    SMARTCONNECT — STEP 3 (CONFIGURAÇÃO)
@@ -1271,6 +1291,13 @@ body.is-modal-open{ overflow: hidden; }
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+.sc-config .equip-label{
+  font-weight: 400;
+}
+.sc-config .equip-input,
+.sc-config select.equip-input{
+  border-radius: var(--ce-control-radius);
 }
 
 .sc-config__grid{
@@ -1349,7 +1376,7 @@ body.is-modal-open{ overflow: hidden; }
   display: flex;
   align-items: stretch;
   border: 1px solid rgba(15,23,42,.12);
-  border-radius: 12px;
+  border-radius: var(--ce-control-radius);
   overflow: hidden;
   background: #ffffff;
   transition: border-color .15s ease, box-shadow .15s ease;
@@ -1405,15 +1432,44 @@ body.is-modal-open{ overflow: hidden; }
   }
 }
 
+@media (max-width: 860px){
+  .sc-loc__map,
+  .st-loc__map,
+  .rp-loc__map{
+    height: 320px;
+  }
+}
+
 /* =========================================================
    IRRIPUMP — STEP 3: MÓDULOS
    ========================================================= */
+.ip-page .equip-label,
+.ip-page .equip-btn,
+.ip-page .equip-hint{
+  font-weight: 400;
+}
+
+.ip-mod-form{
+  margin-bottom: 12px;
+}
+
+.ip-mod-form .equip-label,
+.ip-mod-form .equip-btn{
+  font-weight: 400;
+}
+
 .ip-step__row{
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
   gap: 12px;
   margin-bottom: 14px;
+}
+.ip-step__row .equip-btn{
+  min-height: 28px;
+  padding: 4px 10px;
+  font-size: 12.5px;
+  font-weight: 400;
 }
 @media (max-width: 720px){
   .ip-step__row{
@@ -1424,13 +1480,14 @@ body.is-modal-open{ overflow: hidden; }
 
 .ip-step__title{
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   color:#0f172a;
 }
 .ip-step__sub{
   margin-top:4px;
   font-size: 13px;
   color:#6b7280;
+  font-weight: 400;
 }
 
 /* Área onde ficam os módulos */
@@ -1443,6 +1500,7 @@ body.is-modal-open{ overflow: hidden; }
   display:flex;
   gap: 12px;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 /* Card do módulo */
@@ -1452,14 +1510,73 @@ body.is-modal-open{ overflow: hidden; }
   position: relative;
   box-shadow: 0 6px 16px rgba(15,23,42,.06);
   overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .ip-mod-card__top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom: 8px;
+  gap: 10px;
+  margin-bottom: 0;
 }
+
+.ip-mod-head{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.ip-mod-title{
+  font-weight: 400;
+  font-size: 13.5px;
+  color:#0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ip-mod-status{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34,197,94,.16);
+  flex: 0 0 auto;
+}
+.ip-mod-status.is-offline{
+  background: #f87171;
+  box-shadow: 0 0 0 3px rgba(248,113,113,.16);
+}
+
+.ip-mod-desc{
+  font-size: 12.5px;
+  color:#334155;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.ip-mod-meta{
+  font-size: 12px;
+  color:#6b7280;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.ip-mod-del{
+  background: transparent;
+  border: none;
+  color:#ef4444;
+  cursor:pointer;
+  font-size: 14px;
+  flex: 0 0 auto;
+}
+.ip-mod-del:hover{ color:#b91c1c; }
 
 .ip-mod-badge{
   font-weight: 800;
@@ -1470,15 +1587,6 @@ body.is-modal-open{ overflow: hidden; }
   border: none;
   letter-spacing: 0;
 }
-
-.ip-mod-del{
-  background: transparent;
-  border: none;
-  color:#ef4444;
-  cursor:pointer;
-  font-size: 14px;
-}
-.ip-mod-del:hover{ color:#b91c1c; }
 
 .ip-mod-name{
   font-weight: 600;
@@ -1567,7 +1675,7 @@ body.is-modal-open{ overflow: hidden; }
    ========================================================= */
 .mod-panel{
   border-radius: 14px;
-  overflow: hidden;
+  overflow: visible;
   border-color: rgba(15,23,32,.12);
   box-shadow: none;
 }
@@ -1581,34 +1689,39 @@ body.is-modal-open{ overflow: hidden; }
   border-bottom: 1px solid rgba(15,23,32,.08);
 }
 
-.mod-panel__title{ font-weight: 500; color:#0f172a; }
+.mod-panel__title{ font-weight: 400; color:#0f172a; }
 .mod-panel__meta{ font-size: 12px; color:#6b7280; margin-left:auto; }
 
 /* Step 4: título "Configuração de Módulos e Funções" sem negrito */
 .equip-page:has(.mod-panel) .equip-page__title{
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 16px;
+}
+.equip-page:has(.mod-panel) .equip-page__sub{
+  font-size: 12px;
 }
 
 .mod-panel__danger{
   border-color: rgba(239,68,68,.35);
   color: #ef4444;
   background: var(--surface);
-  border-radius: 10px;
-  padding: 8px 10px;
-  font-weight: 600;
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-weight: 400;
+  font-size: 12px;
 }
 .mod-panel__danger:hover{ background: rgba(239,68,68,.06); }
 
 .func-list{
-  padding: 12px;
+  padding: 8px;
   display:flex;
   flex-direction:column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .func-row{
   border: 1px solid rgba(15,23,32,.10);
-  border-radius: 12px;
+  border-radius: 10px;
   overflow:hidden;
 }
 
@@ -1616,40 +1729,40 @@ body.is-modal-open{ overflow: hidden; }
   display:flex;
   gap: 10px;
   align-items:center;
-  padding: 12px;
+  padding: 6px 8px;
   cursor:pointer;
   background: #f9fafb;
-  font-weight: 500;
+  font-weight: 400;
   color:#0f172a;
 }
 
 .func-row__title{
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .func-row__body{
-  padding: 12px;
+  padding: 6px 8px;
   border-top: 1px solid rgba(15,23,32,.08);
   display:flex;
-  gap: 10px;
+  gap: 8px;
   align-items:center;
 }
 
 .func-row__body.is-disabled{ opacity: .55; }
 
 .func-row__label{
-  min-width: 220px;
-  font-size: 12px;
+  min-width: 200px;
+  font-size: 11.5px;
   color:#6b7280;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .func-row__select{
   flex: 1;
   border: 1px solid rgba(15,23,32,.14);
-  border-radius: 10px;
-  padding: 12px 14px;
-  min-height: 42px;
+  border-radius: 8px;
+  padding: 6px 10px;
+  min-height: 30px;
   outline: none;
   background:#fff;
 }
@@ -1664,7 +1777,10 @@ body.is-modal-open{ overflow: hidden; }
 /* Custom select (Step 4) */
 .func-select{
   position: relative;
-  min-width: 180px;
+  min-width: 160px;
+}
+.func-select.is-open{
+  z-index: 60;
 }
 .func-select__trigger{
   width: 100%;
@@ -1673,12 +1789,12 @@ body.is-modal-open{ overflow: hidden; }
   justify-content:space-between;
   gap: 10px;
   border: 1px solid rgba(15,23,32,.14);
-  border-radius: 10px;
-  padding: 12px 14px;
-  min-height: 42px;
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-height: 30px;
   background:#fff;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
 }
 .func-select__trigger:focus-visible{
   outline: none;
@@ -1692,28 +1808,34 @@ body.is-modal-open{ overflow: hidden; }
   position: absolute;
   left: 0;
   right: 0;
-  margin-top: 6px;
+  margin-top: 4px;
   background: #ffffff;
   border: 1px solid rgba(15,23,32,.14);
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0 14px 28px rgba(15,23,42,.12);
   padding: 6px 0;
   display: none;
   max-height: 220px;
   overflow: auto;
-  z-index: 10;
+  z-index: 80;
 }
 .func-select.is-open .func-select__list{
   display: block;
+}
+/* Últimos cards: abrir o select para cima para não ficar atrás do rodapé */
+.func-row:nth-last-child(-n+2) .func-select__list{
+  top: auto;
+  bottom: calc(100% + 4px);
+  margin-top: 0;
 }
 .func-select__option{
   width: 100%;
   text-align: left;
   background: #ffffff;
   border: 0;
-  padding: 8px 12px;
+  padding: 6px 10px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
 }
 .func-select__option:hover{
   background: #dcfce7;
@@ -2171,10 +2293,10 @@ body.is-modal-open{ overflow: hidden; }
 
 .create-equip__dialog{
   position: relative;
-  width: min(900px, calc(100vw - 80px));
+  width: min(720px, calc(100vw - 80px));
   max-height: calc(100vh - 64px);
   padding: 18px 22px 14px;
-  border-radius: 16px;
+  border-radius: 10px;
   border: 1px solid rgba(15, 23, 42, 0.06);
   background: #ffffff;
   box-shadow:
@@ -2218,9 +2340,9 @@ body.is-modal-open{ overflow: hidden; }
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin: -2px -22px 12px;
-  padding: 4px 22px 10px;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  margin: -2px -22px 8px;
+  padding: 2px 22px 6px;
+  border-bottom: none;
 }
 
 .create-equip__title{
@@ -2262,16 +2384,16 @@ body.is-modal-open{ overflow: hidden; }
   align-items: center;
   justify-content: space-between;
   gap: 0;
-  margin: 4px -22px 14px;
-  padding: 2px 22px 8px;
+  margin: 2px -22px 8px;
+  padding: 0 22px 6px;
   width: auto;
   max-width: none;
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
-  border-bottom: 1px solid rgba(15,23,42,.05);
-  --ce-step-line: 32px;
+  border-bottom: none;
+  --ce-step-line: 24px;
 }
 .create-equip__steps::-webkit-scrollbar{ display: none; }
 
@@ -2280,22 +2402,22 @@ body.is-modal-open{ overflow: hidden; }
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 4px 0;
+  gap: 4px;
+  padding: 2px 0;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--ce-muted);
   transition: color .18s ease;
   flex: 1 1 0;
-  min-width: 120px;
+  min-width: 100px;
   text-align: center;
 }
 
 .create-equip__step::after{
   content: "";
   position: absolute;
-  top: 15px; /* centro da bolinha (30px) */
+  top: 13px; /* centro da bolinha (26px) */
   left: calc(100% - (var(--ce-step-line) / 2));
   width: var(--ce-step-line);
   height: 2px;
@@ -2311,8 +2433,8 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 .create-equip__step-num{
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -2320,7 +2442,7 @@ body.is-modal-open{ overflow: hidden; }
   background: #eef2f7;
   color: #64748b;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1;
   border: 1px solid transparent;
   box-shadow: inset 0 0 0 1px rgba(15,23,42,.04);
@@ -2331,7 +2453,7 @@ body.is-modal-open{ overflow: hidden; }
 .create-equip__step-label{
   color: inherit;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: .1px;
   text-align: center;
 }
@@ -2393,7 +2515,7 @@ body.is-modal-open{ overflow: hidden; }
 
 /* 4) Campos e botões */
 .create-equip__dynamic{
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .equip-form{
@@ -2406,7 +2528,7 @@ body.is-modal-open{ overflow: hidden; }
 
 .equip-label{
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
   color: #0f172a;
   letter-spacing: .2px;
 }
@@ -2487,7 +2609,8 @@ body.is-modal-open{ overflow: hidden; }
 
 /* Botão “Tentar Conexão” com outline verde e ícone via CSS */
 .equip-btn[data-action="ip-test"],
-.equip-btn[data-action="md-test"]{
+.equip-btn[data-action="md-test"],
+.equip-btn[data-action="pluv-test"]{
   border-color: rgba(22,163,74,.55);
   color: var(--ce-green-ink);
   background: #ffffff;
@@ -2495,7 +2618,8 @@ body.is-modal-open{ overflow: hidden; }
   transition: border-color .15s ease, background-color .15s ease, color .15s ease, box-shadow .15s ease;
 }
 .equip-btn[data-action="ip-test"]:hover,
-.equip-btn[data-action="md-test"]:hover{
+.equip-btn[data-action="md-test"]:hover,
+.equip-btn[data-action="pluv-test"]:hover{
   background: rgba(22,163,74,.08);
   border-color: rgba(22,163,74,.75);
   color: #0f7a37;
@@ -2503,12 +2627,15 @@ body.is-modal-open{ overflow: hidden; }
 }
 .equip-btn[data-action="ip-test"]:active,
 .equip-btn[data-action="md-test"]:active,
+.equip-btn[data-action="pluv-test"]:active,
 .equip-btn[data-action="ip-test"]:focus-visible,
-.equip-btn[data-action="md-test"]:focus-visible{
+.equip-btn[data-action="md-test"]:focus-visible,
+.equip-btn[data-action="pluv-test"]:focus-visible{
   transform: none;
 }
 .equip-btn[data-action="ip-test"]::before,
-.equip-btn[data-action="md-test"]::before{
+.equip-btn[data-action="md-test"]::before,
+.equip-btn[data-action="pluv-test"]::before{
   content: "\f1eb";
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
@@ -2520,7 +2647,7 @@ body.is-modal-open{ overflow: hidden; }
 #createEquipFooter{
   position: sticky;
   bottom: 0;
-  z-index: 20;
+  z-index: 8;
   margin: 14px -22px -14px;
   padding: 10px 22px 12px;
   border-top: none;
@@ -2731,6 +2858,16 @@ body.is-modal-open{ overflow: hidden; }
   gap: 8px;
 }
 
+.farm-billing__doc > *{
+  min-width: 0;
+}
+
+.farm-billing__doc select.equip-input{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .farm-billing__intro{
   display: flex;
   flex-direction: column;
@@ -2848,20 +2985,54 @@ body.is-modal-open{ overflow: hidden; }
 }
 
 /* =========================================================
-   CREATE FARM — INPUTS + FOOTER BUTTONS (compact height)
+   CREATE EQUIPAMENTO — INPUTS (smaller)
+   ========================================================= */
+.create-equip .equip-input{
+  padding: 4px 10px;
+  line-height: 1.2;
+  min-height: 28px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-size: 12.5px;
+}
+
+.create-equip select.equip-input{
+  height: 28px;
+  line-height: 1.2;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 8px;
+  font-size: 12.5px;
+}
+
+.create-equip .equip-select__trigger{
+  padding: 4px 10px;
+  min-height: 28px;
+  border-radius: 8px;
+  font-size: 12.5px;
+}
+
+.create-equip .equip-label{
+  font-size: 11.5px;
+}
+
+/* =========================================================
+   CREATE FARM — INPUTS + FOOTER BUTTONS (smaller)
    ========================================================= */
 .create-farm .equip-input{
-  padding: 6px 10px;
+  padding: 5px 10px;
   line-height: 1.2;
-  min-height: 34px;
+  min-height: 30px;
   box-sizing: border-box;
+  border-radius: 8px;
 }
 
 .create-farm select.equip-input{
-  height: 34px;
+  height: 30px;
   line-height: 1.2;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-radius: 8px;
 }
 
 .create-farm .farm-select{
@@ -2885,15 +3056,16 @@ body.is-modal-open{ overflow: hidden; }
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid rgba(15,23,42,.12);
   background: #ffffff;
-  padding: 6px 10px;
-  min-height: 34px;
+  padding: 5px 10px;
+  min-height: 30px;
   line-height: 1.2;
   color: #0f172a;
   cursor: pointer;
   transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+  min-width: 0;
 }
 .create-farm .farm-select__trigger:hover{
   border-color: rgba(15,23,42,.18);
@@ -2907,6 +3079,10 @@ body.is-modal-open{ overflow: hidden; }
   flex: 1;
   text-align: left;
   font-size: 12.5px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .create-farm .farm-select__value.is-placeholder{
   color: #94a3b8;
@@ -3157,6 +3333,7 @@ body.is-modal-open{ overflow: hidden; }
   color: #0f172a;
   box-shadow: none;
   font-weight: 400;
+  border-radius: 8px;
 }
 
 .farm-location__btn i{
@@ -3251,4 +3428,77 @@ body.is-modal-open{ overflow: hidden; }
 
 .create-farm .create-equip__dialog{
   margin-top: 60px;
+}
+
+/* =========================================================
+   CREATE EQUIP/FARM — unified compact controls
+   ========================================================= */
+.create-equip{
+  --ce-control-radius: 8px;
+  --ce-control-height: 30px;
+  --ce-control-pad-y: 5px;
+  --ce-control-pad-x: 10px;
+}
+
+/* "Barras" (inputs/selects/containers) */
+.create-equip .equip-input,
+.create-equip select.equip-input,
+.create-equip .equip-select__trigger,
+.create-equip .farm-select__trigger,
+.create-equip .st-input-group,
+.create-equip .farm-location__radius{
+  border-radius: var(--ce-control-radius);
+}
+
+/* Buttons */
+.create-equip .equip-btn,
+.create-equip .create-equip__btn,
+.create-equip .summary-btn,
+.create-equip .sc-loc__btn,
+.create-equip .st-loc__btn,
+.create-equip .rp-loc__btn,
+.create-equip .farm-location__btn{
+  border-radius: var(--ce-control-radius);
+  padding: var(--ce-control-pad-y) var(--ce-control-pad-x);
+  min-height: var(--ce-control-height);
+}
+
+.create-equip .sc-loc__btn,
+.create-equip .st-loc__btn,
+.create-equip .rp-loc__btn,
+.create-equip .farm-location__btn{
+  font-weight: 400;
+}
+
+.create-equip .sc-loc__btn,
+.create-equip .st-loc__btn,
+.create-equip .rp-loc__btn{
+  min-width: var(--st-loc-btn-width, 150px);
+  min-height: 28px;
+  padding: 4px 10px;
+  font-size: 12.5px;
+}
+
+.create-equip .sc-input-group,
+.create-equip .st-input-group,
+.create-equip .rp-input-group,
+.create-equip .rs-input-group{
+  border-radius: var(--ce-control-radius);
+}
+
+.create-equip .sc-input-suffix,
+.create-equip .st-input-suffix,
+.create-equip .rp-input-suffix,
+.create-equip .rs-input-suffix{
+  padding: 0 var(--ce-control-pad-x);
+  min-height: 28px;
+  font-size: 12.5px;
+}
+
+.create-equip .equip-btn[data-action="ip-test"],
+.create-equip .equip-btn[data-action="md-test"],
+.create-equip .equip-btn[data-action="pluv-test"]{
+  min-height: var(--ce-control-height);
+  padding: var(--ce-control-pad-y) var(--ce-control-pad-x);
+  font-size: 13px;
 }

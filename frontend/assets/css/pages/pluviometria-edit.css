@@ -3,148 +3,155 @@
    ========================================================= */
 
 body.is-pluviometria-edit #map,
-body.is-pluviometria-edit .map{
+body.is-pluviometria-edit .map {
   display: none;
 }
 
-body.is-pluviometria-edit #pageSlot{
+body.is-pluviometria-edit #pageSlot {
   display: block;
   background: #f8fafc;
 }
 
-body.is-pluviometria-edit .main--map{
+body.is-pluviometria-edit .main--map {
   height: auto;
   min-height: 100vh;
 }
 
-.pluv-edit{
+.pluv-edit {
   padding: 18px 22px 40px;
   background: #f8fafc;
   min-height: 100vh;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
-.pluv-edit__crumbs{
+.pluv-edit__crumbs {
   font-size: 12px;
-  color:#6b7280;
+  color: #6b7280;
   margin-bottom: 12px;
 }
 
-.pluv-edit__titlebar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.pluv-edit__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 12px;
   margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
-.pluv-edit__back{
+.pluv-edit__back {
   border: 0;
   background: transparent;
-  color:#0f172a;
+  color: #0f172a;
   font-size: 16px;
   font-weight: 700;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   gap: 8px;
-  cursor:pointer;
+  cursor: pointer;
 }
-.pluv-edit__back i{ color:#16a34a; }
 
-.pluv-edit__actions{
-  display:flex;
-  align-items:center;
+.pluv-edit__back i {
+  color: #16a34a;
+}
+
+.pluv-edit__actions {
+  display: flex;
+  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.pluv-edit__select-wrap{
+.pluv-edit__select-wrap {
   position: relative;
-  display:inline-flex;
-  align-items:center;
+  display: inline-flex;
+  align-items: center;
 }
 
-.pluv-edit__select{
+.pluv-edit__select {
   border: 1px solid #d1d5db;
   border-radius: 10px;
   padding: 7px 30px 7px 10px;
-  background:#fff;
+  background: #fff;
   font-size: 12px;
-  color:#0f172a;
+  color: #0f172a;
   appearance: none;
   outline: none;
 }
 
 .pluv-edit__select option:checked,
-.pluv-edit__select option:hover{
+.pluv-edit__select option:hover {
   background: #16a34a;
   color: #fff;
 }
 
-.pluv-edit__select-wrap i{
-  position:absolute;
+.pluv-edit__select-wrap i {
+  position: absolute;
   right: 10px;
-  color:#64748b;
-  pointer-events:none;
+  color: #64748b;
+  pointer-events: none;
   font-size: 12px;
 }
 
-.pluv-edit__save{
+.pluv-edit__save {
   border: 0;
   border-radius: 8px;
   padding: 7px 12px;
-  background:#16a34a;
-  color:#fff;
+  background: #16a34a;
+  color: #fff;
   font-size: 12px;
   font-weight: 700;
-  cursor:pointer;
-  display:inline-flex;
-  align-items:center;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
 }
-.pluv-edit__save i{ font-size: 12px; }
 
-.pluv-edit__tabs{
-  display:flex;
-  align-items:center;
+.pluv-edit__save i {
+  font-size: 12px;
+}
+
+.pluv-edit__tabs {
+  display: flex;
+  align-items: center;
   gap: 18px;
   border-bottom: 1px solid #e5e7eb;
   margin: 8px 0 14px;
 }
 
-.pluv-edit__tab{
+.pluv-edit__tab {
   border: 0;
   background: transparent;
-  color:#6b7280;
+  color: #6b7280;
   font-size: 13px;
   padding: 10px 2px;
-  cursor:pointer;
+  cursor: pointer;
   border-bottom: 2px solid transparent;
 }
 
-.pluv-edit__tab.is-active{
-  color:#16a34a;
+.pluv-edit__tab.is-active {
+  color: #16a34a;
   font-weight: 700;
-  border-color:#16a34a;
+  border-color: #16a34a;
 }
 
-.pluv-edit__tab-body{
+.pluv-edit__tab-body {
   display: none;
 }
 
-.pluv-edit__tab-body.is-active{
+.pluv-edit__tab-body.is-active {
   display: flex;
   flex: 1;
-  min-height: 0; /* evita overflow estranho em grids */
+  min-height: 0;
+  /* evita overflow estranho em grids */
 }
 
-.pluv-edit__body{
-  display:grid;
+.pluv-edit__body {
+  display: grid;
   grid-template-columns: 220px 1fr;
   gap: 16px;
-  background:#fff;
+  background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   overflow: hidden;
@@ -153,61 +160,61 @@ body.is-pluviometria-edit .main--map{
   min-height: min(520px, calc(100vh - 180px));
 }
 
-.pluv-edit__nav{
+.pluv-edit__nav {
   background: transparent;
   border: 0;
   border-radius: 0;
   padding: 12px 10px;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
   height: 100%;
 }
 
-.pluv-edit__nav-item{
+.pluv-edit__nav-item {
   border: 0;
   background: transparent;
   padding: 8px 10px;
-  text-align:left;
+  text-align: left;
   border-radius: 8px;
-  color:#475569;
+  color: #475569;
   font-size: 12px;
-  cursor:pointer;
+  cursor: pointer;
   position: relative;
 }
 
-.pluv-edit__nav-item.is-active{
-  color:#16a34a;
+.pluv-edit__nav-item.is-active {
+  color: #16a34a;
   font-weight: 700;
 }
 
-.pluv-edit__nav-item.is-active::after{
-  content:"";
-  position:absolute;
-  right:-27px;
+.pluv-edit__nav-item.is-active::after {
+  content: "";
+  position: absolute;
+  right: -27px;
   top: 0;
   bottom: 0;
   width: 2px;
-  background:#16a34a;
+  background: #16a34a;
 }
 
-.pluv-edit__nav-dev{
+.pluv-edit__nav-dev {
   margin-top: auto;
   padding: 12px 6px 4px;
 }
 
-.pluv-edit__nav-dev .maint__dev{
+.pluv-edit__nav-dev .maint__dev {
   max-width: 100%;
   width: 100%;
-  box-shadow: 0 6px 16px rgba(15,23,32,.08);
+  box-shadow: 0 6px 16px rgba(15, 23, 32, .08);
 }
 
-.pluv-edit__nav-dev .maint__dev-code{
+.pluv-edit__nav-dev .maint__dev-code {
   word-break: break-all;
   font-size: 10px;
 }
 
-.pluv-edit__content{
+.pluv-edit__content {
   background: transparent;
   border: 0;
   border-left: 1px solid #e5e7eb;
@@ -216,313 +223,508 @@ body.is-pluviometria-edit .main--map{
   min-height: 0;
 }
 
-.pluv-edit__section{
+.pluv-edit__section {
   display: none;
   padding: 0 0 12px;
   border-top: 0;
 }
 
-.pluv-edit__section.is-active{
+.pluv-edit__section.is-active {
   display: block;
 }
 
-.pluv-edit__section:first-child{
+.pluv-edit__section:first-child {
   padding-top: 0;
 }
 
-.pluv-edit__section-head{
+.pluv-edit__section-head {
   margin-bottom: 10px;
 }
 
-.pluv-edit__section-head-row{
-  display:flex;
-  align-items:center;
+.pluv-edit__section-head-row {
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
 
-.pluv-edit__section-head h2{
+.pluv-edit__section-head h2 {
   margin: 0;
   font-size: 18px;
-  color:#0f172a;
+  color: #0f172a;
 }
 
-.pluv-edit__section-head p{
+.pluv-edit__section-head p {
   margin: 4px 0 0;
   font-size: 11px;
-  color:#64748b;
+  color: #64748b;
 }
 
-.pluv-edit__badge{
-  display:inline-flex;
-  align-items:center;
+.pluv-edit__badge {
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
   padding: 3px 8px;
   border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
   border: 1px solid #d1d5db;
-  color:#475569;
-  background:#f3f4f6;
+  color: #475569;
+  background: #f3f4f6;
 }
 
-.pluv-edit__badge--ok{
-  background:#16a34a;
-  border-color:#16a34a;
-  color:#fff;
+.pluv-edit__badge--ok {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #fff;
 }
 
-.pluv-edit__badge--warn{
-  background:#eab308;
-  border-color:#eab308;
-  color:#fff;
+.pluv-edit__badge--warn {
+  background: #eab308;
+  border-color: #eab308;
+  color: #fff;
 }
 
-.pluv-edit__badge--danger{
-  background:#ef4444;
-  border-color:#ef4444;
-  color:#fff;
+.pluv-edit__badge--danger {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
 }
 
-.pluv-edit__section-title{
+.pluv-edit__section-title {
   font-size: 18px;
   font-weight: 700;
-  color:#0f172a;
+  color: #0f172a;
   margin: 0 0 10px;
   line-height: 1.25;
 }
 
-.pluv-edit__location{
-  display:grid;
+/* ========== Firmware (OTA) ========== */
+body.is-pluviometria-edit .pluv-fw {
+  border: 1px solid var(--border-200);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+body.is-pluviometria-edit .pluv-fw__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--slate-50);
+  border-bottom: 1px solid var(--border-200);
+}
+
+body.is-pluviometria-edit .pluv-fw__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.is-pluviometria-edit .pluv-fw__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background: rgba(22, 163, 74, .12);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+body.is-pluviometria-edit .pluv-fw__title-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+body.is-pluviometria-edit .pluv-fw__name {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-900);
+}
+
+body.is-pluviometria-edit .pluv-fw__sub {
+  display: block;
+  font-size: 11px;
+  color: var(--muted-600);
+}
+
+body.is-pluviometria-edit .pluv-fw__toggle {
+  border: 1px solid var(--border-200);
+  background: #fff;
+  color: var(--muted-600);
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+body.is-pluviometria-edit .pluv-fw__body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+body.is-pluviometria-edit .pluv-fw__version-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: var(--slate-50);
+  border: 1px solid var(--border-200);
+}
+
+body.is-pluviometria-edit .pluv-fw__version {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+  flex: 1 1 160px;
+}
+
+body.is-pluviometria-edit .pluv-fw__version--right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+body.is-pluviometria-edit .pluv-fw__label {
+  font-size: 11px;
+  color: var(--muted-600);
+}
+
+body.is-pluviometria-edit .pluv-fw__value {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-900);
+}
+
+body.is-pluviometria-edit .pluv-fw__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid rgba(22, 163, 74, .2);
+  background: rgba(22, 163, 74, .12);
+  color: var(--primary);
+}
+
+body.is-pluviometria-edit .pluv-fw__cta {
+  border: 0;
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, .22);
+}
+
+body.is-pluviometria-edit .pluv-fw__cta i {
+  font-size: 12px;
+}
+
+body.is-pluviometria-edit .pluv-fw__last {
+  border: 1px solid var(--border-200);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  background: var(--slate-50);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+body.is-pluviometria-edit .pluv-fw__last-label {
+  font-size: 11px;
+  color: var(--muted-600);
+}
+
+body.is-pluviometria-edit .pluv-fw__last-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+body.is-pluviometria-edit .pluv-fw__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid rgba(22, 163, 74, .2);
+  background: rgba(22, 163, 74, .12);
+  color: var(--primary);
+}
+
+body.is-pluviometria-edit .pluv-fw__date {
+  font-size: 11px;
+  color: var(--muted-600);
+}
+
+.pluv-edit__location {
+  display: grid;
   grid-template-columns: 0.95fr 1fr;
   gap: 16px;
 }
 
-.pluv-edit__location-left{
-  display:flex;
-  flex-direction:column;
+.pluv-edit__location-left {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
-.pluv-edit__map{
+.pluv-edit__map {
   position: relative;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  background:#eef2f7;
+  background: #eef2f7;
   min-height: 400px;
   height: 100%;
   overflow: hidden;
 }
 
-.pluv-edit__map .leaflet-container{
+.pluv-edit__map .leaflet-container {
   width: 100%;
   height: 100%;
 }
 
-.pluv-edit__location-form{
-  display:flex;
-  flex-direction:column;
+.pluv-edit__location-form {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
-.pluv-edit__location-assoc{
+.pluv-edit__location-assoc {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 10px;
-  background:#fff;
+  background: #fff;
 }
 
-.pluv-edit__location-block{
+.pluv-edit__location-block {
   font-size: 12px;
-  color:#64748b;
+  color: #64748b;
 }
 
-.pluv-edit__location-title{
+.pluv-edit__location-title {
   font-size: 13px;
   font-weight: 700;
-  color:#0f172a;
+  color: #0f172a;
   margin-bottom: 6px;
 }
 
-.pluv-edit__location-row{
-  display:flex;
-  align-items:center;
+.pluv-edit__location-row {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.pluv-edit__btn{
+.pluv-edit__btn {
   border: 1px solid #d1d5db;
-  background:#fff;
-  color:#0f172a;
+  background: #fff;
+  color: #0f172a;
   border-radius: 8px;
   padding: 8px 10px;
   font-size: 12px;
-  display:inline-flex;
-  align-items:center;
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
-  cursor:pointer;
+  cursor: pointer;
   white-space: nowrap;
 }
 
-.pluv-edit__btn i{ color:#16a34a; }
+.pluv-edit__btn i {
+  color: #16a34a;
+}
 
-.pluv-edit__section-divider{
+.pluv-edit__section-divider {
   height: 1px;
   background: #e5e7eb;
 }
 
-.pluv-edit__section-body--grid{
-  display:grid;
+.pluv-edit__section-body--grid {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
-.pluv-edit__section-body--stack{
-  display:flex;
-  flex-direction:column;
+.pluv-edit__section-body--stack {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
-.pluv-edit__grid-3{
-  display:grid;
+.pluv-edit__grid-3 {
+  display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
-.pluv-edit__field-box{
+.pluv-edit__field-box {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 10px;
-  background:#fff;
+  background: #fff;
 }
 
-.pluv-edit__field-box label{
-  display:block;
+.pluv-edit__field-box label {
+  display: block;
   font-size: 11px;
-  color:#0f172a;
+  color: #0f172a;
   margin-bottom: 6px;
   font-weight: 600;
 }
 
-.pluv-edit__req{ color:#ef4444; }
+.pluv-edit__req {
+  color: #ef4444;
+}
 
-.pluv-edit__field label{
-  display:block;
+.pluv-edit__field label {
+  display: block;
   font-size: 10px;
-  color:#64748b;
+  color: #64748b;
   margin-bottom: 4px;
 }
 
-.pluv-edit__input{
+.pluv-edit__input {
   width: 100%;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   padding: 8px 10px;
   font-size: 12px;
-  color:#0f172a;
-  background:#fff;
+  color: #0f172a;
+  background: #fff;
 }
 
-.pluv-edit__select-field{
+.pluv-edit__select-field {
   position: relative;
 }
 
-.pluv-edit__select-btn{
+.pluv-edit__select-btn {
   width: 100%;
   border: 1px solid #d1d5db;
   border-radius: 10px;
   padding: 8px 34px 8px 10px;
-  background:#fff;
+  background: #fff;
   font-size: 12px;
-  color:#0f172a;
-  text-align:left;
-  cursor:pointer;
+  color: #0f172a;
+  text-align: left;
+  cursor: pointer;
   outline: none;
 }
 
-.pluv-edit__select-field i{
-  position:absolute;
+.pluv-edit__select-field i {
+  position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color:#94a3b8;
+  color: #94a3b8;
   pointer-events: none;
   font-size: 12px;
 }
 
-.pluv-edit__select-menu{
-  position:absolute;
+.pluv-edit__select-menu {
+  position: absolute;
   top: calc(100% + 6px);
   left: 0;
   right: 0;
-  background:#fff;
+  background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(15,23,32,.12);
+  box-shadow: 0 14px 28px rgba(15, 23, 32, .12);
   padding: 4px;
-  display:none;
+  display: none;
   z-index: 3;
 }
 
-.pluv-edit__select-field.is-open .pluv-edit__select-menu{
-  display:block;
+.pluv-edit__select-field.is-open .pluv-edit__select-menu {
+  display: block;
 }
 
-.pluv-edit__select-option{
+.pluv-edit__select-option {
   width: 100%;
   border: 0;
   background: transparent;
   border-radius: 8px;
   padding: 8px 10px;
   font-size: 12px;
-  color:#0f172a;
-  text-align:left;
-  cursor:pointer;
+  color: #0f172a;
+  text-align: left;
+  cursor: pointer;
 }
 
-.pluv-edit__select-option:hover{ background:#f8fafc; }
+.pluv-edit__select-option:hover {
+  background: #f8fafc;
+}
 
-.pluv-edit__select-option.is-active{
-  background:#ecfdf3;
-  color:#16a34a;
+.pluv-edit__select-option.is-active {
+  background: #ecfdf3;
+  color: #16a34a;
   font-weight: 700;
 }
 
-.pluv-edit__field-hint{
-  display:block;
+.pluv-edit__field-hint {
+  display: block;
   margin-top: 4px;
   font-size: 10px;
-  color:#94a3b8;
+  color: #94a3b8;
 }
 
-.pluv-edit__field--span{ grid-column: 1 / -1; }
+.pluv-edit__field--span {
+  grid-column: 1 / -1;
+}
 
-.pluv-edit__checks{
-  display:flex;
-  align-items:center;
+.pluv-edit__checks {
+  display: flex;
+  align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.pluv-edit__checks--stack{
+.pluv-edit__checks--stack {
   flex-direction: column;
-  align-items:flex-start;
+  align-items: flex-start;
   gap: 6px;
 }
 
-.pluv-edit__check{
-  display:flex;
-  align-items:center;
+.pluv-edit__check {
+  display: flex;
+  align-items: center;
   gap: 6px;
   font-size: 12px;
-  color:#0f172a;
+  color: #0f172a;
 }
 
-.pluv-edit__check input{ accent-color: #16a34a; }
+.pluv-edit__check input {
+  accent-color: #16a34a;
+}
 
 /* Timeline de manutenção (somente na edição) */
-body.is-pluviometria-edit .maint-timeline{
-  display:flex;
-  flex-direction:column;
+body.is-pluviometria-edit .maint-timeline {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   margin: 6px 0 4px;
   --pos-last: 8%;
@@ -531,13 +733,13 @@ body.is-pluviometria-edit .maint-timeline{
   --pos-next: 80%;
 }
 
-body.is-pluviometria-edit .maint-track{
+body.is-pluviometria-edit .maint-track {
   position: relative;
   height: 34px;
 }
 
-body.is-pluviometria-edit .maint-line{
-  position:absolute;
+body.is-pluviometria-edit .maint-line {
+  position: absolute;
   top: 50%;
   height: 8px;
   border-radius: 999px;
@@ -545,341 +747,364 @@ body.is-pluviometria-edit .maint-line{
 }
 
 /* Timeline usada no editor (classe com __) */
-body.is-pluviometria-edit .maint__track{
+body.is-pluviometria-edit .maint__track {
   position: relative;
   height: 34px;
 }
 
-body.is-pluviometria-edit .maint__line{
-  position:absolute;
+body.is-pluviometria-edit .maint__line {
+  position: absolute;
   top: 50%;
   height: 5px;
   border-radius: 999px;
   transform: translateY(-50%);
 }
 
-body.is-pluviometria-edit .maint__marker{
-  position:absolute;
+body.is-pluviometria-edit .maint__marker {
+  position: absolute;
   top: 50%;
   width: 18px;
   height: 18px;
   border-radius: 999px;
   transform: translate(-50%, -50%);
-  background:#fff;
+  background: #fff;
   border: 2px solid #cbd5e1;
-  box-shadow: 0 2px 6px rgba(15,23,32,.12);
+  box-shadow: 0 2px 6px rgba(15, 23, 32, .12);
 }
 
-body.is-pluviometria-edit .maint__marker--last{
+body.is-pluviometria-edit .maint__marker--last {
   left: 0;
-  background:#9ca3af;
-  border-color:#9ca3af;
+  background: #9ca3af;
+  border-color: #9ca3af;
 }
 
-body.is-pluviometria-edit .maint__marker--today{
+body.is-pluviometria-edit .maint__marker--today {
   left: var(--maint-today, 50%);
   width: 22px;
   height: 22px;
   background: #2563eb;
-  border-color:#2563eb;
+  border-color: #2563eb;
 }
 
-body.is-pluviometria-edit .maint__marker--today::after{
-  content:"";
-  position:absolute;
+body.is-pluviometria-edit .maint__marker--today::after {
+  content: "";
+  position: absolute;
   inset: 6px;
   border-radius: 999px;
-  background:#fff;
+  background: #fff;
 }
 
-body.is-pluviometria-edit .maint__marker--next{
+body.is-pluviometria-edit .maint__marker--next {
   left: var(--maint-next, 85%);
-  background:#16a34a;
-  border-color:#16a34a;
+  background: #16a34a;
+  border-color: #16a34a;
 }
 
-body.is-pluviometria-edit .maint__marker--next.is-warn{
-  background:#f59e0b;
-  border-color:#f59e0b;
+body.is-pluviometria-edit .maint__marker--next.is-warn {
+  background: #f59e0b;
+  border-color: #f59e0b;
 }
 
-body.is-pluviometria-edit .maint__marker--next.is-overdue{
-  background:#ef4444;
-  border-color:#ef4444;
+body.is-pluviometria-edit .maint__marker--next.is-overdue {
+  background: #ef4444;
+  border-color: #ef4444;
 }
 
-body.is-pluviometria-edit .maint__line--base{
+body.is-pluviometria-edit .maint__line--base {
   left: 0;
   right: 0;
   background: #e5e7eb;
 }
 
-body.is-pluviometria-edit .maint__line--ok{
+body.is-pluviometria-edit .maint__line--ok {
   left: 0;
   width: var(--maint-today, 50%);
   background: var(--maint-done-gradient, #16a34a);
 }
 
-body.is-pluviometria-edit .maint__timeline.is-overdue .maint__line--ok{
+body.is-pluviometria-edit .maint__timeline.is-overdue .maint__line--ok {
   width: var(--maint-today, 60%);
   background: var(--maint-overdue-gradient, linear-gradient(90deg, #f59e0b 0%, #ef4444 100%));
 }
 
-body.is-pluviometria-edit .maint-line--base{
+body.is-pluviometria-edit .maint-line--base {
   left: var(--pos-last);
   width: calc(var(--pos-end) - var(--pos-last));
-  background:#e5e7eb;
+  background: #e5e7eb;
 }
 
-body.is-pluviometria-edit .maint-line--done{
+body.is-pluviometria-edit .maint-line--done {
   left: var(--pos-last);
   width: calc(var(--pos-today) - var(--pos-last));
-  background: var(--maint-done-gradient, rgba(22,163,74,.35));
+  background: var(--maint-done-gradient, rgba(22, 163, 74, .35));
 }
 
-body.is-pluviometria-edit .maint-line--future{
+body.is-pluviometria-edit .maint-line--future {
   left: var(--pos-today);
   width: calc(var(--pos-end) - var(--pos-today));
-  background:#e5e7eb;
+  background: #e5e7eb;
 }
 
-body.is-pluviometria-edit .maint-timeline.is-overdue .maint-line--future{
+body.is-pluviometria-edit .maint-timeline.is-overdue .maint-line--future {
   width: calc(var(--pos-next) - var(--pos-today));
-  background: var(--maint-overdue-gradient, rgba(239,68,68,.45));
+  background: var(--maint-overdue-gradient, rgba(239, 68, 68, .45));
 }
 
-body.is-pluviometria-edit .maint-marker{
-  position:absolute;
+body.is-pluviometria-edit .maint-marker {
+  position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 14px;
   height: 14px;
   border-radius: 999px;
-  background:#fff;
+  background: #fff;
   border: 2px solid #d1d5db;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 9px;
-  color:#fff;
+  color: #fff;
 }
 
-body.is-pluviometria-edit .maint-marker--done{
+body.is-pluviometria-edit .maint-marker--done {
   left: var(--pos-last);
-  background:#16a34a;
-  border-color:#16a34a;
+  background: #16a34a;
+  border-color: #16a34a;
 }
 
-body.is-pluviometria-edit .maint-marker--today{
+body.is-pluviometria-edit .maint-marker--today {
   left: var(--pos-today);
-  border-color:#16a34a;
+  border-color: #16a34a;
 }
 
-body.is-pluviometria-edit .maint-timeline.is-overdue .maint-marker--today{
+body.is-pluviometria-edit .maint-timeline.is-overdue .maint-marker--today {
   left: var(--pos-next);
-  border-color:#ef4444;
-  background:#ef4444;
+  border-color: #ef4444;
+  background: #ef4444;
 }
 
-body.is-pluviometria-edit .maint-marker--today::after{
-  content:"";
-  position:absolute;
-  inset:-6px;
+body.is-pluviometria-edit .maint-marker--today::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
   border-radius: 999px;
-  background: rgba(22,163,74,.12);
+  background: rgba(22, 163, 74, .12);
   animation: maintPulse 2.8s ease-out infinite;
   pointer-events: none;
 }
 
-body.is-pluviometria-edit .maint-timeline.is-overdue .maint-marker--today::after{
-  background: rgba(239,68,68,.14);
+body.is-pluviometria-edit .maint-timeline.is-overdue .maint-marker--today::after {
+  background: rgba(239, 68, 68, .14);
 }
 
-body.is-pluviometria-edit .pluv-maint__status{
+body.is-pluviometria-edit .pluv-maint__status {
   background: transparent;
   border: 0;
   padding: 0;
-  color:#0f172a;
+  color: #0f172a;
   font-weight: 600;
 }
 
-body.is-pluviometria-edit .pluv-maint__status span:first-child{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+body.is-pluviometria-edit .pluv-maint__status span:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 4px 10px;
   border-radius: 999px;
-  background:#16a34a;
-  color:#fff;
+  background: #16a34a;
+  color: #fff;
   font-size: 10px;
   font-weight: 700;
 }
 
-body.is-pluviometria-edit .pluv-maint__status--warn span:first-child{
-  background:#ef4444;
+body.is-pluviometria-edit .pluv-maint__status--warn span:first-child {
+  background: #ef4444;
 }
 
-body.is-pluviometria-edit .maint-timeline.is-warn .maint-marker--today{
-  border-color:#eab308;
+body.is-pluviometria-edit .maint-timeline.is-warn .maint-marker--today {
+  border-color: #eab308;
 }
 
-body.is-pluviometria-edit .maint-timeline.is-warn .maint-marker--today::after{
-  background: rgba(234,179,8,.14);
+body.is-pluviometria-edit .maint-timeline.is-warn .maint-marker--today::after {
+  background: rgba(234, 179, 8, .14);
 }
 
-body.is-pluviometria-edit .maint-marker--next{
+body.is-pluviometria-edit .maint-marker--next {
   left: var(--pos-next);
-  border-color:#cbd5e1;
+  border-color: #cbd5e1;
   transition: left 300ms ease;
 }
 
-body.is-pluviometria-edit .maint-timeline.is-overdue .maint-marker--next{
+body.is-pluviometria-edit .maint-timeline.is-overdue .maint-marker--next {
   left: var(--pos-today);
 }
 
-body.is-pluviometria-edit .maint-marker--overdue{
-  background:#ef4444;
-  border-color:#ef4444;
+body.is-pluviometria-edit .maint-marker--overdue {
+  background: #ef4444;
+  border-color: #ef4444;
 }
 
-body.is-pluviometria-edit .maint-labels{
+body.is-pluviometria-edit .maint-labels {
   position: relative;
   min-height: 28px;
   font-size: 10px;
-  color:#64748b;
+  color: #64748b;
 }
 
-body.is-pluviometria-edit .maint-label{
-  position:absolute;
+body.is-pluviometria-edit .maint-label {
+  position: absolute;
   top: 0;
   max-width: 34%;
   white-space: normal;
   line-height: 1.2;
 }
 
-body.is-pluviometria-edit .maint-label--left{
+body.is-pluviometria-edit .maint-label--left {
   left: var(--pos-last);
   transform: translateX(0);
-  text-align:left;
+  text-align: left;
 }
 
-body.is-pluviometria-edit .maint-label--center{
+body.is-pluviometria-edit .maint-label--center {
   left: var(--pos-today);
   transform: translate(-50%, -8px);
-  text-align:center;
+  text-align: center;
 }
 
-body.is-pluviometria-edit .maint-timeline.is-overdue .maint-label--center{
+body.is-pluviometria-edit .maint-timeline.is-overdue .maint-label--center {
   left: var(--pos-next);
 }
 
-body.is-pluviometria-edit .maint-label--right{
+body.is-pluviometria-edit .maint-label--right {
   left: var(--pos-next);
   transform: translate(-50%, 10px);
-  text-align:center;
+  text-align: center;
   transition: left 300ms ease;
 }
 
-body.is-pluviometria-edit .maint-timeline.is-overdue .maint-label--right{
+body.is-pluviometria-edit .maint-timeline.is-overdue .maint-label--right {
   left: var(--pos-today);
 }
 
-body.is-pluviometria-edit .maint-timeline.is-collide .maint-label--center{
+body.is-pluviometria-edit .maint-timeline.is-collide .maint-label--center {
   transform: translate(-50%, -8px);
 }
 
-body.is-pluviometria-edit .maint-timeline.is-collide .maint-label--right{
+body.is-pluviometria-edit .maint-timeline.is-collide .maint-label--right {
   transform: translate(-50%, 10px);
 }
 
 /* Evita sobreposicao dos labels na timeline de manutencao (edit) */
-body.is-pluviometria-edit .maint__labels{
+body.is-pluviometria-edit .maint__labels {
   position: relative;
   margin-top: 6px;
   min-height: 40px;
   font-size: 10px;
-  color:#64748b;
+  color: #64748b;
 }
 
-body.is-pluviometria-edit .maint__label{
+body.is-pluviometria-edit .maint__label {
   position: absolute;
   white-space: normal;
   line-height: 1.2;
   max-width: 40%;
 }
 
-body.is-pluviometria-edit .maint__label--last{
+body.is-pluviometria-edit .maint__label--last {
   transform: translateY(10px);
 }
 
 
-body.is-pluviometria-edit .maint__label-title{
+body.is-pluviometria-edit .maint__label-title {
   display: block;
   font-size: 10px;
-  color:#94a3b8;
+  color: #94a3b8;
 }
 
-body.is-pluviometria-edit .maint__label-date{
+body.is-pluviometria-edit .maint__label-date {
   display: block;
   font-size: 11px;
   font-weight: 600;
-  color:#0f172a;
+  color: #0f172a;
 }
 
-body.is-pluviometria-edit .maint__summary{
-  display:inline-flex;
-  align-items:center;
+body.is-pluviometria-edit .maint__summary {
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
   white-space: nowrap;
 }
 
-body.is-pluviometria-edit .maint__summary-pill{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+body.is-pluviometria-edit .maint__summary-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 11px;
   font-weight: 600;
-  color:#fff;
+  color: #fff;
 }
-body.is-pluviometria-edit .maint__summary-pill--ok{ background:#16a34a; }
-body.is-pluviometria-edit .maint__summary-pill--warn{ background:#f59e0b; }
-body.is-pluviometria-edit .maint__summary-pill--danger{ background:#ef4444; }
 
-body.is-pluviometria-edit .maint__label--today{
+body.is-pluviometria-edit .maint__summary-pill--ok {
+  background: #16a34a;
+}
+
+body.is-pluviometria-edit .maint__summary-pill--warn {
+  background: #f59e0b;
+}
+
+body.is-pluviometria-edit .maint__summary-pill--danger {
+  background: #ef4444;
+}
+
+body.is-pluviometria-edit .maint__label--today {
   transform: translate(-50%, -8px);
 }
 
-body.is-pluviometria-edit .maint__label--next{
+body.is-pluviometria-edit .maint__label--next {
   transform: translate(-50%, 10px);
 }
-body.is-pluviometria-edit .maint__timeline.is-overdue .maint__label--next{
+
+body.is-pluviometria-edit .maint__timeline.is-overdue .maint__label--next {
   text-align: center;
 }
 
-@keyframes maintPulse{
-  0%{ transform: scale(0.8); opacity: 0.6; }
-  70%{ transform: scale(1); opacity: 0; }
-  100%{ transform: scale(1); opacity: 0; }
+@keyframes maintPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+
+  70% {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
 }
 
-@media (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion: reduce) {
+
   body.is-pluviometria-edit .maint-marker--next,
-  body.is-pluviometria-edit .maint-label--right{
+  body.is-pluviometria-edit .maint-label--right {
     transition: none;
   }
-  body.is-pluviometria-edit .maint-marker--today::after{
+
+  body.is-pluviometria-edit .maint-marker--today::after {
     animation: none;
   }
 }
 
 body.is-pluviometria-edit .pluv-maint__progress,
-body.is-pluviometria-edit .pluv-maint__dates{
-  display:none;
+body.is-pluviometria-edit .pluv-maint__dates {
+  display: none;
 }
 
-body.is-pluviometria-edit .pluv-maint__alert{
+body.is-pluviometria-edit .pluv-maint__alert {
   border: 1px solid #e5e7eb;
   background: #fff;
   border-radius: 10px;
@@ -887,230 +1112,246 @@ body.is-pluviometria-edit .pluv-maint__alert{
   gap: 10px;
 }
 
-body.is-pluviometria-edit .pluv-maint__alert-ico{
+body.is-pluviometria-edit .pluv-maint__alert-ico {
   width: 26px;
   height: 26px;
   border-radius: 8px;
-  background:#f8fafc;
-  color:#64748b;
+  background: #f8fafc;
+  color: #64748b;
   font-size: 12px;
 }
 
-body.is-pluviometria-edit .pluv-maint__alert-title{
+body.is-pluviometria-edit .pluv-maint__alert-title {
   font-size: 12px;
-  color:#0f172a;
+  color: #0f172a;
   font-weight: 700;
 }
 
-body.is-pluviometria-edit .pluv-maint__alert-sub{
+body.is-pluviometria-edit .pluv-maint__alert-sub {
   font-size: 11px;
-  color:#64748b;
+  color: #64748b;
 }
 
-body.is-pluviometria-edit .pluv-maint__alert--warn{ border-color: #facc15; }
-
-body.is-pluviometria-edit .pluv-maint__alert--warn .pluv-maint__alert-ico{
-  background: rgba(250,204,21,.18);
-  color:#b45309;
+body.is-pluviometria-edit .pluv-maint__alert--warn {
+  border-color: #facc15;
 }
 
-body.is-pluviometria-edit .pluv-maint__alert--ok{ border-color:#16a34a; }
-
-body.is-pluviometria-edit .pluv-maint__alert--ok .pluv-maint__alert-ico{
-  background: rgba(22,163,74,.16);
-  color:#16a34a;
+body.is-pluviometria-edit .pluv-maint__alert--warn .pluv-maint__alert-ico {
+  background: rgba(250, 204, 21, .18);
+  color: #b45309;
 }
 
-body.is-pluviometria-edit .pluv-maint__alert--danger{ border-color:#ef4444; }
-
-body.is-pluviometria-edit .pluv-maint__alert--danger .pluv-maint__alert-ico{
-  background: rgba(239,68,68,.16);
-  color:#dc2626;
+body.is-pluviometria-edit .pluv-maint__alert--ok {
+  border-color: #16a34a;
 }
 
-body.is-pluviometria-edit .maint__alert--ok{
-  border-color:#86efac;
-  background:#ecfdf3;
+body.is-pluviometria-edit .pluv-maint__alert--ok .pluv-maint__alert-ico {
+  background: rgba(22, 163, 74, .16);
+  color: #16a34a;
 }
-body.is-pluviometria-edit .maint__alert--ok .maint__alert-ico{
-  background:#16a34a;
-}
-body.is-pluviometria-edit .maint__alert--ok .maint__alert-sub{ color:#166534; }
 
-body.is-pluviometria-edit .maint__alert--danger{
-  border-color:#fca5a5;
-  background:#fef2f2;
+body.is-pluviometria-edit .pluv-maint__alert--danger {
+  border-color: #ef4444;
 }
-body.is-pluviometria-edit .maint__alert--danger .maint__alert-ico{
-  background:#ef4444;
-}
-body.is-pluviometria-edit .maint__alert--danger .maint__alert-sub{ color:#b91c1c; }
 
-body.is-pluviometria-edit .pluv-maint__reminder{
-  justify-content:flex-start;
+body.is-pluviometria-edit .pluv-maint__alert--danger .pluv-maint__alert-ico {
+  background: rgba(239, 68, 68, .16);
+  color: #dc2626;
+}
+
+body.is-pluviometria-edit .maint__alert--ok {
+  border-color: #86efac;
+  background: #ecfdf3;
+}
+
+body.is-pluviometria-edit .maint__alert--ok .maint__alert-ico {
+  background: #16a34a;
+}
+
+body.is-pluviometria-edit .maint__alert--ok .maint__alert-sub {
+  color: #166534;
+}
+
+body.is-pluviometria-edit .maint__alert--danger {
+  border-color: #fca5a5;
+  background: #fef2f2;
+}
+
+body.is-pluviometria-edit .maint__alert--danger .maint__alert-ico {
+  background: #ef4444;
+}
+
+body.is-pluviometria-edit .maint__alert--danger .maint__alert-sub {
+  color: #b91c1c;
+}
+
+body.is-pluviometria-edit .pluv-maint__reminder {
+  justify-content: flex-start;
   gap: 10px;
   border-top: 0;
   padding-top: 2px;
   margin-top: -2px;
 }
 
-body.is-pluviometria-edit .pluv-maint__reminder .pluv-maint__select{
+body.is-pluviometria-edit .pluv-maint__reminder .pluv-maint__select {
   min-width: 92px;
 }
 
-body.is-pluviometria-edit .pluv-maint__reminder .pluv-maint__input--select{
+body.is-pluviometria-edit .pluv-maint__reminder .pluv-maint__input--select {
   width: fit-content;
   min-width: unset;
   max-width: unset;
 }
 
-body.is-pluviometria-edit .pluv-maint__reminder-right{
+body.is-pluviometria-edit .pluv-maint__reminder-right {
   margin-left: 6px;
   gap: 6px;
 }
 
-body.is-pluviometria-edit .pluv-toggle{
-  border: 1px solid rgba(15,23,42,.12);
+body.is-pluviometria-edit .pluv-toggle {
+  border: 1px solid rgba(15, 23, 42, .12);
 }
 
-body.is-pluviometria-edit .pluv-toggle.is-on{
-  background:#16a34a;
-  border-color: rgba(22,163,74,.45);
+body.is-pluviometria-edit .pluv-toggle.is-on {
+  background: #16a34a;
+  border-color: rgba(22, 163, 74, .45);
 }
 
 /* Focus bonito */
 .pluv-edit__select:focus,
-.pluv-edit__select-btn:focus{
-  border-color:#16a34a;
-  box-shadow: 0 0 0 2px rgba(22,163,74,.12);
+.pluv-edit__select-btn:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, .12);
 }
 
-body.is-pluviometria-edit .pluv-maint__input--select{
+body.is-pluviometria-edit .pluv-maint__input--select {
   border: 1px solid #d1d5db;
   border-radius: 10px;
-  background:#fff;
-  color:#0f172a;
+  background: #fff;
+  color: #0f172a;
   padding: 9px 10px;
 }
 
-body.is-pluviometria-edit .pluv-maint__input--select:focus-visible{
+body.is-pluviometria-edit .pluv-maint__input--select:focus-visible {
   outline: none;
-  border-color:#16a34a;
-  box-shadow: 0 0 0 2px rgba(22,163,74,.12);
+  border-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, .12);
 }
 
-body.is-pluviometria-edit .pluv-maint__menu{
+body.is-pluviometria-edit .pluv-maint__menu {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(15,23,32,.12);
+  box-shadow: 0 14px 28px rgba(15, 23, 32, .12);
 }
 
-body.is-pluviometria-edit .pluv-maint__option{
+body.is-pluviometria-edit .pluv-maint__option {
   padding: 8px 10px;
   border-radius: 8px;
   font-size: 12px;
-  color:#0f172a;
+  color: #0f172a;
 }
 
-body.is-pluviometria-edit .pluv-maint__option.is-active{
-  background:#ecfdf3;
-  color:#16a34a;
+body.is-pluviometria-edit .pluv-maint__option.is-active {
+  background: #ecfdf3;
+  color: #16a34a;
 }
 
-.pluv-edit__empty{
-  border: 1px dashed rgba(15,23,42,.16);
+.pluv-edit__empty {
+  border: 1px dashed rgba(15, 23, 42, .16);
   border-radius: 10px;
   padding: 12px;
   font-size: 12px;
-  color:#94a3b8;
-  text-align:center;
+  color: #94a3b8;
+  text-align: center;
 }
 
-.pluv-edit__history{
-  background:#fff;
+.pluv-edit__history {
+  background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 16px;
 }
 
 /* ========== Maintenance History (edit) ========== */
-body.is-pluviometria-edit .pluv-edit__maintenance-history-card{
+body.is-pluviometria-edit .pluv-edit__maintenance-history-card {
   margin-top: 18px;
   border: 1px solid #e5e7eb;
   border-radius: 14px;
   padding: 18px 20px;
-  background:#fff;
-  display:flex;
-  flex-direction:column;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
 
-body.is-pluviometria-edit .pluv-edit__maintenance-history-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:10px;
-  border-bottom: 1px solid rgba(15,23,42,.08);
+body.is-pluviometria-edit .pluv-edit__maintenance-history-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  border-bottom: 1px solid rgba(15, 23, 42, .08);
   padding-bottom: 10px;
 }
 
-body.is-pluviometria-edit .pluv-edit__maintenance-history-head p{
-  margin:0;
+body.is-pluviometria-edit .pluv-edit__maintenance-history-head p {
+  margin: 0;
   font-size: 14px;
   font-weight: 400;
-  color:#0f172a;
+  color: #0f172a;
 }
 
-body.is-pluviometria-edit .pluv-edit__history-cta{
+body.is-pluviometria-edit .pluv-edit__history-cta {
   border: 0;
   background: transparent;
-  color:#0f172a;
+  color: #0f172a;
   font-size: 13px;
   font-weight: 600;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   gap: 6px;
-  padding:0;
-  cursor:pointer;
+  padding: 0;
+  cursor: pointer;
 }
 
-body.is-pluviometria-edit .pluv-edit__maintenance-history-list{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  flex-direction:column;
+body.is-pluviometria-edit .pluv-edit__maintenance-history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
-body.is-pluviometria-edit .pluv-edit__maintenance-history-item{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+body.is-pluviometria-edit .pluv-edit__maintenance-history-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(15,23,42,.06);
+  border-bottom: 1px solid rgba(15, 23, 42, .06);
 }
 
 /* FIX REAL: seletor correto pro último item */
-body.is-pluviometria-edit .pluv-edit__maintenance-history-item:last-child{
-  border-bottom:0;
+body.is-pluviometria-edit .pluv-edit__maintenance-history-item:last-child {
+  border-bottom: 0;
   padding-bottom: 0;
 }
 
-body.is-pluviometria-edit .pluv-edit__history-top{
-  display:flex;
-  flex-wrap:wrap;
+body.is-pluviometria-edit .pluv-edit__history-top {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  justify-content:space-between;
-  align-items:center;
+  justify-content: space-between;
+  align-items: center;
   font-size: 13px;
-  color:#0f172a;
-  font-weight:400;
+  color: #0f172a;
+  font-weight: 400;
 }
 
-body.is-pluviometria-edit .pluv-edit__history-date{ font-weight:400; }
+body.is-pluviometria-edit .pluv-edit__history-date {
+  font-weight: 400;
+}
 
-body.is-pluviometria-edit .pluv-edit__history-pill{
+body.is-pluviometria-edit .pluv-edit__history-pill {
   font-size: 12px;
   font-weight: 500;
   border-radius: 999px;
@@ -1124,74 +1365,300 @@ body.is-pluviometria-edit .pluv-edit__history-pill{
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
-body.is-pluviometria-edit .pluv-edit__history-pill i{ font-size: 13px; }
+body.is-pluviometria-edit .pluv-edit__history-pill i {
+  font-size: 13px;
+}
 
-body.is-pluviometria-edit .pluv-edit__history-pill--ok{
+body.is-pluviometria-edit .pluv-edit__history-pill--ok {
   background: #16a34a;
   border-color: #16a34a;
   color: #fff;
 }
 
-body.is-pluviometria-edit .pluv-edit__history-pill--ok i{ color: #fff; }
+body.is-pluviometria-edit .pluv-edit__history-pill--ok i {
+  color: #fff;
+}
 
-body.is-pluviometria-edit .pluv-edit__history-pill--warn{
+body.is-pluviometria-edit .pluv-edit__history-pill--warn {
   background: #f97316;
   border-color: #f97316;
   color: #fff;
 }
 
-body.is-pluviometria-edit .pluv-edit__history-pill--warn i{ color: #fff; }
-
-body.is-pluviometria-edit .pluv-edit__history-meta{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  font-size: 13px;
-  color:#475569;
+body.is-pluviometria-edit .pluv-edit__history-pill--warn i {
+  color: #fff;
 }
 
-body.is-pluviometria-edit .pluv-edit__history-meta span{ font-weight:400; }
+body.is-pluviometria-edit .pluv-edit__history-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #475569;
+}
+
+body.is-pluviometria-edit .pluv-edit__history-meta span {
+  font-weight: 400;
+}
 
 /* ========== Responsivo ========== */
-@media (max-width: 980px){
-  .pluv-edit__body{
+@media (max-width: 980px) {
+  .pluv-edit__body {
     grid-template-columns: 1fr;
     gap: 0;
     min-height: unset;
   }
-  .pluv-edit__nav{
+
+  .pluv-edit__nav {
     flex-direction: row;
     flex-wrap: wrap;
     border-bottom: 1px solid #e5e7eb;
   }
-  .pluv-edit__nav-item.is-active::after{
+
+  .pluv-edit__nav-item.is-active::after {
     display: none;
   }
-  .pluv-edit__content{
+
+  .pluv-edit__content {
     border-left: 0;
   }
-  .pluv-edit__location{
+
+  .pluv-edit__location {
     grid-template-columns: 1fr;
   }
-  .pluv-edit__grid-3{
+
+  .pluv-edit__grid-3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 720px){
-  .pluv-edit__section-body--grid{
+@media (max-width: 720px) {
+  .pluv-edit__section-body--grid {
     grid-template-columns: 1fr;
   }
-  .pluv-edit__grid-3{
+
+  .pluv-edit__grid-3 {
     grid-template-columns: 1fr;
   }
-  .pluv-edit__location-row{
+
+  .pluv-edit__location-row {
     flex-direction: column;
     align-items: stretch;
   }
-  body.is-pluviometria-edit .pluv-edit__history-pill{
+
+  body.is-pluviometria-edit .pluv-edit__history-pill {
     min-width: unset;
     width: 100%;
     align-self: stretch;
   }
+}
+
+/* =========================================================
+   Association Tab (Map Left / Sidebar Right)
+   ========================================================= */
+
+.pluv-assoc-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 500px;
+  background: #fff;
+}
+
+.pluv-assoc__map-wrapper {
+  position: relative;
+  min-height: 0;
+  height: 100%;
+}
+
+.pluv-assoc__map {
+  width: 100%;
+  height: 100%;
+  background: #eef2f7;
+  z-index: 0;
+}
+
+.pluv-assoc__sidebar {
+  border-left: 1px solid #e5e7eb;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.pluv-assoc__sidebar--left {
+  border-left: 0;
+  border-right: 1px solid #e5e7eb;
+}
+
+.pluv-assoc__ctx {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.pluv-assoc__ctx-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.pluv-assoc__ctx-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.pluv-assoc__ctx-badge {
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.pluv-assoc__search {
+  position: relative;
+}
+
+.pluv-assoc__search i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.pluv-assoc__search input {
+  width: 100%;
+  padding: 6px 10px 6px 30px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 12px;
+  outline: none;
+  color: #0f172a;
+}
+
+.pluv-assoc__search input:focus {
+  border-color: #16a34a;
+}
+
+.pluv-assoc__list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.pluv-assoc__item {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.pluv-assoc__item:hover {
+  background: #f8fafc;
+}
+
+.pluv-assoc__item.is-selected {
+  background: #ecfdf5;
+  /* Green tint */
+}
+
+.pluv-assoc__item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.pluv-assoc__item-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.pluv-assoc__item.is-selected .pluv-assoc__item-name {
+  color: #16a34a;
+}
+
+.pluv-assoc__item-row i {
+  font-size: 10px;
+  color: #cbd5e1;
+}
+
+.pluv-assoc__item-meta {
+  font-size: 11px;
+  color: #64748b;
+}
+
+@media (max-width: 900px) {
+  .pluv-assoc-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: auto;
+    min-height: 600px;
+  }
+
+  .pluv-assoc__sidebar {
+    border-left: 0;
+    border-top: 1px solid #e5e7eb;
+  }
+}
+
+.pluv-tooltip {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-size: 11px;
+}
+
+.pluv-assoc__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.pluv-assoc__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.pluv-badge--success {
+  background: #ecfdf5;
+  color: #16a34a;
+  border-color: #bef2d5;
+}
+
+.pluv-badge--warn {
+  background: #fefce8;
+  color: #ca8a04;
+  border-color: #fde047;
+}
+
+.pluv-badge--info {
+  background: #eff6ff;
+  color: #2563eb;
+  border-color: #bfdbfe;
+}
+
+.pluv-badge--neutral {
+  background: #f1f5f9;
+  color: #64748b;
+  border-color: #e2e8f0;
 }

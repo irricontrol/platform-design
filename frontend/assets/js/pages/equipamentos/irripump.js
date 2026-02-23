@@ -87,29 +87,14 @@
     // STEP 2
     // =================
     renderStep2(container, state) {
-      const serial = state.serial ?? "";
-      const nome = state.nome ?? "";
       const loc = state.loc ?? "";
 
       container.innerHTML = `
-        <div class="equip-page">
+        <div class="equip-page ip-page">
           <div class="equip-page__title"></div>
           <div class="equip-page__sub"></div>
 
           <div class="equip-form">
-            <div class="equip-form__row">
-              <div class="equip-field">
-                <label class="equip-label"><span class="equip-required">*</span> ID / Serial Number</label>
-                <input class="equip-input" id="ipSerial" placeholder="Ex: GH2-001234" value="${escapeHtml(serial)}" />
-              </div>
-              <button class="equip-btn btn equip-btn--primary" type="button" data-action="ip-test">Tentar Conexão</button>
-            </div>
-
-            <div class="equip-field">
-              <label class="equip-label"><span class="equip-required">*</span> Nome do Equipamento</label>
-              <input class="equip-input" id="ipNome" placeholder="Ex: Bomba Principal, Poço 01" value="${escapeHtml(nome)}" />
-            </div>
-
             <div class="equip-field">
               <label class="equip-label"><span class="equip-required">*</span> Localização (Latitude, Longitude)</label>
               <input class="equip-input" id="ipLoc" placeholder="Ex: -23.5505, -46.6333" value="${escapeHtml(loc)}" />
@@ -196,15 +181,11 @@
 
     // ✅ Mantido: wizard chama isso antes do Step 3
     readStep2(container) {
-      const serial = container.querySelector("#ipSerial")?.value?.trim() || "";
-      const nome = container.querySelector("#ipNome")?.value?.trim() || "";
       const loc = container.querySelector("#ipLoc")?.value?.trim() || "";
 
       const parsed = parseLatLng(loc);
 
       return {
-        serial,
-        nome,
         loc,
         lat: parsed?.lat ?? null,
         lng: parsed?.lng ?? null,
@@ -213,9 +194,6 @@
 
     // ✅ Mantido: validação do Step 2
     validateStep2(data) {
-      if (!data.serial) return { ok: false, msg: "Informe o ID / Serial Number." };
-      if (!data.nome) return { ok: false, msg: "Informe o Nome do Equipamento." };
-
       if (data.lat === null || data.lng === null) {
         return {
           ok: false,
@@ -226,20 +204,56 @@
       return { ok: true, msg: "" };
     },
 
+    // ✅ Novo: wizard chama isso antes do Step 4
+    readStep3(container) {
+      const nome = container.querySelector("#ipNome")?.value?.trim() || "";
+      const serial = container.querySelector("#ipSerial")?.value?.trim() || "";
+
+      return { nome, serial };
+    },
+
+    // ✅ Novo: validação do Step 3 (Módulos)
+    validateStep3(data) {
+      if (!data.nome) return { ok: false, msg: "Informe o Nome do Equipamento." };
+      if (!data.serial) return { ok: false, msg: "Informe o ID / Serial Number." };
+      return { ok: true, msg: "" };
+    },
+
     // =================
     // STEP 3
     // =================
     renderStep3(container, state) {
+      const nome = state.nome ?? "";
+      const serial = state.serial ?? "";
       state.modules = state.modules || [
-        { id: "m1", name: "Módulo 1", serial: "GH2-01-01-01", source: "Manual" },
+        {
+          id: "m1",
+          name: "Módulo 1",
+          title: "Irripump",
+          desc: "Controlador remoto de bomba",
+          serial: "IRP-23-00981",
+          lastSeen: "há 2 min",
+          status: "online",
+          source: "Manual",
+        },
       ];
 
       const cards = state.modules
-        .map(
-          (m) => `
+        .map((m) => {
+          const title = m.title || "Irripump";
+          const desc = m.desc || "Controlador remoto de bomba";
+          const radio = m.serial || "—";
+          const lastSeen = m.lastSeen || "há 2 min";
+          const status = m.status === "offline" ? "is-offline" : "is-online";
+          const statusLabel = status === "is-online" ? "Online" : "Offline";
+
+          return `
             <div class="ip-mod-card card">
               <div class="ip-mod-card__top">
-                <span class="ip-mod-badge pill">${escapeHtml(m.source)}</span>
+                <div class="ip-mod-head">
+                  <span class="ip-mod-title">${escapeHtml(title)}</span>
+                  <span class="ip-mod-status ${status}" aria-label="${statusLabel}"></span>
+                </div>
                 <button
                   class="ip-mod-del"
                   type="button"
@@ -250,14 +264,29 @@
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </div>
-              <div class="ip-mod-name">${escapeHtml(m.name)}</div>
-              <div class="ip-mod-serial">Serial: ${escapeHtml(m.serial)}</div>
+              <div class="ip-mod-desc">${escapeHtml(desc)}</div>
+              <div class="ip-mod-meta">Número do Rádio: ${escapeHtml(radio)}</div>
+              <div class="ip-mod-meta">Última comunicação: ${escapeHtml(lastSeen)}</div>
             </div>
-          `
-        )
+          `;
+        })
         .join("");
 
       container.innerHTML = `
+        <div class="equip-form ip-mod-form">
+          <div class="equip-form__row">
+            <div class="equip-field">
+              <label class="equip-label"><span class="equip-required">*</span> ID / Serial Number</label>
+              <input class="equip-input" id="ipSerial" placeholder="Ex: GH2-001234" value="${escapeHtml(serial)}" />
+            </div>
+            <button class="equip-btn btn equip-btn--primary" type="button" data-action="ip-test">Tentar Conexão</button>
+          </div>
+          <div class="equip-field">
+            <label class="equip-label"><span class="equip-required">*</span> Nome do Equipamento</label>
+            <input class="equip-input" id="ipNome" placeholder="Ex: Bomba Principal, Poço 01" value="${escapeHtml(nome)}" />
+          </div>
+        </div>
+
         <div class="ip-step">
           <div class="ip-step__row">
             <div>
@@ -306,6 +335,16 @@
         const btn = e.target.closest("[data-action], [data-ip-close]");
         if (!btn) return;
 
+        const equipNameInput = container.querySelector("#ipNome");
+        if (equipNameInput) {
+          state.nome = equipNameInput.value.trim();
+        }
+
+        const equipSerialInput = container.querySelector("#ipSerial");
+        if (equipSerialInput) {
+          state.serial = equipSerialInput.value.trim();
+        }
+
         const modalEl = container.querySelector("[data-ip-modal]");
         const serialInput = container.querySelector("#ipModSerial");
         if (!modalEl) return;
@@ -344,7 +383,11 @@
           state.modules.push({
             id,
             name: `Módulo ${state.modules.length + 1}`,
+            title: "Irripump",
+            desc: "Controlador remoto de bomba",
             serial,
+            lastSeen: "há 2 min",
+            status: "online",
             source: "Manual",
           });
 
@@ -787,27 +830,8 @@ renderStep6(container, state) {
         </div>
       </div>
 
-      <div class="summary-card card">
-        <div class="summary-card__head">Finalizar Cadastro</div>
-        <div class="summary-card__sub">Escolha como deseja finalizar o cadastro deste equipamento.</div>
-
-        <div class="summary-actions">
-          <button class="summary-btn btn" type="button" data-action="save-draft">
-            <i class="fa-solid fa-floppy-disk"></i> Salvar como Rascunho
-          </button>
-
-          <button class="summary-btn btn summary-btn--primary" type="button" data-action="finish">
-            <i class="fa-solid fa-check"></i> Concluir Cadastro e Ativar
-          </button>
-
-          <button class="summary-btn btn" type="button" data-action="advanced">
-            <i class="fa-solid fa-gear"></i> Seguir para Configuração Avançada
-          </button>
-        </div>
-      </div>
     </div>
       `;
     },
   };
 })();
-

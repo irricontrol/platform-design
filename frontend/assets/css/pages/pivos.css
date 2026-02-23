@@ -1,0 +1,1538 @@
+/* pages/pivos.css */
+
+/* When the pivot details panel is open, stack map and data vertically */
+body.is-pivo-details .main--map {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/*
+  Data panel goes at the bottom, takes at least a full screen height
+*/
+body.is-pivo-details #pageSlot {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 10;
+  order: 2;
+  flex-shrink: 0;
+}
+
+/* Ensure the map stays at the top and takes a full screen */
+body.is-pivo-details .map {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  z-index: 1;
+  order: 1;
+  flex-shrink: 0;
+}
+
+body.is-pivo-details #map .leaflet-tile-pane {
+  filter: brightness(0.85) saturate(0.9);
+}
+
+body.is-pivo-details .leaflet-control-zoom {
+  display: none;
+}
+
+/* Hide or adjust other map panels as needed */
+body.is-pivo-details .pluv-mapbar {
+  display: none;
+}
+
+/* Base Pivot View Styling */
+.pivos-view {
+  padding: 16px 16px;
+  background: var(--slate-100);
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* =========================================================
+   Pivot Detail Card (pincard)
+   ========================================================= */
+.pivo-card-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  max-width: calc(100vw - 32px);
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/*
+  IMPORTANTE:
+  Mantemos overflow:hidden no card por causa de borda arredondada/mapa,
+  mas liberamos overflow nas áreas de gráfico (mais abaixo),
+  para não cortar stroke/drop-shadow do SVG no hover.
+*/
+.pincard {
+  width: 340px;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid var(--border-200);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+/* Right column */
+.pivo-right-column {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* Agenda Card */
+.pivo-agenda {
+  max-width: none;
+  min-height: auto;
+  height: fit-content;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.pivo-agenda__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0px;
+}
+
+.pivo-agenda__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.pivo-agenda__period-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--border-200);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--ink-900);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pivo-agenda__period-btn:hover {
+  /* fallback se --surface-hover não existir */
+  background: var(--surface-hover, #f8fafc);
+  border-color: var(--border-300, #d1d5db);
+}
+
+.pivo-agenda__period-btn i {
+  color: var(--primary);
+}
+
+/* Faults KPIs Card */
+.pivo-faults {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pivo-faults__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  padding: 12px 16px;
+  border-right: 1px solid var(--border-200);
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+
+
+.pivo-faults__item:last-child {
+  border-right: none;
+}
+
+.pivo-faults__label {
+  font-size: 12px;
+  color: var(--muted-600);
+  font-weight: 500;
+}
+
+.pivo-faults__value {
+  font-size: 20px;
+  color: var(--ink-900);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.pivo-faults__trend {
+  font-size: 11px;
+  color: var(--muted-500);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pivo-faults__trend i {
+  color: #10b981;
+}
+
+/* Header */
+.pincard__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-200);
+}
+
+.pincard__title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pincard__title-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pincard__title-btn:hover {
+  background: transparent;
+}
+
+.pincard__title-btn.is-active {
+  background: #fff;
+  border-color: #d1fadf;
+  /* Verde bem clarinho da borda */
+  box-shadow: 0 0 0 1px #d1fadf;
+}
+
+.pincard__title-btn.is-active .pincard__title {
+  color: #94a3b8;
+  /* Cor cinza do texto na print */
+}
+
+.pincard__title-btn.is-active .fa-caret-down {
+  color: #0f172a;
+}
+
+.pincard__title-btn .fa-caret-down {
+  font-size: 14px;
+  color: var(--muted-500);
+}
+
+.pincard__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-900);
+  margin: 0;
+}
+
+.pivo-selector {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 32px;
+  background: #fff;
+  border: 1px solid var(--border-200);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+.pivo-selector__item {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--ink-900);
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: left;
+  background: transparent;
+  border: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pivo-selector__item:hover {
+  background: var(--slate-100);
+}
+
+.pivo-selector__item.is-selected {
+  color: #1a7888;
+  background: #eef8f8;
+}
+
+/* Espaçador para itens não selecionados alinharem com os selecionados que tem ícone */
+.pivo-selector__item:not(.is-selected) {
+  padding-left: 30px;
+}
+
+.pincard__chevron {
+  color: var(--muted-600);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.pincard__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pincard__icon-btn {
+  background: none;
+  border: none;
+  color: var(--muted-600);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.pincard__icon-btn:hover {
+  color: var(--ink-900);
+}
+
+.pincard__btn-text {
+  background: none;
+  border: none;
+  color: var(--ink-900);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pincard__btn-text:hover {
+  color: var(--success);
+}
+
+/* Minimap Area */
+.pincard__map {
+  width: 100%;
+  height: 180px;
+  min-height: 180px;
+  display: block;
+  background: #e2e8f0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Status Bar */
+.pincard__status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.pincard__status-bar.is-running {
+  background: #059669;
+}
+
+.pincard__status-bar.is-energized {
+  background: #d39b2b;
+}
+
+.pincard__status-bar.is-stopped {
+  background: #dc2626;
+}
+
+.pincard__status-bar.is-offline {
+  background: #64748b;
+}
+
+.pincard__status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #64748b;
+}
+
+.pincard__status-dot.is-running {
+  background: #10b981;
+}
+
+.pincard__status-dot.is-energized {
+  background: #d39b2b;
+}
+
+.pincard__status-dot.is-stopped {
+  background: #ef4444;
+}
+
+.pincard__status-dot--white {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+/* KPIs Grid */
+.pincard__kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.pincard__kpi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pincard__kpi-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.pincard__kpi-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pincard__kpi-val {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-900);
+}
+
+.pincard__kpi-lbl {
+  font-size: 10px;
+  color: var(--muted-600);
+  font-weight: 500;
+}
+
+/* Controls / Buttons */
+.pincard__controls {
+  display: flex;
+  gap: 8px;
+  padding: 0 12px 16px;
+}
+
+.pincard__control-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pincard__control-btn.is-start {
+  background: #059669;
+  color: #fff;
+  border: 1px solid #047857;
+}
+
+.pincard__control-btn.is-start:hover {
+  background: #047857;
+}
+
+.pincard__control-btn.is-stop {
+  background: #fff;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+
+.pincard__control-btn.is-stop:hover {
+  background: #fef2f2;
+}
+
+/* Footer */
+.pincard__footer {
+  border-top: 1px solid var(--border-200);
+  padding: 12px 16px;
+  font-size: 11px;
+  color: var(--muted-600);
+  text-align: left;
+}
+
+/* =========================================================
+   Bottom Row Cards (Consumo, Energy, History)
+   ========================================================= */
+.pivo-bottom-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.pivo-bottom-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.pivo-bottom-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pivo-data-card {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.pivo-data-card__header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-200);
+}
+
+.pivo-data-card__header.is-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pivo-data-card__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+/* Grid Consumo */
+.pivo-consumo__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  border-bottom: 1px solid var(--border-200);
+}
+
+.pivo-consumo__kpi {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+}
+
+.pivo-consumo__kpi span {
+  font-size: 12px;
+  color: var(--muted-600);
+}
+
+.pivo-consumo__kpi strong {
+  font-size: 18px;
+  color: var(--ink-900);
+}
+
+.border-right {
+  border-right: 1px solid var(--border-200);
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--border-200);
+}
+
+/* OBS: var(--border-100) não existe no seu :root (pelo print).
+   Aqui vai fallback. */
+.pivo-consumo__chart {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid var(--border-100, var(--border-200));
+  overflow: visible;
+  /* <- libera o hover do SVG (não corta a borda) */
+}
+
+.pivo-consumo__chart h4 {
+  margin: 0 0 16px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-900);
+  align-self: flex-start;
+}
+
+.pivo-chart-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: visible;
+  /* <- evita clip do shadow/stroke */
+}
+
+/* Consumo Pie container (SVG) */
+#pivoChartConsumo {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background: none;
+  margin: 14px 0 24px;
+  position: relative;
+  overflow: visible;
+  /* <- evita clip do stroke/shadow */
+}
+
+/* Legenda */
+.pivo-chart-legend {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--muted-600);
+  margin-top: auto;
+  justify-content: center;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+/* Energy blocks */
+.pivo-energy__separator {
+  height: 8px;
+  background: var(--slate-100);
+  border-top: 1px solid var(--border-100, var(--border-200));
+  border-bottom: 1px solid var(--border-100, var(--border-200));
+}
+
+.pivo-energy__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+  overflow: visible;
+  /* <- evita clip se tiver donut aqui também */
+}
+
+.pivo-energy__top .pivo-data-card__header {
+  align-self: flex-start;
+  width: 100%;
+  border-bottom: none;
+}
+
+.pivo-energy__bottom {
+  display: flex;
+}
+
+.pivo-energy__timeseries {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pivo-chart-container--line {
+  height: 180px;
+  border-bottom: 1px solid var(--border-200);
+  background: linear-gradient(to bottom,
+      transparent 33%,
+      #f8fafc 34%,
+      transparent 35%,
+      transparent 66%,
+      #f8fafc 67%,
+      transparent 68%);
+  margin: 16px 20px;
+  position: relative;
+}
+
+.pivo-chart-container--tensao {
+  width: calc(100% - 60px);
+  margin-left: 40px;
+  margin-bottom: 30px;
+  background: linear-gradient(to bottom,
+      transparent 19%,
+      #f8fafc 20%,
+      transparent 21%,
+      transparent 39%,
+      #f8fafc 40%,
+      transparent 41%,
+      transparent 59%,
+      #f8fafc 60%,
+      transparent 61%,
+      transparent 79%,
+      #f8fafc 80%,
+      transparent 81%);
+}
+
+.pivo-energy__kpis {
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border-200);
+}
+
+.pivo-energy__kpi {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 20px;
+  gap: 8px;
+}
+
+.pivo-energy__kpi span {
+  font-size: 12px;
+  color: var(--ink-900);
+}
+
+.pivo-energy__kpi strong {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink-900);
+}
+
+/* Histórico */
+.pivo-history {
+  height: auto;
+  min-height: 480px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pivo-history__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.pivo-history__actions button {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.pivo-history__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-200);
+  padding: 0 20px;
+}
+
+.pivo-history__tabs button {
+  padding: 16px 4px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--ink-900);
+  font-size: 13px;
+  font-weight: 500;
+  margin-right: 24px;
+  cursor: pointer;
+}
+
+.pivo-history__tabs button.is-active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.pivo-history__table-wrapper {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.pivo-history__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pivo-history__table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--ink-900);
+  background: #f8fafc;
+  border-bottom: 1px solid var(--border-200);
+}
+
+.pivo-history__table td {
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--ink-900);
+  border-bottom: 1px solid var(--border-100, var(--border-200));
+  white-space: nowrap;
+}
+
+.pivo-history__col-btn {
+  width: 40px;
+  text-align: center;
+}
+
+.expand-btn {
+  background: transparent;
+  border: 1px solid var(--border-200);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink-900);
+  font-size: 10px;
+}
+
+.status-dot {
+  display: inline-block;
+  vertical-align: middle;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  margin-top: -1px;
+}
+
+.status-dot.green {
+  background: #10b981;
+}
+
+.pivo-history__details {
+  background: #f8fafc;
+  padding: 16px 40px;
+}
+
+.pivo-history__details h4 {
+  margin: 0 0 16px 0;
+  font-size: 13px;
+  color: var(--ink-900);
+}
+
+.pivo-history__details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  color: var(--muted-600);
+  font-size: 12px;
+}
+
+.pivo-history__pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 20px;
+  gap: 4px;
+  border-top: 1px solid var(--border-200);
+  margin-top: auto;
+}
+
+.btn-page {
+  min-width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: var(--ink-900);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-page.is-active {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+/* Card de Pressão */
+.pivo-pressao {
+  margin-top: 16px;
+}
+
+.pivo-pressao__content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pivo-chart-container--line-large {
+  width: calc(100% - 40px);
+  margin-left: 20px;
+  height: 280px;
+  border-bottom: 1px solid var(--border-200);
+  position: relative;
+  margin-bottom: 30px;
+  background: repeating-linear-gradient(to bottom,
+      #f1f5f9 0px,
+      #f1f5f9 1px,
+      transparent 1px,
+      transparent 46px);
+}
+
+.y-axis-labels {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: -50px;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 10px;
+  color: var(--muted-500);
+}
+
+.x-axis-labels {
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--muted-500);
+}
+
+.mock-svg-lines {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mock-hover-indicator {
+  position: absolute;
+  left: 65%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  z-index: 10;
+}
+
+.mock-hover-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-200);
+}
+
+.mock-hover-dot {
+  position: absolute;
+  left: -4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid;
+}
+
+.mock-hover-dot.blue {
+  top: 92px;
+  border-color: #60a5fa;
+}
+
+.mock-hover-dot.green {
+  bottom: -4px;
+  border-color: #34d399;
+}
+
+.mock-tooltip {
+  position: absolute;
+  left: 12px;
+  top: 30px;
+  background: #fff;
+  border: 1px solid var(--border-200);
+  border-radius: 6px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: max-content;
+  pointer-events: none;
+}
+
+.mock-tooltip strong {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-900);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.mock-tooltip-row {
+  font-size: 11px;
+  color: var(--muted-600);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.mock-tooltip-row:last-child {
+  margin-bottom: 0;
+}
+
+.mock-tooltip-row span:last-child {
+  margin-left: auto;
+  color: var(--ink-900);
+}
+
+.mock-tooltip-row .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.mock-tooltip-row .dot.blue {
+  background: #60a5fa;
+}
+
+.mock-tooltip-row .dot.green {
+  background: #34d399;
+}
+
+.x-axis-labels--dates {
+  bottom: -30px;
+}
+
+.x-axis-labels--dates span {
+  width: 60px;
+  text-align: center;
+  word-wrap: break-word;
+  line-height: 1.2;
+}
+
+.mock-hover-dot.single-dot {
+  border-color: #60a5fa;
+  margin-left: -1px;
+}
+
+.pivo-pressao__subtitles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  font-size: 11px;
+  color: var(--muted-500);
+}
+
+/* Card de Pluviometria */
+.pivo-pluviometria {
+  margin-top: 16px;
+}
+
+/* Card Lâmina x Ângulo */
+.pivo-lamina {
+  margin-top: 16px;
+}
+
+/* --- Linha do Tempo Operacional --- */
+.pivo-timeline__header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.pivo-timeline__status-text {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.pivo-timeline__status-text.green {
+  color: #10b981;
+}
+
+.pivo-timeline__content {
+  padding: 8px 20px 12px;
+}
+
+.pivo-timeline__labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted-500);
+  margin-bottom: 8px;
+}
+
+.pivo-timeline__bar {
+  display: flex;
+  height: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.pivo-timeline__segment.green {
+  background-color: #10b981;
+}
+
+.pivo-timeline__segment.yellow {
+  background-color: #fbbf24;
+}
+
+.pivo-timeline__segment.red {
+  background-color: #ef4444;
+}
+
+.pivo-timeline__segment.gray {
+  background-color: #94a3b8;
+}
+
+.pivo-timeline__segment.light-gray {
+  background-color: #e2e8f0;
+}
+
+.pivo-timeline__legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pivo-timeline__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted-600);
+}
+
+.pivo-timeline__legend-item strong {
+  color: var(--ink-900);
+  font-weight: 600;
+}
+
+.pivo-timeline__legend-item .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pivo-timeline__legend-item .dot.green {
+  background-color: #10b981;
+}
+
+.pivo-timeline__legend-item .dot.yellow {
+  background-color: #fbbf24;
+}
+
+.pivo-timeline__legend-item .dot.red {
+  background-color: #ef4444;
+}
+
+.pivo-timeline__legend-item .dot.gray {
+  background-color: #94a3b8;
+}
+
+.pivo-timeline__legend-item .dot.light-gray {
+  background-color: #e2e8f0;
+}
+
+/* =========================================================
+   PIE & DONUT — HOVER: LINHA PRETA LIMPA (SEM GROWTH)
+   ========================================================= */
+
+/* 1) Elementos decorativos nunca podem capturar mouse */
+.mock-svg-lines,
+.mock-hover-indicator,
+.mock-hover-line,
+.mock-hover-dot,
+.mock-tooltip,
+.x-axis-labels,
+.y-axis-labels {
+  pointer-events: none !important;
+}
+
+/* 2) Containers dos gráficos */
+#pivoChartConsumo,
+#pivoChartCustos {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 14px 0;
+  isolation: isolate;
+  z-index: 10;
+  overflow: visible;
+  /* não corta a borda */
+}
+
+/* 3) SVG deve aceitar eventos */
+#pivoChartConsumo svg,
+#pivoChartCustos svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  pointer-events: auto;
+}
+
+/* 4) Fatias (paths) */
+#pivoChartConsumo svg .pie-sector,
+#pivoChartCustos svg .donut-sector {
+  pointer-events: visiblePainted;
+  cursor: pointer;
+
+  /* repouso: sem borda */
+  stroke: transparent;
+  stroke-width: 0;
+
+  paint-order: stroke fill;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: geometricPrecision;
+
+  /* sem sombra / sem growth */
+  filter: none;
+
+  transition: stroke 0.15s ease, stroke-width 0.15s ease;
+}
+
+/* Hover = só linha preta (força contra overrides) */
+#pivoChartConsumo svg .pie-sector:hover,
+#pivoChartCustos svg .donut-sector:hover {
+  stroke: #0f172a !important;
+  stroke-width: 2px !important;
+  /* troque pra 3px se quiser mais “forte” */
+  filter: none !important;
+}
+
+/* 5) Texto central do donut */
+#pivoChartCustos .donut-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink-900);
+  text-align: center;
+  line-height: 1.1;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Fault Modal */
+.fault-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.fault-modal__backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.fault-modal__dialog {
+  position: relative;
+  background: #fff;
+  width: 100%;
+  max-width: 1060px;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(20px) scale(0.98);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.fault-modal__header {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-200);
+}
+
+.fault-modal__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.fault-modal__close {
+  background: #f1f5f9;
+  border: none;
+  color: var(--muted-600);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fault-modal__close:hover {
+  background: #e2e8f0;
+  color: var(--ink-900);
+}
+
+.fault-modal__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.fault-modal__map-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fault-modal__map {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #f1f5f9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-200);
+}
+
+.fault-modal__table-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fault-modal__table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fault-modal__table-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--ink-900);
+}
+
+.fault-modal__date-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--border-200);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--ink-900);
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.fault-modal__date-picker:hover {
+  border-color: var(--border-300);
+}
+
+.fault-modal__date-picker i {
+  color: var(--muted-500);
+}
+
+.fault-modal__table-container {
+  border: 1px solid var(--border-200);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.fault-modal__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fault-modal__table th {
+  background: #f8fafc;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted-700);
+  border-bottom: 1px solid var(--border-200);
+}
+
+.fault-modal__table td {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--ink-900);
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.fault-modal__table tr:last-child td {
+  border-bottom: none;
+}
+
+.fault-modal__pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--muted-600);
+}
+
+.fault-modal__pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fault-modal__page-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--border-200);
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.fault-modal__page-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: var(--border-300);
+}
+
+.fault-modal__page-btn.is-active {
+  background: #10b981;
+  color: #fff;
+  border-color: #10b981;
+}
+
+.fault-modal__page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Heatmap-like highlight for fault map */
+.fault-marker-highlight {
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.2), 0 0 0 20px rgba(16, 185, 129, 0.1);
+  animation: pulseHighlight 2s infinite;
+}
+
+@keyframes pulseHighlight {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}

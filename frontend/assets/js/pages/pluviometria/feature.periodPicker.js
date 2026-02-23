@@ -120,6 +120,10 @@
     document.querySelectorAll(".pluv-period-trigger").forEach((el) => {
       el.textContent = `Per\u00edodo: ${startStr} \u2192 ${endStr}`;
     });
+
+    document.querySelectorAll(".js-period-trigger .pivo-agenda__period-label").forEach((el) => {
+      el.textContent = `${startStr} - ${endStr}`;
+    });
   }
 
   function setPeriod(start, end, source) {
@@ -469,6 +473,9 @@
   }
 
   function getTriggerInfo(target) {
+    const genericTrigger = target.closest(".js-period-trigger");
+    if (genericTrigger) return { el: genericTrigger, source: "generic" };
+
     const mapbar = target.closest(".pluv-mapbar__range");
     if (mapbar) return { el: mapbar, source: "mapbar" };
     const rainLabel = target.closest(".rain__period-label");

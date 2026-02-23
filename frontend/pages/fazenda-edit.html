@@ -1,0 +1,176 @@
+<section class="pluv-edit farm-edit" id="farmEditPanel" aria-label="Editar fazenda">
+  <div class="pluv-edit__crumbs">Fazenda / <strong>Editar fazenda</strong></div>
+
+  <div class="pluv-edit__titlebar">
+    <button class="pluv-edit__back" type="button" id="farmEditBack" aria-label="Voltar">
+      <i class="fa-solid fa-chevron-left"></i>
+      <span>Editar fazenda</span>
+    </button>
+
+    <div class="pluv-edit__actions">
+      <button class="pluv-edit__save" type="button">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Salvar
+      </button>
+    </div>
+  </div>
+
+  <div class="pluv-edit__tab-body is-active">
+    <div class="pluv-edit__body">
+      <aside class="pluv-edit__nav" aria-label="Seções da fazenda">
+        <button class="pluv-edit__nav-item is-active" type="button" data-target="#farmEditGeneral">Geral</button>
+        <button class="pluv-edit__nav-item" type="button" data-target="#farmEditLocation">Localização</button>
+        <button class="pluv-edit__nav-item" type="button" data-target="#farmEditContact">Contato</button>
+        <button class="pluv-edit__nav-item" type="button" data-target="#farmEditEnergy">Faixas de Energia</button>
+        <button class="pluv-edit__nav-item" type="button" data-target="#farmEditHolidays">Feriados</button>
+      </aside>
+
+      <div class="pluv-edit__content">
+        <section class="pluv-edit__section is-active" id="farmEditGeneral">
+          <div class="pluv-edit__section-head">
+            <h2>Geral</h2>
+            <p>Informações principais para identificação e faturamento.</p>
+          </div>
+
+          <div class="pluv-edit__section-body pluv-edit__section-body--stack">
+            <div class="pluv-edit__field-box farm-edit__field-box">
+              <div class="farm-edit__field-box-head">
+                <label for="farmEditCentralRadio">Rádio da central</label>
+                <button class="farm-edit__field-edit" type="button" aria-label="Editar rádio da central">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+              </div>
+              <input class="pluv-edit__input" id="farmEditCentralRadio" name="farm_central_radio" type="text" placeholder="—" readonly />
+            </div>
+
+            <div class="pluv-edit__grid-3">
+              <div class="pluv-edit__field">
+                <label for="farmEditName">Nome da fazenda <span class="pluv-edit__req">*</span></label>
+                <input class="pluv-edit__input" id="farmEditName" name="farm_name" type="text" placeholder="Ex: Fazenda São Pedro" />
+              </div>
+
+              <div class="pluv-edit__field">
+                <label for="farmEditClient">Nome do cliente</label>
+                <input class="pluv-edit__input" id="farmEditClient" name="farm_client" type="text" placeholder="Ex: João Silva" />
+              </div>
+
+              <div class="pluv-edit__field">
+                <label for="farmEditEnergyBillDay">Data da fatura de energia <span class="pluv-edit__req">*</span></label>
+                <input class="pluv-edit__input" id="farmEditEnergyBillDay" name="farm_energy_bill_day" type="number" min="1" max="31" placeholder="Ex: 5" />
+              </div>
+            </div>
+
+            <div class="pluv-edit__section-body--grid">
+              <div class="pluv-edit__field">
+                <label for="farmEditWaterBillDay">Data da fatura de água <span class="pluv-edit__req">*</span></label>
+                <input class="pluv-edit__input" id="farmEditWaterBillDay" name="farm_water_bill_day" type="number" min="1" max="31" placeholder="Ex: 10" />
+              </div>
+
+              <div class="pluv-edit__field">
+                <label for="farmEditTimezone">Fuso horário</label>
+                <div class="pluv-edit__select-field">
+                  <input class="pluv-edit__select-btn" id="farmEditTimezone" name="farm_timezone" type="text" value="América/São Paulo (GMT-03)" readonly aria-readonly="true" />
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="pluv-edit__section" id="farmEditLocation">
+          <div class="pluv-edit__section-title">Localização</div>
+          <p class="farm-edit__section-sub">
+            Localização de sua fazenda. É importante informar as coordenadas corretas do centro da fazenda para exibição no mapa.
+          </p>
+
+          <div class="pluv-edit__location">
+            <div class="pluv-edit__location-left">
+              <div class="pluv-edit__map" id="farmEditMap" aria-label="Mapa da fazenda"></div>
+            </div>
+
+            <div class="pluv-edit__location-form">
+              <div class="pluv-edit__field">
+                <label for="farmEditLocationValue">Localização da fazenda <span class="pluv-edit__req">*</span></label>
+                <div class="pluv-edit__location-row farm-edit__loc-row">
+                  <div class="farm-edit__loc-input">
+                    <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
+                    <input class="pluv-edit__input" id="farmEditLocationValue" name="farm_location" type="text" placeholder="-22.000000, -46.000000" readonly aria-readonly="true" />
+                  </div>
+                  <button class="pluv-edit__btn farm-edit__loc-btn" type="button" id="farmEditLocationBtn">
+                    <i class="fa-solid fa-location-dot"></i>
+                    Obter Localização
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="pluv-edit__section" id="farmEditContact">
+          <div class="pluv-edit__section-title">Contato</div>
+
+          <div class="pluv-edit__section-body pluv-edit__section-body--grid">
+            <div class="pluv-edit__field">
+              <label for="farmEditContactName">Responsável</label>
+              <input class="pluv-edit__input" id="farmEditContactName" name="farm_contact_name" type="text" placeholder="Ex: Maria Souza" />
+            </div>
+            <div class="pluv-edit__field">
+              <label for="farmEditContactRole">Cargo</label>
+              <input class="pluv-edit__input" id="farmEditContactRole" name="farm_contact_role" type="text" placeholder="Ex: Administrador" />
+            </div>
+            <div class="pluv-edit__field">
+              <label for="farmEditContactPhone">Telefone</label>
+              <input class="pluv-edit__input" id="farmEditContactPhone" name="farm_contact_phone" type="tel" placeholder="(00) 00000-0000" />
+            </div>
+            <div class="pluv-edit__field">
+              <label for="farmEditContactEmail">E-mail</label>
+              <input class="pluv-edit__input" id="farmEditContactEmail" name="farm_contact_email" type="email" placeholder="nome@exemplo.com.br" />
+            </div>
+          </div>
+        </section>
+
+        <section class="pluv-edit__section" id="farmEditEnergy">
+          <div class="pluv-edit__section-title">Faixas de Energia</div>
+
+          <div class="pluv-edit__section-body pluv-edit__section-body--stack">
+            <div class="pluv-edit__field-box">
+              <div class="pluv-edit__field-box-label">Configuração de faixas</div>
+              <p class="pluv-edit__field-hint">Defina os horários de pico e fora de pico para cálculo de custos.</p>
+            </div>
+            <div class="pluv-edit__section-body--grid">
+              <div class="pluv-edit__field">
+                <label for="farmEditPeakStart">Início (pico)</label>
+                <input class="pluv-edit__input" id="farmEditPeakStart" name="farm_peak_start" type="text" placeholder="Ex: 18:00" />
+              </div>
+              <div class="pluv-edit__field">
+                <label for="farmEditPeakEnd">Fim (pico)</label>
+                <input class="pluv-edit__input" id="farmEditPeakEnd" name="farm_peak_end" type="text" placeholder="Ex: 21:00" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="pluv-edit__section" id="farmEditHolidays">
+          <div class="pluv-edit__section-title">Feriados</div>
+
+          <div class="pluv-edit__section-body pluv-edit__section-body--stack">
+            <div class="pluv-edit__field-box">
+              <div class="pluv-edit__field-box-label">Feriados cadastrados</div>
+              <p class="pluv-edit__field-hint">Adicione feriados locais para ajustes automáticos.</p>
+            </div>
+            <div class="pluv-edit__section-body--grid">
+              <div class="pluv-edit__field">
+                <label for="farmEditHolidayDate">Data</label>
+                <input class="pluv-edit__input" id="farmEditHolidayDate" name="farm_holiday_date" type="text" placeholder="Ex: 25/12/2026" />
+              </div>
+              <div class="pluv-edit__field">
+                <label for="farmEditHolidayDesc">Descrição</label>
+                <input class="pluv-edit__input" id="farmEditHolidayDesc" name="farm_holiday_desc" type="text" placeholder="Ex: Natal" />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

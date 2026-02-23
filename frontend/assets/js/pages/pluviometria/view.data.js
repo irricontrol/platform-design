@@ -80,12 +80,21 @@
     const mapCard = $("mapCard");
     if (mapCard) mapCard.style.display = "none";
 
+    data.loadPluviosFromStorage?.();
+
     state.pluvFilter = "highlights";
     state.pluvSearch = "";
     state.maintFilter = null;
     state.expanded.clear();
 
     await mountPanel();
+
+    const activeFarm = window.IcFarmGetActive?.() || window.IcFarmActive;
+    const farmNameEl = $("pluvHeaderFarmName");
+    if (farmNameEl) {
+      farmNameEl.textContent = activeFarm?.name || "Fazenda Desconhecida";
+    }
+
     Plv.periodPicker?.initPeriodPicker?.();
     Plv.maintenance?.renderMaintenanceCards?.();
     Plv.maintenance?.bindMaintenanceCards?.();

@@ -9,6 +9,7 @@
   data.__initialized = true;
 
   // ======== mock inicial (você troca por API depois) ========
+  // ======== mock inicial (você troca por API depois) ========
   const PLUVIOS = [
     {
       id: "norte-a",
@@ -44,13 +45,13 @@
       pivos: ["Pivô Norte B"],
       lat: -16.7619,
       lng: -47.6029,
-      status: "dry",
-      statusLabel: "Tempo seco",
-      statusMeta: "última chuva há 6h",
-      mm: 8.2,
+      status: "rain",
+      statusLabel: "Chovendo agora",
+      statusMeta: "há 12 min",
+      mm: 10.8,
       intensidade: "Moderada",
-      intensidadeMeta: "desde 07h",
-      updated: "Atualizado há 42 min",
+      intensidadeMeta: "desde 18:14",
+      updated: "Atualizado há 2 min",
       tipo: "Digital",
       alimentacao: "Bateria",
       alimentacaoEstado: "OK",
@@ -247,8 +248,8 @@
       requires_device_confirmation: true,
     },
     "oeste": {
-      status: "ok",
-      daysRemaining: 0,
+      status: "late",
+      daysRemaining: -13,
       lastDate: "06/01/2026",
       nextDate: "05/02/2026",
       progress: 100,
@@ -261,7 +262,7 @@
       expected: "Programada",
       tagClass: "programada",
       description: "Manutenção programada para hoje",
-      meta: "Agendada: 05/02/2026",
+      meta: "13 dias atrasado",
       device_confirmed: false,
       requires_device_confirmation: true,
     },
@@ -384,6 +385,56 @@
   data.EDIT_POWER = EDIT_POWER;
   data.EDIT_UNITS = EDIT_UNITS;
   data.EDIT_SELECTS = EDIT_SELECTS;
+
+  // Storage Helpers
+  function getActiveFarmId() {
+    const s = window.CreateFarm?.state;
+    return s?.currentFarmId || localStorage.getItem("ic_active_farm_id") || "default";
+  }
+
+  function loadTalhoes() {
+    const farmId = getActiveFarmId();
+    try {
+      const raw = localStorage.getItem("ic_talhoes_" + farmId);
+      if (!raw) return [];
+      return JSON.parse(raw);
+    } catch (e) {
+      console.warn("Error loading talhoes", e);
+      return [];
+    }
+  }
+
+  function savePluviosToStorage() {
+    const farmId = getActiveFarmId();
+    try {
+      localStorage.setItem("ic_pluvios_" + farmId, JSON.stringify(data.PLUVIOS));
+    } catch (e) {
+      console.error("Failed to save pluviometers", e);
+    }
+  }
+
+  function loadPluviosFromStorage() {
+    const farmId = getActiveFarmId();
+    try {
+      const raw = localStorage.getItem("ic_pluvios_" + farmId);
+      if (raw) {
+        const stored = JSON.parse(raw);
+        if (Array.isArray(stored)) { // Allow empty array
+          data.PLUVIOS = stored;
+        }
+      } else {
+        // Init with mocks if nothing in storage
+        if (data.PLUVIOS && data.PLUVIOS.length > 0) {
+          savePluviosToStorage();
+        }
+      }
+    } catch (e) { }
+  }
+
+  data.getActiveFarmId = getActiveFarmId;
+  data.loadTalhoes = loadTalhoes;
+  data.savePluviosToStorage = savePluviosToStorage;
+  data.loadPluviosFromStorage = loadPluviosFromStorage;
 
   if (window.IcFarmApplyGeo && window.IcFarmActive) {
     window.IcFarmApplyGeo(window.IcFarmActive);

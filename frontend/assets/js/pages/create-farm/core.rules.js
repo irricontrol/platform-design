@@ -11,20 +11,20 @@
     BR: {
       fields: {
         country: {
-          label: "Pa?s",
+          label: "País",
           placeholder: "",
           required: true,
           show: true,
         },
         address: {
-          label: "Endere?o",
+          label: "Endereço",
           placeholder: "Ex: Av. Brasil, 120",
           required: true,
           show: true,
         },
         city: {
           label: "Cidade",
-          placeholder: "Ex: Goi?nia",
+          placeholder: "Ex: Goiânia",
           required: true,
           show: true,
         },
@@ -49,8 +49,8 @@
         },
       },
       docTypes: [
-        { value: "cpf", label: "CPF (Cadastro de Pessoa F?sica)" },
-        { value: "cnpj", label: "CNPJ (Cadastro Nacional da Pessoa Jur?dica)" },
+        { value: "cpf", label: "CPF (Cadastro de Pessoa Física)" },
+        { value: "cnpj", label: "CNPJ (Cadastro Nacional da Pessoa Jurídica)" },
       ],
       regionSelectPlaceholder: "Selecione o estado",
     },
@@ -298,17 +298,19 @@
   };
 
   const EQUIP_LABEL_BY_TYPE = {
-    smart_connect: "Piv?",
-    smarttouch: "Piv?",
+    smart_connect: "Pivô",
+    smarttouch: "Pivô",
     irripump: "Bomba",
     medidor: "Medidor",
-    pluviometro: "Pluvi?metro",
+    pluviometro: "Pluviômetro",
     repetidora: "Repetidora",
     rainstar: "Carretel",
-    estacao_metereologica: "Esta??o",
+    estacao_metereologica: "Estação",
   };
 
   const FARM_STORAGE_KEY = "ic_farms";
+
+  const FARM_API_URL = window.IC_FARM_API_URL || (location.protocol === "file:" ? "http://localhost:3000/api/farms" : "/api/farms");
 
   function setHidden(el, hidden) {
     if (!el) return;
@@ -596,6 +598,7 @@
   rules.EQUIP_CATEGORY_BY_TYPE = EQUIP_CATEGORY_BY_TYPE;
   rules.EQUIP_LABEL_BY_TYPE = EQUIP_LABEL_BY_TYPE;
   rules.FARM_STORAGE_KEY = FARM_STORAGE_KEY;
+  rules.FARM_API_URL = FARM_API_URL;
 
   helpers.setHidden = setHidden;
   helpers.setText = setText;
@@ -616,3 +619,4 @@
   helpers.buildSelectOptions = buildSelectOptions;
   helpers.applyBillingRules = applyBillingRules;
 })();
+

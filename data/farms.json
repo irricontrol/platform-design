@@ -1,0 +1,221 @@
+[
+  {
+    "id": "farm_1770641408523",
+    "name": "Fazenda Agro Brasil",
+    "lat": -21.83645395527054,
+    "lng": -46.947889924049385,
+    "equipments": [
+      {
+        "id": "equip_1770641458411",
+        "type": "smart_connect",
+        "category": "pivos",
+        "name": "Pivô 1",
+        "createdAt": "2026-02-09T12:50:58.410Z",
+        "data": {
+          "centerLat": -21.835346,
+          "centerLng": -46.953812,
+          "center": "-21.835346, -46.953812",
+          "activeTarget": "ref",
+          "ref": "-21.834168, -46.950009",
+          "refLat": -21.834168,
+          "refLng": -46.950009,
+          "radius": 413.8156795398266,
+          "manufacturer": "Bauer",
+          "panelType": "Nexus",
+          "commType": "4G",
+          "powerUnit": "cv",
+          "converted": "58,84",
+          "name": "Pivô 1",
+          "gateway": "1000",
+          "pluvio": true,
+          "power": "200",
+          "performance": "40",
+          "manufacturerOther": "",
+          "radioController": "",
+          "radioMonitor": "",
+          "remoteCable": ""
+        }
+      },
+      {
+        "id": "equip_1770641504857",
+        "type": "smart_connect",
+        "category": "pivos",
+        "name": "Pivô 2",
+        "createdAt": "2026-02-09T12:51:44.857Z",
+        "data": {
+          "centerLat": -21.837594,
+          "centerLng": -46.942177,
+          "center": "-21.837594, -46.942177",
+          "activeTarget": "ref",
+          "ref": "-21.836857, -46.938304",
+          "refLat": -21.836857,
+          "refLng": -46.938304,
+          "radius": 408.069379345998,
+          "manufacturer": "Bauer",
+          "panelType": "Nexus",
+          "commType": "4G",
+          "powerUnit": "cv",
+          "converted": "58,84",
+          "name": "Pivô 2",
+          "gateway": "1000",
+          "power": "200",
+          "performance": "40",
+          "pluvio": true,
+          "manufacturerOther": "",
+          "radioController": "",
+          "radioMonitor": "",
+          "remoteCable": ""
+        }
+      },
+      {
+        "id": "equip_1770641759424",
+        "type": "smart_connect",
+        "category": "pivos",
+        "name": "Pivô 3",
+        "createdAt": "2026-02-09T12:55:59.423Z",
+        "data": {
+          "centerLat": -21.828464,
+          "centerLng": -46.956875,
+          "center": "-21.828464, -46.956875",
+          "activeTarget": "ref",
+          "ref": "-21.827784, -46.953753",
+          "refLat": -21.827784,
+          "refLng": -46.953753,
+          "radius": 331.01275735642565,
+          "manufacturer": "Bauer",
+          "panelType": "Nexus",
+          "commType": "4G",
+          "powerUnit": "cv",
+          "converted": "58,84",
+          "name": "Pivô 3",
+          "gateway": "1000",
+          "pluvio": true,
+          "power": "200",
+          "performance": "40",
+          "manufacturerOther": "",
+          "radioController": "",
+          "radioMonitor": "",
+          "remoteCable": ""
+        }
+      },
+      {
+        "id": "equip_1770641798502",
+        "type": "repetidora",
+        "category": "repetidoras",
+        "name": "Repetidora Poste",
+        "createdAt": "2026-02-09T12:56:38.502Z",
+        "data": {
+          "lat": -21.831594,
+          "lng": -46.954687,
+          "loc": "-21.831594, -46.954687",
+          "name": "Repetidora Poste",
+          "height": "6",
+          "type": "Solar",
+          "radio": "0012"
+        }
+      },
+      {
+        "id": "equip_1770641853236",
+        "type": "medidor",
+        "category": "medidores",
+        "name": "MDN - 2",
+        "createdAt": "2026-02-09T12:57:33.236Z",
+        "data": {
+          "lat": -21.836952,
+          "lng": -46.95746,
+          "loc": "-21.836952, -46.957460",
+          "serial": "0012",
+          "nome": "MDN - 2",
+          "modules": [
+            {
+              "id": "m1",
+              "name": "Módulo 1",
+              "serial": "MDN-01-01-01",
+              "source": "Manual"
+            }
+          ],
+          "funcs": {
+            "automacao": false,
+            "nivel": true
+          },
+          "funcParams": {
+            "automacao": "",
+            "nivel": "Poço"
+          },
+          "vinculo": ""
+        }
+      },
+      {
+        "id": "equip_1770642201582",
+        "type": "irripump",
+        "category": "bombas",
+        "name": "Bomba 01",
+        "createdAt": "2026-02-09T13:03:21.581Z",
+        "data": {
+          "lat": -21.837893,
+          "lng": -46.957262,
+          "loc": "-21.837893, -46.957262",
+          "serial": "001",
+          "nome": "Bomba 01",
+          "modules": [
+            {
+              "id": "m1",
+              "name": "Módulo 1",
+              "serial": "GH2-01-01-01",
+              "source": "Manual"
+            }
+          ],
+          "funcs": {
+            "automacao": true
+          },
+          "funcParams": {
+            "automacao": "Bomba Submersa"
+          },
+          "vinculo": ""
+        }
+      },
+      {
+        "id": "equip_1770655983307",
+        "type": "pluviometro",
+        "category": "pluviometros",
+        "name": "Pluviometro 01",
+        "createdAt": "2026-02-09T16:53:03.306Z",
+        "data": {
+          "lat": -21.831006,
+          "lng": -46.953946,
+          "loc": "-21.831006, -46.953946",
+          "serial": "1000",
+          "nome": "Pluviometro 01"
+        }
+      },
+      {
+        "id": "equip_1770658556567",
+        "type": "pluviometro",
+        "category": "pluviometros",
+        "name": "Pluviometro 01",
+        "createdAt": "2026-02-09T17:35:56.566Z",
+        "data": {
+          "lat": -21.831116,
+          "lng": -46.954,
+          "loc": "-21.831116, -46.954000",
+          "serial": "1000",
+          "nome": "Pluviometro 01"
+        }
+      },
+      {
+        "id": "equip_1770658931619",
+        "type": "pluviometro",
+        "category": "pluviometros",
+        "name": "Pluviometro 01",
+        "createdAt": "2026-02-09T17:42:11.618Z",
+        "data": {
+          "lat": -21.836454,
+          "lng": -46.94789,
+          "loc": "-21.836454, -46.947890",
+          "serial": "1000",
+          "nome": "Pluviometro 01"
+        }
+      }
+    ]
+  }
+]

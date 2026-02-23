@@ -173,6 +173,73 @@
     return `<span class="pluv-card__meta-line">${text}</span>`;
   }
 
+  function normalizeText(value) {
+    return String(value || "").replace(/\s+/g, " ").trim();
+  }
+
+  function extractDuration(text) {
+    const raw = normalizeText(text);
+    if (!raw) return "";
+    const match = raw.match(/\bhá\s+(.+)$/i);
+    if (match) return normalizeText(match[1]);
+    const matchAlt = raw.match(/\bem\s+(.+)$/i);
+    if (matchAlt) return normalizeText(matchAlt[1]);
+    return "";
+  }
+
+  function extractTime(text) {
+    const raw = normalizeText(text);
+    if (!raw) return "";
+    const hhmm = raw.match(/\b(\d{1,2}:\d{2})\b/);
+    if (hhmm) return hhmm[1];
+    const hour = raw.match(/\b(\d{1,2})h(\d{2})?\b/i);
+    if (hour) return hour[2] ? `${hour[1]}:${hour[2]}` : `${hour[1]}h`;
+    return "";
+  }
+
+  function extractSince(text) {
+    const raw = normalizeText(text);
+    if (!raw) return "";
+    const match = raw.match(/\bdesde\s+(.+)$/i);
+    if (match) return `desde ${normalizeText(match[1])}`;
+    const time = extractTime(raw);
+    return time ? `desde ${time}` : "";
+  }
+
+  function formatIntensityLabel(intensity) {
+    const raw = normalizeText(intensity).toLowerCase();
+    if (!raw) return "Chuva";
+    if (/chuva/.test(raw)) return raw.replace(/\bchuva\b/i, "Chuva");
+    return `Chuva ${raw}`;
+  }
+
+  function buildContextLine(p) {
+    if (isOffline(p)) {
+      const offlineFor = extractDuration(p.updated) || extractDuration(p.statusMeta);
+      return offlineFor ? `Sem comunicação há ${offlineFor}` : "Sem comunicação";
+    }
+
+    if (isRaining(p)) {
+      const intensity = formatIntensityLabel(p.intensidade);
+      const sinceMeta = extractSince(p.intensidadeMeta) || extractSince(p.statusMeta);
+      const sinceDuration = !sinceMeta ? extractDuration(p.statusMeta) : "";
+      const since = sinceMeta || (sinceDuration ? `desde ${sinceDuration}` : "");
+      return since ? `${intensity} ${since}` : intensity;
+    }
+
+    const lastTime = extractTime(p.statusMeta) || extractTime(p.intensidadeMeta);
+    if (lastTime) return `Última chuva às ${lastTime}`;
+    const lastDuration = extractDuration(p.statusMeta);
+    if (lastDuration) return `Última chuva às ${lastDuration}`;
+    return "Sem chuva recente";
+  }
+
+  function buildDurationLine(p) {
+    const source = isRaining(p) ? p.statusMeta : (p.statusMeta || p.updated);
+    const duration = extractDuration(source);
+    return duration ? `em ${duration}` : "";
+  }
+
   function statusLine(p) {
     if (isOffline(p)) {
       return `${metaLine("Sem comunicação")}${metaLine(p.updated || "Offline")}`;
@@ -192,59 +259,51 @@
     const pivos = (p.pivos && p.pivos.length) ? p.pivos.join(", ") : "—";
     const talhao = p.sub || "—";
 
-    const statusLeft = p.semComunicacao ? "Sem comunicação" : (p.statusLabel || "—");
-    const statusRight = (!p.semComunicacao && p.statusMeta) ? p.statusMeta : "";
-    const statusClass = "pluv-card__status";
-    const statusBadge = isRaining(p)
-      ? `<span class="pluv-card__status-badge pluv-card__status-badge--rain pill pill--info"><span class="pluv-card__status-text">${statusLeft}</span></span>`
-      : (p.semComunicacao
-        ? `<span class="pluv-card__status-badge pluv-card__status-badge--alert pill pill--danger"><span class="pluv-card__status-text">Sem comunicação</span></span>`
-        : "");
-    const statusText = p.semComunicacao
-      ? statusBadge
-      : (isRaining(p)
-        ? `${statusBadge}${statusRight ? `<span class="pluv-card__dot">•</span><span class="pluv-card__status-meta">${statusRight}</span>` : ""}`
-        : (statusRight || "—"));
-
-    const intensityRaw = (p.intensidade || "").trim();
-    const showIntensity = !!intensityRaw && !p.semComunicacao && isRaining(p);
-    const intensityBase = showIntensity
-      ? (/chuva/i.test(intensityRaw) ? intensityRaw : `Chuva ${intensityRaw.toLowerCase()}`)
-      : "—";
-    const intensityText = showIntensity
-      ? `${intensityBase}${p.intensidadeMeta ? ` ${p.intensidadeMeta}` : ""}`
-      : "";
-    const intensityClass = showIntensity ? "pluv-card__intensity" : "pluv-card__intensity is-ghost";
-    const intensityContent = showIntensity ? intensityText : "&nbsp;";
-
-    const updated = p.updated || "";
     const expandId = `pluv-card-expand-${p.id}`;
     const signalClass = p.semComunicacao ? "is-off" : "is-on";
     const signalTitle = p.semComunicacao ? "Sem comunicação" : (p.net || "Online");
+    const contextLine = buildContextLine(p);
+    const durationLine = buildDurationLine(p);
+    const updatedLine = normalizeText(p.updated) || "Atualizado —";
+    const rainBadge = isRaining(p) ? '<span class="pluv-card__pill">Chovendo agora</span>' : "";
+    const offlineBadge = isOffline(p) ? '<span class="pluv-card__pill pluv-card__pill--alert">Sem comunicação</span>' : "";
+    const statusBadge = rainBadge || offlineBadge || '<span class="pluv-card__pill pluv-card__pill--ghost">&nbsp;</span>';
 
     return `
       <article class="pluv-card card ${tone} ${isSelected ? "is-selected" : ""} ${isOpen ? "is-open" : ""}" data-pluv-card data-id="${p.id}" aria-expanded="${isOpen}">
         <div class="pluv-card__row">
-          <div class="pluv-card__title">
-            <span class="pluv-card__name">${p.nome}</span>
-            <span class="pluv-card__signal ${signalClass}" title="${signalTitle}">
-              <i class="fa-solid fa-wifi"></i>
-            </span>
+          <div class="pluv-card__main">
+            <div class="pluv-card__title">
+              <span class="pluv-card__name">${p.nome}</span>
+              <span class="pluv-card__signal ${signalClass}" title="${signalTitle}">
+                <i class="fa-solid fa-wifi"></i>
+              </span>
+            </div>
+            <div class="pluv-card__rain-context">${contextLine}</div>
           </div>
           <div class="pluv-card__right">
-            <div class="pluv-card__mm">
-              ${mmIconSvg()}
-              <span class="pluv-card__mm-val">${p.mm.toFixed(1)}</span>
-              <span class="pluv-card__mm-unit">mm</span>
+            <div class="pluv-card__mm-block">
+              <span class="pluv-card__mm-ico">${mmIconSvg()}</span>
+              <div class="pluv-card__mm-text">
+                <div class="pluv-card__mm">
+                  <span class="pluv-card__mm-val">${p.mm.toFixed(1)}</span>
+                  <span class="pluv-card__mm-unit">mm</span>
+                </div>
+                <div class="pluv-card__duration">${durationLine || "&nbsp;"}</div>
+              </div>
             </div>
             <button class="pluv-card__toggle" type="button" data-card-toggle aria-label="Mostrar detalhes" aria-expanded="${isOpen}" aria-controls="${expandId}">
               <i class="fa-solid fa-chevron-down"></i>
             </button>
           </div>
         </div>
-        <div class="${statusClass}">${statusText}</div>
-        <div class="${intensityClass}">${intensityContent}</div>
-        ${updated ? `<div class="pluv-card__updated"><i class="fa-solid fa-clock"></i>${updated}</div>` : ""}
+        ${statusBadge}
+        <div class="pluv-card__footline">
+          <div class="pluv-card__updated">
+            <i class="fa-solid fa-clock"></i>
+            <span>${updatedLine}</span>
+          </div>
+        </div>
         <div class="pluv-card__expand" id="${expandId}">
           <div class="pluv-card__divider"></div>
           <div class="pluv-card__context">
@@ -403,7 +462,3 @@
   cards.nowIconStyle = nowIconStyle;
   cards.clearSelection = clearSelection;
 })();
-
-
-
-

@@ -73,7 +73,6 @@
             </div>
             <div class="sc-loc__row">
               <div class="sc-loc__input">
-                <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
                 <input class="equip-input sc-loc__input-field" id="scCenter" placeholder="-23.289023, -46.640897" value="${escapeHtml(centerText)}" />
               </div>
               <button class="equip-btn btn sc-loc__btn sc-loc__btn--center" type="button" data-action="sc-pick-center">
@@ -89,7 +88,6 @@
             </div>
             <div class="sc-loc__row">
               <div class="sc-loc__input">
-                <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
                 <input class="equip-input sc-loc__input-field" id="scRef" placeholder="-23.289274, -46.642657" value="${escapeHtml(refText)}" />
               </div>
               <button class="equip-btn btn sc-loc__btn sc-loc__btn--ref" type="button" data-action="sc-pick-ref">
@@ -201,14 +199,13 @@
 
       const centerMarker = L.marker([basePoint.lat, basePoint.lng], {
         icon: pinIcon("center"),
+        draggable: true,
       }).addTo(map);
 
       const refMarker = L.marker([basePoint.lat, basePoint.lng], {
         icon: pinIcon("ref"),
+        draggable: true,
       }).addTo(map);
-
-      if (!centerPoint) centerMarker.setOpacity(0);
-      if (!refPoint) refMarker.setOpacity(0);
 
       if (centerPoint) centerMarker.setLatLng([centerPoint.lat, centerPoint.lng]);
       if (refPoint) refMarker.setLatLng([refPoint.lat, refPoint.lng]);
@@ -233,19 +230,18 @@
         state.radius = radius;
       };
 
-      const setPoint = (target, lat, lng) => {
+      const setPoint = (target, lat, lng, options = {}) => {
+        const { syncMarker = true } = options;
         if (target === "center") {
           centerPoint = { lat, lng };
-          centerMarker.setLatLng([lat, lng]);
-          centerMarker.setOpacity(1);
+          if (syncMarker) centerMarker.setLatLng([lat, lng]);
           centerInput.value = formatLatLng(lat, lng);
           state.center = centerInput.value;
           state.centerLat = lat;
           state.centerLng = lng;
         } else {
           refPoint = { lat, lng };
-          refMarker.setLatLng([lat, lng]);
-          refMarker.setOpacity(1);
+          if (syncMarker) refMarker.setLatLng([lat, lng]);
           refInput.value = formatLatLng(lat, lng);
           state.ref = refInput.value;
           state.refLat = lat;
@@ -253,6 +249,21 @@
         }
         updateCircle();
       };
+
+      centerMarker.on("dragstart", () => {
+        state.activeTarget = "center";
+      });
+      centerMarker.on("drag", (event) => {
+        const pos = event.target.getLatLng();
+        setPoint("center", pos.lat, pos.lng, { syncMarker: false });
+      });
+      refMarker.on("dragstart", () => {
+        state.activeTarget = "ref";
+      });
+      refMarker.on("drag", (event) => {
+        const pos = event.target.getLatLng();
+        setPoint("ref", pos.lat, pos.lng, { syncMarker: false });
+      });
 
       map.on("click", (e) => {
         const target = state.activeTarget || "center";
@@ -633,4 +644,3 @@
     },
   };
 })();
-

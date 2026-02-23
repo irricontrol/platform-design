@@ -37,7 +37,7 @@
 
   const THREE_STEPS = ["Equipamento", "Localização", "Configuração"];
   const TWO_STEPS = ["Equipamento", "Configuração"];
-  const SIX_STEPS = ["Equipamento", "Cadastro inicial", "Módulos", "Funções", "Vincular equipamento", "Resumo"];
+  const SIX_STEPS = ["Equipamento", "Localização", "Módulos", "Funções", "Vincular equipamento", "Resumo"];
 
   const stepFlows = {
     smart_connect: THREE_STEPS,
@@ -45,7 +45,7 @@
     repetidora: THREE_STEPS,
     rainstar: TWO_STEPS,
     estacao_metereologica: TWO_STEPS,
-    pluviometro: TWO_STEPS,
+    pluviometro: THREE_STEPS,
     irripump: SIX_STEPS,
     medidor: SIX_STEPS,
   };
@@ -342,7 +342,7 @@
       return;
     }
 
-    if (type === "irripump" || type === "medidor") {
+    if (type === "irripump" || type === "medidor" || type === "pluviometro") {
       const hasLoc = Number.isFinite(st.lat) && Number.isFinite(st.lng);
       if (!hasLoc && !st.loc) {
         st.lat = farm.lat;
@@ -360,7 +360,7 @@
     if (type === "medidor") return data.nome || "";
     if (type === "rainstar") return data.name || "";
     if (type === "repetidora") return data.name || "";
-    if (type === "pluviometro") return data.name || "";
+    if (type === "pluviometro") return data.nome || "";
     if (type === "estacao_metereologica") return data.name || "";
     return data.name || "";
   }
@@ -476,7 +476,7 @@
 
       const st = (stateByType[selectedType] ||= {});
 
-      if (label === "Cadastro inicial") handler.renderStep2(dynamicHost, st);
+      if (label === "Localização") handler.renderStep2(dynamicHost, st);
       else if (label === "Módulos") handler.renderStep3(dynamicHost, st);
       else if (label === "Funções") handler.renderStep4(dynamicHost, st);
       else if (label === "Vincular equipamento") handler.renderStep5(dynamicHost, st);
@@ -487,6 +487,18 @@
     }
 
     // SmartConnect/Nexus — Steps 2..3
+    // Pluviometro — Steps 2..3 (Localização / Configuração)
+    if (selectedType === "pluviometro") {
+      const handler = window.IcEquipamentos?.pluviometro;
+      if (!handler) return;
+      const st = (stateByType[selectedType] ||= {});
+
+      if (label === "Localização") handler.renderStep2(dynamicHost, st);
+      else if (label === "Configuração" && typeof handler.renderStep3 === "function") {
+        handler.renderStep3(dynamicHost, st);
+      }
+    }
+
     if (selectedType === "smart_connect") {
       const handler = window.IcEquipamentos?.smart_connect;
       if (!handler) return;
@@ -555,8 +567,8 @@
     const steps = getStepsFor(selectedType);
     const label = steps[currentStepIndex];
 
-    // Validação Step 2 (Cadastro inicial) — Irripump + Medidor
-    if ((selectedType === "irripump" || selectedType === "medidor") && label === "Cadastro inicial") {
+    // Validação Step 2 (Localização) — Irripump + Medidor
+    if ((selectedType === "irripump" || selectedType === "medidor") && label === "Localização") {
       const handler = window.IcEquipamentos?.[selectedType];
       if (!handler) return;
 
@@ -572,7 +584,58 @@
       Object.assign(st, data);
     }
 
+    // Validação Step 3 (Módulos) — Irripump + Medidor
+    if ((selectedType === "irripump" || selectedType === "medidor") && label === "Módulos") {
+      const handler = window.IcEquipamentos?.[selectedType];
+      if (!handler || typeof handler.readStep3 !== "function") return;
+
+      const st = (stateByType[selectedType] ||= {});
+      const data = handler.readStep3(dynamicHost);
+      const val = handler.validateStep3 ? handler.validateStep3(data) : { ok: true, msg: "" };
+
+      if (!val.ok) {
+        alert(val.msg);
+        return;
+      }
+
+      Object.assign(st, data);
+    }
+
     // Validação Step 2 (Localização) — SmartConnect/Nexus
+    // Validação Step 2 (Localização) - Pluviometro
+    if (selectedType === "pluviometro" && label === "Localização") {
+      const handler = window.IcEquipamentos?.pluviometro;
+      if (!handler) return;
+
+      const st = (stateByType[selectedType] ||= {});
+      const data = handler.readStep2(dynamicHost);
+      const val = handler.validateStep2 ? handler.validateStep2(data) : { ok: true, msg: "" };
+
+      if (!val.ok) {
+        alert(val.msg);
+        return;
+      }
+
+      Object.assign(st, data);
+    }
+
+    // Validação Step 3 (Configuração) - Pluviometro
+    if (selectedType === "pluviometro" && label === "Configuração") {
+      const handler = window.IcEquipamentos?.pluviometro;
+      if (!handler || typeof handler.readStep3 !== "function") return;
+
+      const st = (stateByType[selectedType] ||= {});
+      const data = handler.readStep3(dynamicHost);
+      const val = handler.validateStep3 ? handler.validateStep3(data) : { ok: true, msg: "" };
+
+      if (!val.ok) {
+        alert(val.msg);
+        return;
+      }
+
+      Object.assign(st, data);
+    }
+
     if (selectedType === "smart_connect" && label === "Localiza\u00e7\u00e3o") {
       const handler = window.IcEquipamentos?.smart_connect;
       if (!handler) return;
@@ -854,4 +917,3 @@
     }
   });
 })();
-

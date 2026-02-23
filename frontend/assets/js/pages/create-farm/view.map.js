@@ -109,12 +109,10 @@
     if (state.farmMarkers.has(farm.id)) {
       const existing = state.farmMarkers.get(farm.id);
       existing.setLatLng([farm.lat, farm.lng]);
-      existing.bindPopup(farm.name);
       return;
     }
     const icon = getFarmMarkerIcon();
     const marker = L.marker([farm.lat, farm.lng], icon ? { icon } : undefined).addTo(layer);
-    marker.bindPopup(farm.name);
     state.farmMarkers.set(farm.id, marker);
   }
 
@@ -233,7 +231,7 @@
 
     L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      { maxZoom: 19, attribution: "Tiles ?? Esri" }
+      { maxZoom: 19, attribution: "Tiles © Esri" }
     ).addTo(state.farmLocationMap);
 
     L.tileLayer(
