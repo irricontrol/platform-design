@@ -1,0 +1,13 @@
+{
+    "name": "platform-design-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node server/index.js",
+        "install-server": "cd server && npm install",
+        "build": "echo 'No build step'"
+    },
+    "dependencies": {
+        "express": "^4.19.2"
+    }
+}
