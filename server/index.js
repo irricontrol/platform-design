@@ -53,6 +53,16 @@ app.use((req, res, next) => {
   next();
 });
 
+// Healthcheck (Uptime Bot)
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    ok: true,
+    service: "platform-design",
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.get("/api/farms", async (req, res) => {
   try {
     const farms = await readFarms();
