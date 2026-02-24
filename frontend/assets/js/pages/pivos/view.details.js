@@ -118,6 +118,65 @@
         if ($(modalId)) $(modalId).remove();
 
         const pivoData = Pivos.data.getPivotData?.(state.selectedId);
+        const isEmptyState = faultTitle === "Tensão Baixa" || faultTitle === "Pico de Tensão";
+
+        const tableBody = isEmptyState ? "" : `
+            <tbody>
+                <tr>
+                    <td>-16.2574215,-47.413506</td>
+                    <td>10/02/2026 17:44</td>
+                    <td>0.5°</td>
+                </tr>
+                <tr>
+                    <td>-16.2572492,-47.4129491</td>
+                    <td>12/02/2026 08:34</td>
+                    <td>354.6°</td>
+                </tr>
+                <tr>
+                    <td>-16.2572492,-47.4129491</td>
+                    <td>12/02/2026 08:33</td>
+                    <td>354.6°</td>
+                </tr>
+                <tr>
+                    <td>-16.2572492,-47.4129491</td>
+                    <td>12/02/2026 08:24</td>
+                    <td>354.6°</td>
+                </tr>
+                <tr>
+                    <td>-16.2572492,-47.4129491</td>
+                    <td>11/02/2026 10:28</td>
+                    <td>354.6°</td>
+                </tr>
+                <tr>
+                    <td>-16.2572492,-47.4129491</td>
+                    <td>11/02/2026 10:22</td>
+                    <td>354.6°</td>
+                </tr>
+            </tbody>
+        `;
+
+        const emptyStateContent = isEmptyState ? `
+            <div class="fault-modal__empty-state">
+                <svg class="fault-modal__empty-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 30H90V80C90 85.5228 85.5228 90 80 90H20C14.4772 90 10 85.5228 10 80V30Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M10 30L25 10H75L90 30" stroke="currentColor" stroke-width="2"/>
+                    <path d="M40 30C40 35.5228 44.4772 40 50 40C55.5228 40 60 35.5228 60 30" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <p class="fault-modal__empty-text">Não há dados</p>
+            </div>
+        ` : "";
+
+        const paginationContent = isEmptyState ? "" : `
+            <footer class="fault-modal__pagination">
+                <span>1-6 de 10 itens</span>
+                <div class="fault-modal__pagination-controls">
+                    <button type="button" class="fault-modal__page-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>
+                    <button type="button" class="fault-modal__page-btn is-active">1</button>
+                    <button type="button" class="fault-modal__page-btn">2</button>
+                    <button type="button" class="fault-modal__page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </footer>
+        `;
 
         const modalHtml = `
             <div class="fault-modal" id="${modalId}">
@@ -137,7 +196,7 @@
                             <header class="fault-modal__table-header">
                                 <h4 class="fault-modal__table-title">Paradas</h4>
                                 <div class="fault-modal__date-picker">
-                                    <span>24/01/2026 &nbsp; — &nbsp; 23/02/2026</span>
+                                    <span>25/01/2026 &nbsp; — &nbsp; 24/02/2026</span>
                                     <i class="fa-regular fa-calendar"></i>
                                 </div>
                             </header>
@@ -147,52 +206,14 @@
                                         <tr>
                                             <th>Localização</th>
                                             <th>Hora</th>
-                                            <th>Ângulo</th>
+                                            <th class="is-filterable">Ângulo <i class="fa-solid fa-sort"></i></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>-16.2574215,-47.413506</td>
-                                            <td>10/02/2026 17:44</td>
-                                            <td>0.5°</td>
-                                        </tr>
-                                        <tr>
-                                            <td>-16.2572492,-47.4129491</td>
-                                            <td>12/02/2026 08:34</td>
-                                            <td>354.6°</td>
-                                        </tr>
-                                        <tr>
-                                            <td>-16.2572492,-47.4129491</td>
-                                            <td>12/02/2026 08:33</td>
-                                            <td>354.6°</td>
-                                        </tr>
-                                        <tr>
-                                            <td>-16.2572492,-47.4129491</td>
-                                            <td>12/02/2026 08:24</td>
-                                            <td>354.6°</td>
-                                        </tr>
-                                        <tr>
-                                            <td>-16.2572492,-47.4129491</td>
-                                            <td>11/02/2026 10:28</td>
-                                            <td>354.6°</td>
-                                        </tr>
-                                        <tr>
-                                            <td>-16.2572492,-47.4129491</td>
-                                            <td>11/02/2026 10:22</td>
-                                            <td>354.6°</td>
-                                        </tr>
-                                    </tbody>
+                                    ${tableBody}
                                 </table>
+                                ${emptyStateContent}
                             </div>
-                            <footer class="fault-modal__pagination">
-                                <span>1-6 de 10 itens</span>
-                                <div class="fault-modal__pagination-controls">
-                                    <button type="button" class="fault-modal__page-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>
-                                    <button type="button" class="fault-modal__page-btn is-active">1</button>
-                                    <button type="button" class="fault-modal__page-btn">2</button>
-                                    <button type="button" class="fault-modal__page-btn"><i class="fa-solid fa-chevron-right"></i></button>
-                                </div>
-                            </footer>
+                            ${paginationContent}
                         </div>
                     </div>
                 </div>
@@ -323,8 +344,11 @@
                 }).addTo(map);
 
                 map.setView(latlng, 16);
+            } else if (faultTitle === "Tensão Baixa" || faultTitle === "Pico de Tensão") {
+                // Para falhas de tensão, centralizamos no pivô com zoom 16 (igual pressão)
+                map.setView(latlng, 16);
             } else {
-                // Outras falhas mantêm o rastro clássico por enquanto
+                // Outras falhas (ex: Desalinhamento)
                 const mockAngles = [0.5, 354.6, 354.0, 355.2];
                 mockAngles.forEach(angle => {
                     const mathAngleRad = (90 - angle) * (Math.PI / 180);
@@ -363,11 +387,8 @@
                     }
                 });
 
-                // Zoom na ponta da última falha registrada
-                const mainRad = (90 - mockAngles[0]) * (Math.PI / 180);
-                const tipLat = pivoData.center.lat + (pivoData.radius / 111320) * Math.sin(mainRad);
-                const tipLng = pivoData.center.lng + (pivoData.radius / (111320 * Math.cos(pivoData.center.lat * Math.PI / 180))) * Math.cos(mainRad);
-                map.setView([tipLat, tipLng], 18);
+                // Zoom centralizado em 16 (igual pressão)
+                map.setView(latlng, 16);
             }
         } else if (pivoData.geo && window.icMapParseWKT) {
             const geoJson = window.icMapParseWKT(pivoData.geo);

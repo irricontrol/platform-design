@@ -32,6 +32,13 @@ body.is-monitoramento .main {
     gap: 16px;
 }
 
+@media (max-height: 800px) {
+    .monitor-view {
+        padding: 12px 20px 20px;
+        gap: 12px;
+    }
+}
+
 .monitor-view__crumbs {
     font-size: 12px;
     color: #94a3b8;
@@ -207,6 +214,16 @@ body.is-monitoramento .main {
     width: calc(100vw - 320px);
     /* Ajusta para caber na tela sem scroll */
     min-width: 800px;
+}
+
+@media (max-height: 800px) {
+    .monitor-view__chart-container {
+        padding: 12px 20px;
+    }
+
+    .monitor-view__chart-main {
+        height: 160px !important;
+    }
 }
 
 .monitor-view__chart-main {
@@ -418,6 +435,18 @@ body.is-monitoramento .main {
     min-height: 200px;
 }
 
+@media (max-height: 800px) {
+    .monitor-view__cell {
+        min-height: 160px;
+        padding: 10px;
+    }
+
+    .monitor-view__img-card {
+        width: 140px;
+        height: 140px;
+    }
+}
+
 .monitor-view__cell--head {
     min-height: 0;
     padding: 12px;
@@ -531,6 +560,7 @@ body.is-monitoramento .main {
     background: #ffffff;
     width: 100%;
     max-width: 960px;
+    max-height: calc(100vh - 40px);
     border-radius: 16px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     overflow: hidden;
@@ -538,6 +568,22 @@ body.is-monitoramento .main {
     flex-direction: column;
     transform: translateY(20px);
     transition: all 0.3s ease;
+}
+
+@media (max-height: 800px) {
+    .monitor-modal__dialog {
+        max-height: calc(100vh - 10px);
+    }
+
+    .monitor-modal__header {
+        padding: 12px 20px;
+    }
+
+    .monitor-modal__content,
+    .monitor-modal__sidebar {
+        padding: 16px 20px;
+        gap: 16px;
+    }
 }
 
 .monitor-modal.is-open .monitor-modal__dialog {
