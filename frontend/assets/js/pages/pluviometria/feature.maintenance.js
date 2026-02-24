@@ -209,8 +209,8 @@
       const confirmationState = awaitingDue
         ? "pending"
         : entry.deviceConfirmed
-        ? "confirmed"
-        : "";
+          ? "confirmed"
+          : "";
       return {
         ...entry,
         badge,
@@ -235,16 +235,14 @@
               </span>
             </div>
             <div class="pluv-maint__meta">
-              ${
-                entry.meta
-                  ? `<span><i class="fa-regular fa-calendar"></i> ${entry.meta}</span>`
-                  : ""
-              }
-              ${
-                entry.badge.variant === "ok" && entry.responsible
-                  ? `<span><i class="fa-solid fa-user"></i> ${entry.responsible}</span>`
-                  : ""
-              }
+              ${entry.meta
+            ? `<span><i class="fa-regular fa-calendar"></i> ${entry.meta}</span>`
+            : ""
+          }
+              ${entry.badge.variant === "ok" && entry.responsible
+            ? `<span><i class="fa-solid fa-user"></i> ${entry.responsible}</span>`
+            : ""
+          }
             </div>
             
           </article>
@@ -804,9 +802,8 @@
           </div>
         </div>
 
-        ${
-          isOverdue
-            ? `
+        ${isOverdue
+        ? `
               <div class="maint__alert maint__alert--danger">
                 <span class="maint__alert-ico"><i class="fa-solid fa-triangle-exclamation"></i></span>
                 <div>
@@ -815,24 +812,10 @@
                 </div>
               </div>
             `
-            : ""
-        }
-        ${
-          showAwaitingAlert
-            ? `
-              <div class="maint__alert maint__alert--warn">
-                <span class="maint__alert-ico"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                <div>
-                  <div class="maint__alert-title">Aguardando confirmação</div>
-                  <div class="maint__alert-sub">Pressione o botão físico do equipamento para confirmar a manutenção realizada.</div>
-                </div>
-              </div>
-            `
-            : ""
-        }
-        ${
-          (!showAwaitingAlert && !isOverdue)
-            ? `
+        : ""
+      }
+        ${!isOverdue
+        ? `
               <div class="maint__alert maint__alert--ok">
                 <span class="maint__alert-ico"><i class="fa-solid fa-check"></i></span>
                 <div>
@@ -841,8 +824,8 @@
                 </div>
               </div>
             `
-            : ""
-        }
+        : ""
+      }
 
         <div class="maint-config">
           <div class="maint-config__head">
@@ -888,52 +871,6 @@
             </div>
           </div>
         </div>
-
-        ${
-          awaiting
-            ? ""
-            : `
-              <div class="maint-form">
-                <div class="maint-form__head">
-                  <span class="maint-form__icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
-                  <div>
-                    <div class="maint-form__title">Detalhar manutenção realizada</div>
-                    <div class="maint-form__sub">Selecione abaixo o que foi realizado para concluir o registro</div>
-                  </div>
-                </div>
-
-                <div class="maint-form__field">
-                  <label>Tipo de manutenção realizada <span class="maint__req">*</span></label>
-                  <div class="maint-form__types">
-                    ${typeMarkup}
-                  </div>
-                </div>
-
-                ${otherField}
-
-                <div class="maint-form__field">
-                  <label>Observação (opcional)</label>
-                  <textarea class="maint__textarea" rows="3" placeholder="Descreva rapidamente o que foi feito..." data-maint-notes>${state.maintenanceState.notes}</textarea>
-                </div>
-
-                <div class="maint-form__field">
-                  <label>Responsável (opcional)</label>
-                  <input class="maint__input" type="text" value="${state.maintenanceState.responsible}" data-maint-resp />
-                </div>
-
-                <div class="maint-form__footer">
-                  <button class="maint-btn maint-btn--ghost" type="button">
-                    <i class="fa-solid fa-xmark"></i>
-                    Cancelar
-                  </button>
-                  <button class="maint-btn maint-btn--primary" type="button" data-maint-submit>
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                    Concluir manutenção
-                  </button>
-                </div>
-              </div>
-            `
-        }
       </div>
     `;
 
