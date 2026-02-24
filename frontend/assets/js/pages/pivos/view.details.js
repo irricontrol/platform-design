@@ -214,15 +214,15 @@
 
         // Initialize Map
         setTimeout(() => {
-            renderFaultMap(pivoData);
+            renderFaultMap(pivoData, faultTitle);
         }, 100);
     }
 
-    function renderFaultMap(pivoData) {
+    function renderFaultMap(pivoData, faultTitle) {
         const mapEl = $("faultModalMap");
         if (!mapEl || !pivoData) return;
 
-        // Limpar mapa anterior no mesmo elemento
+        // Limpar mapa anterior
         if (mapEl._leaflet_id) {
             mapEl._leaflet_id = null;
             mapEl.innerHTML = "";
@@ -234,7 +234,6 @@
             zoomSnap: 0
         });
 
-        // Background Satellite
         L.tileLayer(
             "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
             { maxZoom: 20 }
@@ -243,91 +242,133 @@
         if (pivoData.center && pivoData.radius) {
             const latlng = [pivoData.center.lat, pivoData.center.lng];
 
-            // Pivo Circle (Borda de limite)
+            // 1. Limite Físico (Branco)
             L.circle(latlng, {
                 radius: pivoData.radius,
-                color: "rgba(255,255,255,0.7)",
+                color: "rgba(255,255,255,0.8)",
                 weight: 2,
                 fill: false,
                 pointerEvents: 'none'
             }).addTo(map);
 
-            // Desenhar o Calor usando Camadas Nativas (Garante que fique preso à Lat/Lng e não dê "drift")
-            const mockAngles = [0.5, 354.6, 354.0, 355.2];
+            // 2. Lógica Especial para Falha de Pressão (Heat Map SpaceX Style)
+            if (faultTitle === "Falha de Pressão") {
+                const pressurePoints = [];
+                const segments = [];
+                const steps = 120;
+                const seed = (pivoData.id || "pivo").split('').reduce((a, b) => a + b.charCodeAt(0), 0);
 
-            mockAngles.forEach(angle => {
-                const mathAngleRad = (90 - angle) * (Math.PI / 180);
+                for (let i = 0; i <= 360; i += (360 / steps)) {
+                    const angleRad = (i - 90) * (Math.PI / 180);
 
-                // IMPORTANTE: Trocamos L.circleMarker (pixels) para L.circle (metros).
-                // Isso garante que o calor ocupe sempre a mesma área GEOGRÁFICA no campo,
-                // fixando o seu tamanho em relação ao desenho do pivô, independente do zoom.
-                for (let i = 0; i <= 60; i++) {
-                    const dist = (pivoData.radius * i) / 60;
-                    const fLat = pivoData.center.lat + (dist / 111320) * Math.sin(mathAngleRad);
-                    const fLng = pivoData.center.lng + (dist / (111320 * Math.cos(pivoData.center.lat * Math.PI / 180))) * Math.cos(mathAngleRad);
+                    // Simulação de pressão (7.0 = Perfeito)
+                    let pressure = 6.4 + (Math.sin(i * 0.05 + seed) * 0.3);
 
-                    const progress = i / 60;
+                    // Falha concentrada (Simulando o motivo do alerta)
+                    if ((i > 340 || i < 40)) {
+                        const distFromCenter = i > 340 ? (i - 340) : (i + 20);
+                        const intensity = Math.sin(distFromCenter * 0.05) * 3.0;
+                        pressure -= Math.max(1.0, intensity);
+                    }
 
-                    // Definimos a largura do rastro como uma porcentagem do raio total do pivô em metros.
-                    const areaMetros = pivoData.radius * 0.05; // Largura base de 5% do pivô
+                    pressure = Math.min(7.0, Math.max(0.5, pressure));
+                    const ratio = pressure / 7.0;
 
-                    // 1. Camada Externa: "Glow" Amarelado
-                    L.circle([fLat, fLng], {
-                        radius: areaMetros * (1 + progress * 1.5),
+                    const dReal = pivoData.radius * ratio;
+                    const pReal = [
+                        pivoData.center.lat + (dReal / 111320) * Math.sin(angleRad),
+                        pivoData.center.lng + (dReal / (111320 * Math.cos(pivoData.center.lat * Math.PI / 180))) * Math.cos(angleRad)
+                    ];
+
+                    const dWhite = pivoData.radius;
+                    const pWhite = [
+                        pivoData.center.lat + (dWhite / 111320) * Math.sin(angleRad),
+                        pivoData.center.lng + (dWhite / (111320 * Math.cos(pivoData.center.lat * Math.PI / 180))) * Math.cos(angleRad)
+                    ];
+
+                    pressurePoints.push(pReal);
+                    segments.push({ pReal, pWhite, pressure });
+                }
+
+                // A. Heat Map nos Vãos
+                for (let i = 0; i < segments.length - 1; i++) {
+                    const s1 = segments[i];
+                    const s2 = segments[i + 1];
+                    const gap = 7.0 - s1.pressure;
+
+                    let color, opacity;
+                    if (gap < 0.4) {
+                        color = "#00d4ff";
+                        opacity = 0.4;
+                    } else {
+                        const hue = Math.max(0, 60 - ((gap - 0.4) * 20));
+                        color = `hsl(${hue}, 100%, 50%)`;
+                        opacity = Math.min(0.85, 0.3 + (gap * 0.2));
+                    }
+
+                    L.polygon([s1.pReal, s1.pWhite, s2.pWhite, s2.pReal], {
                         color: 'transparent',
-                        fillColor: '#facc15', // Amarelo
-                        fillOpacity: 0.04,
-                        interactive: false
+                        fillColor: color,
+                        fillOpacity: opacity,
+                        pointerEvents: 'none'
                     }).addTo(map);
+                }
 
-                    // 2. Camada Intermediária: Alaranjada 
-                    L.circle([fLat, fLng], {
-                        radius: areaMetros * (0.6 + progress * 1.0),
-                        color: 'transparent',
-                        fillColor: '#fb923c', // Laranja
-                        fillOpacity: 0.06,
-                        interactive: false
-                    }).addTo(map);
+                // B. Miolo Azul
+                L.polygon(pressurePoints, {
+                    color: 'transparent',
+                    fillColor: "#00d4ff",
+                    fillOpacity: 0.4,
+                    pointerEvents: 'none'
+                }).addTo(map);
 
-                    // 3. Camada Interior: Vermelho intenso no "núcleo"
-                    if (progress > 0.1) {
+                map.setView(latlng, 16);
+            } else {
+                // Outras falhas mantêm o rastro clássico por enquanto
+                const mockAngles = [0.5, 354.6, 354.0, 355.2];
+                mockAngles.forEach(angle => {
+                    const mathAngleRad = (90 - angle) * (Math.PI / 180);
+                    for (let i = 0; i <= 60; i++) {
+                        const dist = (pivoData.radius * i) / 60;
+                        const fLat = pivoData.center.lat + (dist / 111320) * Math.sin(mathAngleRad);
+                        const fLng = pivoData.center.lng + (dist / (111320 * Math.cos(pivoData.center.lat * Math.PI / 180))) * Math.cos(mathAngleRad);
+                        const progress = i / 60;
+                        const areaMetros = pivoData.radius * 0.05;
+
                         L.circle([fLat, fLng], {
-                            radius: areaMetros * (0.2 + progress * 0.5),
+                            radius: areaMetros * (1 + progress * 1.5),
                             color: 'transparent',
-                            fillColor: '#ef4444', // Vermelho
-                            fillOpacity: 0.12,
+                            fillColor: '#facc15',
+                            fillOpacity: 0.04,
                             interactive: false
                         }).addTo(map);
+
+                        L.circle([fLat, fLng], {
+                            radius: areaMetros * (0.6 + progress * 1.0),
+                            color: 'transparent',
+                            fillColor: '#fb923c',
+                            fillOpacity: 0.06,
+                            interactive: false
+                        }).addTo(map);
+
+                        if (progress > 0.1) {
+                            L.circle([fLat, fLng], {
+                                radius: areaMetros * (0.2 + progress * 0.5),
+                                color: 'transparent',
+                                fillColor: '#ef4444',
+                                fillOpacity: 0.12,
+                                interactive: false
+                            }).addTo(map);
+                        }
                     }
-                }
-            });
+                });
 
-
-
-            // Linha Guia Principal e Marcador na Ponta
-            const mainAngle = mockAngles[0];
-            const mainRad = (90 - mainAngle) * (Math.PI / 180);
-            const tipLat = pivoData.center.lat + (pivoData.radius / 111320) * Math.sin(mainRad);
-            const tipLng = pivoData.center.lng + (pivoData.radius / (111320 * Math.cos(pivoData.center.lat * Math.PI / 180))) * Math.cos(mainRad);
-
-            L.polyline([latlng, [tipLat, tipLng]], {
-                color: "rgba(255, 255, 255, 0.3)",
-                weight: 1,
-                dashArray: "4, 8",
-                pointerEvents: 'none'
-            }).addTo(map);
-
-            const faultMarker = L.divIcon({
-                className: 'fault-marker-highlight',
-                iconSize: [12, 12],
-                iconAnchor: [6, 6]
-            });
-            L.marker([tipLat, tipLng], {
-                icon: faultMarker,
-                zIndexOffset: 2000
-            }).addTo(map);
-
-            map.setView([tipLat, tipLng], 18);
+                // Zoom na ponta da última falha registrada
+                const mainRad = (90 - mockAngles[0]) * (Math.PI / 180);
+                const tipLat = pivoData.center.lat + (pivoData.radius / 111320) * Math.sin(mainRad);
+                const tipLng = pivoData.center.lng + (pivoData.radius / (111320 * Math.cos(pivoData.center.lat * Math.PI / 180))) * Math.cos(mainRad);
+                map.setView([tipLat, tipLng], 18);
+            }
         } else if (pivoData.geo && window.icMapParseWKT) {
             const geoJson = window.icMapParseWKT(pivoData.geo);
             if (geoJson) {
@@ -338,7 +379,6 @@
             }
         }
 
-        // Forçar recalculo de tamanho após o modal estar visível
         setTimeout(() => map.invalidateSize(), 400);
     }
 

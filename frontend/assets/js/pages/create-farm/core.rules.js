@@ -310,7 +310,7 @@
 
   const FARM_STORAGE_KEY = "ic_farms";
 
-  const FARM_API_URL = window.IC_FARM_API_URL || (location.protocol === "file:" ? "http://localhost:3000/api/farms" : "/api/farms");
+  const FARM_API_URL = `${window.IC_API_CONFIG?.baseUrl || ""}/api/farms`;
 
   function setHidden(el, hidden) {
     if (!el) return;

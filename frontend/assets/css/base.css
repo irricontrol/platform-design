@@ -79,3 +79,12 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* Remove contorno preto em elementos do mapa */
+.leaflet-container :focus {
+  outline: none !important;
+}
+
+.leaflet-interactive:focus {
+  outline: none !important;
+}
