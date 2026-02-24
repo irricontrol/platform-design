@@ -1,0 +1,354 @@
+<section class="pluv-edit user-page" id="userPanel" aria-label="Gerenciar usuários">
+    <div class="pluv-edit__crumbs">Fazenda / <strong>Usuários</strong></div>
+
+    <div class="pluv-edit__titlebar">
+        <button class="pluv-edit__back" type="button"
+            onclick="document.querySelector('.nav__item[data-route=\'mapa\']').click()" aria-label="Voltar">
+            <i class="fa-solid fa-chevron-left"></i>
+            <span>Usuários</span>
+        </button>
+
+        <div class="pluv-edit__actions">
+            <!-- Nenhuma ação global necessária por enquanto -->
+        </div>
+    </div>
+
+    <div class="pluv-edit__tab-body is-active">
+        <div class="pluv-edit__body">
+            <aside class="pluv-edit__nav" aria-label="Seções de usuários">
+                <button class="pluv-edit__nav-item is-active" type="button">Usuários</button>
+            </aside>
+
+            <div class="pluv-edit__content">
+                <section class="pluv-edit__section is-active">
+                    <div class="pluv-edit__section-head">
+                        <h2>Gerenciar Usuários</h2>
+                        <p>Gerencie os usuários que tem acesso a essa fazenda. Lembre de ler sobre as permissões para
+                            atribuir corretamente os acessos de cada usuário.</p>
+                    </div>
+
+                    <div class="user-page__resale-card">
+                        <div class="resale-info">
+                            <span class="resale-label">Revenda</span>
+                            <div class="resale-grid">
+                                <div class="resale-item">
+                                    <span class="item-label">Nome:</span>
+                                    <span class="item-value">Irripro Unaí</span>
+                                </div>
+                                <div class="resale-item">
+                                    <span class="item-label">Email:</span>
+                                    <span class="item-value">contato@irripro.com.br</span>
+                                </div>
+                                <div class="resale-item">
+                                    <span class="item-label">Telefone:</span>
+                                    <span class="item-value">(38) 3677-1234</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="user-page__bar">
+                        <button class="btn-add-user" type="button">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            Adicionar usuário
+                        </button>
+                        <a href="#" class="link-permissons">
+                            <i class="fa-regular fa-circle-question"></i>
+                            Sobre as permissões
+                        </a>
+                    </div>
+
+                    <div class="user-page__list">
+                        <!-- User Item 1 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">joao.silva@agrotech.com.br</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">João Silva</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 2 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">maria.oliveira@fazendasantamaria.com</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Maria Oliveira</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 3 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">r.pereira@irrigacaoexpert.com</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Ricardo Pereira</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 4 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">ana.costa@grandesafra.com.br</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Ana Costa</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 5 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">felipe.santos@tecnocampo.com</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Felipe Santos</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 6 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">julia.lima@agromasters.com.br</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Julia Lima</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 7 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">carlos.mendes@planetaverde.com</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Carlos Mendes</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 8 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">beatriz.rocha@cultivointeligente.com</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Beatriz Rocha</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 9 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">d.almeida@agronova.com.br</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Diego Almeida</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 10 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">gabriela.ferreira@camposul.com</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Gabriela Ferreira</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 11 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">lucas.martins@solofertil.com.br</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Lucas Martins</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 12 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">patricia.gomes@naturezafoco.com</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Patricia Gomes</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 13 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">andre.souza@modernarural.com.br</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">André Souza</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 14 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">camila.pires@agrovida.com</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Camila Pires</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 15 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">ronan.castro@terraviva.com.br</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Ronan Castro</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Item 16 -->
+                        <div class="user-item">
+                            <div class="user-item__main">
+                                <div class="user-item__info">
+                                    <div class="user-item__id">
+                                        <span class="user-email">elisa.nunes@bioagro.com</span>
+                                        <span class="badge badge--admin">Administrador</span>
+                                    </div>
+                                    <div class="user-name">Elisa Nunes</div>
+                                </div>
+                                <div class="user-item__actions">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon btn-icon--delete" title="Excluir"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>

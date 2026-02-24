@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="./assets/css/pages/create-equipment.css">
   <link rel="stylesheet" href="./assets/css/pages/pivos.css">
   <link rel="stylesheet" href="./assets/css/pages/monitoramento.css">
+  <link rel="stylesheet" href="./assets/css/pages/usuarios.css">
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -67,8 +68,9 @@
       </div>
 
       <nav class="sidebar__nav">
+        <!-- OPERAÇÃO -->
         <div class="nav__section">
-          <div class="nav__title">FAZENDA</div>
+          <div class="nav__title">OPERAÇÃO</div>
 
           <a class="nav__item is-active" href="#" data-route="mapa">
             <span class="nav__ico"><img src="./assets/img/svg/map-pin.svg" alt="Mapa"></span>
@@ -78,6 +80,21 @@
           <a class="nav__item" href="#" data-route="gestao">
             <span class="nav__ico"><img src="./assets/img/svg/chart-no-axes-combined.svg" alt="Gestão"></span>
             <span class="nav__label">Gestão Operacional</span>
+          </a>
+          <a class="nav__item" href="#" data-route="hidrica">
+            <span class="nav__ico"><img src="./assets/img/svg/droplets.svg" alt="Gestão Hídrica"></span>
+            <span class="nav__label">Gestão Hídrica</span>
+          </a>
+
+
+          <a class="nav__item" href="#" data-route="monitoramento">
+            <span class="nav__ico"><img src="./assets/img/svg/radar.svg" alt="Monitoramento"></span>
+            <span class="nav__label">Monitoramento</span>
+          </a>
+
+          <a class="nav__item" href="#" data-route="pluviometria">
+            <span class="nav__ico"><img src="./assets/img/svg/cloud-hail.svg" alt="Pluviometria"></span>
+            <span class="nav__label">Pluviometria</span>
           </a>
 
           <a class="nav__item" href="#" data-route="conectividade">
@@ -91,17 +108,28 @@
           </a>
         </div>
 
+        <!-- RELATÓRIOS -->
+        <div class="nav__section">
+          <div class="nav__title">RELATÓRIOS DA FAZENDA</div>
+
+          <a class="nav__item" href="#" data-route="relatorios">
+            <span class="nav__ico"><img src="./assets/img/svg/report.svg" alt="Relatórios"></span>
+            <span class="nav__label">Relatórios de Pivôs</span>
+          </a>
+        </div>
+
+        <!-- GERENCIAL -->
         <div class="nav__section">
           <div class="nav__title">GERENCIAL</div>
-
-          <a class="nav__item" href="#" data-route="fazenda">
-            <span class="nav__ico"><img src="./assets/img/svg/tractor.svg" alt="Fazenda"></span>
-            <span class="nav__label">Fazenda</span>
-          </a>
 
           <a class="nav__item" href="#" data-route="usuarios">
             <span class="nav__ico"><img src="./assets/img/svg/user.svg" alt="Usuários"></span>
             <span class="nav__label">Usuários</span>
+          </a>
+
+          <a class="nav__item" href="#" data-route="fazenda">
+            <span class="nav__ico"><img src="./assets/img/svg/tractor.svg" alt="Fazenda"></span>
+            <span class="nav__label">Fazenda</span>
           </a>
 
           <a class="nav__item" href="#" data-route="equipamentos">
@@ -112,34 +140,6 @@
           <a class="nav__item" href="#" data-route="talhoes">
             <span class="nav__ico"><img src="./assets/img/svg/land-plot.svg" alt="Talhões"></span>
             <span class="nav__label">Talhões</span>
-          </a>
-        </div>
-
-        <div class="nav__section">
-          <div class="nav__title">RELATÓRIOS DA FAZENDA</div>
-
-          <a class="nav__item" href="#" data-route="relatorios">
-            <span class="nav__ico"><img src="./assets/img/svg/report.svg" alt="Relatórios"></span>
-            <span class="nav__label">Relatórios de Pivôs</span>
-          </a>
-        </div>
-
-        <div class="nav__section">
-          <div class="nav__title">CLIMA</div>
-
-          <a class="nav__item" href="#" data-route="pluviometria">
-            <span class="nav__ico"><img src="./assets/img/svg/cloud-hail.svg" alt="Pluviometria"></span>
-            <span class="nav__label">Pluviometria</span>
-          </a>
-
-        </div>
-
-        <div class="nav__section">
-          <div class="nav__title">SENSORIAMENTO REMOTO</div>
-
-          <a class="nav__item" href="#" data-route="monitoramento">
-            <span class="nav__ico"><img src="./assets/img/svg/radar.svg" alt="Monitoramento"></span>
-            <span class="nav__label">Monitoramento</span>
           </a>
         </div>
       </nav>

@@ -333,7 +333,7 @@ body.is-pivo-details .pluv-mapbar {
 .pincard__icon-btn {
   background: none;
   border: none;
-  color: var(--muted-600);
+  color: var(--ink-900);
   font-size: 14px;
   cursor: pointer;
   padding: 0;
@@ -341,7 +341,7 @@ body.is-pivo-details .pluv-mapbar {
 }
 
 .pincard__icon-btn:hover {
-  color: var(--ink-900);
+  color: var(--primary);
 }
 
 .pincard__btn-text {
@@ -501,13 +501,14 @@ body.is-pivo-details .pluv-mapbar {
 }
 
 .pincard__control-btn.is-stop {
-  background: #fff;
-  color: #dc2626;
-  border: 1px solid #fca5a5;
+  background: #dc2626;
+  color: #fff;
+  border: 1px solid #dc2626;
 }
 
 .pincard__control-btn.is-stop:hover {
-  background: #fef2f2;
+  background: #b91c1c;
+  border-color: #b91c1c;
 }
 
 /* Footer */

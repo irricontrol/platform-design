@@ -195,19 +195,22 @@
   align-items: center;
   gap: 6px;
   padding: 9px 8px;
-  border-radius: 12px;
+  border-radius: 6px;
+  /* Menos arredondado */
   color: var(--sidebarText);
   font-size: 11px;
   transition: background .12s ease, box-shadow .12s ease;
+  margin-bottom: 4px;
+  /* Espacinho para não ficarem grudados */
 }
 
 .nav__item:hover {
-  background: rgba(255, 255, 255, .06);
+  background: rgba(0, 0, 0, .10);
 }
 
 .nav__item.is-active {
-  background: rgba(22, 163, 74, .16);
-  box-shadow: inset 0 0 0 0.5px rgba(22, 163, 74, .10);
+  background: rgba(0, 0, 0, .20);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, .05);
 }
 
 .nav__ico {

@@ -109,6 +109,46 @@
       return;
     }
 
+    if (route === 'usuarios') {
+      setActive('usuarios');
+      try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
+
+      document.body.classList.add("is-farm-edit");
+      const mapCard = document.getElementById("mapCard");
+      if (mapCard) mapCard.style.display = "none";
+
+      window.IcPluviometria?.close?.();
+      window.IcChuvaGeo?.close?.();
+      window.IcRelatorios?.close?.();
+      window.IcTalhoes?.close?.();
+      window.IcPivos?.close?.();
+      window.IcMonitoramento?.close?.();
+
+      const slot = document.getElementById("pageSlot");
+      if (slot) {
+        fetch("./pages/usuarios.html")
+          .then(r => r.text())
+          .then(html => {
+            slot.innerHTML = html;
+            window.dispatchEvent(new Event("ic:layout-change"));
+          });
+      }
+      return;
+    }
+
+    if (route === 'hidrica') {
+      setActive('hidrica');
+      try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
+      ensureFarmEditClosed();
+      window.IcPluviometria?.close?.();
+      window.IcChuvaGeo?.close?.();
+      window.IcRelatorios?.close?.();
+      window.IcTalhoes?.close?.();
+      window.IcPivos?.close?.();
+      window.IcMonitoramento?.close?.();
+      return;
+    }
+
     if (route === 'monitoramento') {
       setActive(route);
       try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
