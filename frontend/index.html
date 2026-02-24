@@ -70,77 +70,91 @@
       <nav class="sidebar__nav">
         <!-- OPERAÇÃO -->
         <div class="nav__section">
-          <div class="nav__title">OPERAÇÃO</div>
+          <div class="nav__title" role="button" aria-expanded="true">
+            <span>OPERAÇÃO</span>
+            <i class="fa-solid fa-chevron-down nav__chevron"></i>
+          </div>
 
-          <a class="nav__item is-active" href="#" data-route="mapa">
-            <span class="nav__ico"><img src="./assets/img/svg/map-pin.svg" alt="Mapa"></span>
-            <span class="nav__label">Mapa</span>
-          </a>
+          <div class="nav__items">
+            <a class="nav__item is-active" href="#" data-route="mapa">
+              <span class="nav__ico"><img src="./assets/img/svg/map-pin.svg" alt="Mapa"></span>
+              <span class="nav__label">Mapa</span>
+            </a>
 
-          <a class="nav__item" href="#" data-route="gestao">
-            <span class="nav__ico"><img src="./assets/img/svg/chart-no-axes-combined.svg" alt="Gestão"></span>
-            <span class="nav__label">Gestão Operacional</span>
-          </a>
-          <a class="nav__item" href="#" data-route="hidrica">
-            <span class="nav__ico"><img src="./assets/img/svg/droplets.svg" alt="Gestão Hídrica"></span>
-            <span class="nav__label">Gestão Hídrica</span>
-          </a>
+            <a class="nav__item" href="#" data-route="gestao">
+              <span class="nav__ico"><img src="./assets/img/svg/chart-no-axes-combined.svg" alt="Gestão"></span>
+              <span class="nav__label">Gestão Operacional</span>
+            </a>
+            <a class="nav__item" href="#" data-route="hidrica">
+              <span class="nav__ico"><img src="./assets/img/svg/droplets.svg" alt="Gestão Hídrica"></span>
+              <span class="nav__label">Gestão Hídrica</span>
+            </a>
 
+            <a class="nav__item" href="#" data-route="monitoramento">
+              <span class="nav__ico"><img src="./assets/img/svg/radar.svg" alt="Monitoramento"></span>
+              <span class="nav__label">Monitoramento</span>
+            </a>
 
-          <a class="nav__item" href="#" data-route="monitoramento">
-            <span class="nav__ico"><img src="./assets/img/svg/radar.svg" alt="Monitoramento"></span>
-            <span class="nav__label">Monitoramento</span>
-          </a>
+            <a class="nav__item" href="#" data-route="pluviometria">
+              <span class="nav__ico"><img src="./assets/img/svg/cloud-hail.svg" alt="Pluviometria"></span>
+              <span class="nav__label">Pluviometria</span>
+            </a>
 
-          <a class="nav__item" href="#" data-route="pluviometria">
-            <span class="nav__ico"><img src="./assets/img/svg/cloud-hail.svg" alt="Pluviometria"></span>
-            <span class="nav__label">Pluviometria</span>
-          </a>
+            <a class="nav__item" href="#" data-route="conectividade">
+              <span class="nav__ico"><img src="./assets/img/svg/wifi.svg" alt="Conectividade"></span>
+              <span class="nav__label">Conectividade</span>
+            </a>
 
-          <a class="nav__item" href="#" data-route="conectividade">
-            <span class="nav__ico"><img src="./assets/img/svg/wifi.svg" alt="Conectividade"></span>
-            <span class="nav__label">Conectividade</span>
-          </a>
-
-          <a class="nav__item" href="#" data-route="notificações">
-            <span class="nav__ico"><img src="./assets/img/svg/bell.svg" alt="Notificações"></span>
-            <span class="nav__label">Notificações</span>
-          </a>
+            <a class="nav__item" href="#" data-route="notificações">
+              <span class="nav__ico"><img src="./assets/img/svg/bell.svg" alt="Notificações"></span>
+              <span class="nav__label">Notificações</span>
+            </a>
+          </div>
         </div>
 
         <!-- RELATÓRIOS -->
         <div class="nav__section">
-          <div class="nav__title">RELATÓRIOS DA FAZENDA</div>
+          <div class="nav__title" role="button" aria-expanded="true">
+            <span>RELATÓRIOS DA FAZENDA</span>
+            <i class="fa-solid fa-chevron-down nav__chevron"></i>
+          </div>
 
-          <a class="nav__item" href="#" data-route="relatorios">
-            <span class="nav__ico"><img src="./assets/img/svg/report.svg" alt="Relatórios"></span>
-            <span class="nav__label">Relatórios de Pivôs</span>
-          </a>
+          <div class="nav__items">
+            <a class="nav__item" href="#" data-route="relatorios">
+              <span class="nav__ico"><img src="./assets/img/svg/report.svg" alt="Relatórios"></span>
+              <span class="nav__label">Relatórios de Pivôs</span>
+            </a>
+          </div>
         </div>
 
         <!-- GERENCIAL -->
         <div class="nav__section">
-          <div class="nav__title">GERENCIAL</div>
+          <div class="nav__title" role="button" aria-expanded="true">
+            <span>GERENCIAL</span>
+            <i class="fa-solid fa-chevron-down nav__chevron"></i>
+          </div>
 
-          <a class="nav__item" href="#" data-route="usuarios">
-            <span class="nav__ico"><img src="./assets/img/svg/user.svg" alt="Usuários"></span>
-            <span class="nav__label">Usuários</span>
-          </a>
+          <div class="nav__items">
+            <a class="nav__item" href="#" data-route="usuarios">
+              <span class="nav__ico"><img src="./assets/img/svg/user.svg" alt="Usuários"></span>
+              <span class="nav__label">Usuários</span>
+            </a>
 
-          <a class="nav__item" href="#" data-route="fazenda">
-            <span class="nav__ico"><img src="./assets/img/svg/tractor.svg" alt="Fazenda"></span>
-            <span class="nav__label">Fazenda</span>
-          </a>
+            <a class="nav__item" href="#" data-route="fazenda">
+              <span class="nav__ico"><img src="./assets/img/svg/tractor.svg" alt="Fazenda"></span>
+              <span class="nav__label">Fazenda</span>
+            </a>
 
-          <a class="nav__item" href="#" data-route="equipamentos">
-            <span class="nav__ico"><img src="./assets/img/svg/dollar.svg" alt="Faturamento"></span>
-            <span class="nav__label">Faturamento</span>
-          </a>
+            <a class="nav__item" href="#" data-route="equipamentos">
+              <span class="nav__ico"><img src="./assets/img/svg/dollar.svg" alt="Faturamento"></span>
+              <span class="nav__label">Faturamento</span>
+            </a>
 
-          <a class="nav__item" href="#" data-route="talhoes">
-            <span class="nav__ico"><img src="./assets/img/svg/land-plot.svg" alt="Talhões"></span>
-            <span class="nav__label">Talhões</span>
-          </a>
+            <a class="nav__item" href="#" data-route="talhoes">
+              <span class="nav__ico"><img src="./assets/img/svg/land-plot.svg" alt="Talhões"></span>
+              <span class="nav__label">Talhões</span>
+            </a>
+          </div>
         </div>
       </nav>
     </aside>
