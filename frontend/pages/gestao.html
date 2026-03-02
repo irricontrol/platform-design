@@ -1,0 +1,89 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>Gestão Operacional</title>
+</head>
+
+<section class="gestao-op" aria-label="Gestão Operacional">
+    <div class="gestao-op__crumbs">Operações</div>
+
+    <header class="gestao-op__header">
+        <h2 class="gestao-op__title">Operações</h2>
+    </header>
+
+    <!-- Filtros -->
+    <div class="gestao-op__filters">
+        <div class="gestao-op__filters-main">
+            <h3 class="gestao-op__filters-title">Filtros</h3>
+            <div class="gestao-op__filters-row">
+                <!-- Filtro Fazendas -->
+                <div class="gestao-op__filter-group">
+                    <label class="gestao-op__filter-label">Fazendas selecionadas</label>
+                    <div class="gestao-op__multi" data-gestao-farm-multi>
+                        <div class="gestao-op__multi-control" data-gestao-farm-control>
+                            <div class="gestao-op__chips" data-gestao-farm-chips></div>
+                            <input class="gestao-op__search" type="text" placeholder="Selecione as fazendas"
+                                data-gestao-farm-search />
+                            <span class="gestao-op__chev" aria-hidden="true">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+                        </div>
+                        <div class="gestao-op__dropdown" data-gestao-farm-dropdown aria-hidden="true">
+                            <div class="gestao-op__list" data-gestao-farm-list></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtro Status -->
+                <div class="gestao-op__filter-group">
+                    <label class="gestao-op__filter-label">Tipos de status</label>
+                    <div class="gestao-op__select">
+                        <span class="gestao-op__select-text gestao-op__select-text--placeholder">Crítico, Normal</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <!-- Filtro Equipamento -->
+                <div class="gestao-op__filter-group">
+                    <label class="gestao-op__filter-label">Tipo de Equipamento</label>
+                    <div class="gestao-op__select">
+                        <span class="gestao-op__select-text">Todos</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gestao-op__filters-side">
+            <h3 class="gestao-op__filters-title">Ordenação</h3>
+            <div class="gestao-op__filters-row">
+                <!-- Filtro Ordenação -->
+                <div class="gestao-op__filter-group">
+                    <label class="gestao-op__filter-label">Ordenar por</label>
+                    <div class="gestao-op__select">
+                        <span class="gestao-op__select-text">Ordem alfabética</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gestao-op__content">
+        <!-- Coluna Esquerda: Dispositivos -->
+        <div class="gestao-op__devices">
+            <h3 class="gestao-op__section-title">Dispositivos</h3>
+            <div id="gestaoDevicesContainer" class="gestao-op__devices-list">
+                <!-- Os cards serão preenchidos via javascript -->
+            </div>
+        </div>
+
+        <!-- Coluna Direita: Linha do Tempo -->
+        <div class="gestao-op__timeline">
+            <h3 class="gestao-op__section-title">Linha do Tempo</h3>
+            <div class="gestao-op__timeline-empty">
+                <i class="fa-regular fa-folder-open gestao-op__empty-icon"></i>
+                <p>Não há dados</p>
+            </div>
+        </div>
+    </div>
+</section>

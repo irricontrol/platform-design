@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="./assets/css/pages/fazenda-edit.css">
   <link rel="stylesheet" href="./assets/css/pages/talhoes.css">
   <link rel="stylesheet" href="./assets/css/pages/relatorios.css">
+  <link rel="stylesheet" href="./assets/css/pages/gestao.css">
   <link rel="stylesheet" href="./assets/css/pages/create-equipment.css">
   <link rel="stylesheet" href="./assets/css/pages/pivos.css">
   <link rel="stylesheet" href="./assets/css/pages/monitoramento.css">
@@ -75,234 +76,230 @@
             <i class="fa-solid fa-chevron-down nav__chevron"></i>
           </div>
 
-          <div class="nav__items">
-            <a class="nav__item is-active" href="#" data-route="mapa">
-              <span class="nav__ico"><img src="./assets/img/svg/map-pin.svg" alt="Mapa"></span>
-              <span class="nav__label">Mapa</span>
-            </a>
+          <a class="nav__item is-active" href="#" data-route="mapa">
+            <span class="nav__ico"><img src="./assets/img/svg/map-pin.svg" alt="Mapa"></span>
+            <span class="nav__label">Mapa</span>
+          </a>
 
-            <a class="nav__item" href="#" data-route="gestao">
-              <span class="nav__ico"><img src="./assets/img/svg/chart-no-axes-combined.svg" alt="Gestão"></span>
-              <span class="nav__label">Gestão Operacional</span>
-            </a>
-            <a class="nav__item" href="#" data-route="hidrica">
-              <span class="nav__ico"><img src="./assets/img/svg/droplets.svg" alt="Gestão Hídrica"></span>
-              <span class="nav__label">Gestão Hídrica</span>
-            </a>
+          <a class="nav__item" href="#" data-route="gestao">
+            <span class="nav__ico"><img src="./assets/img/svg/chart-no-axes-combined.svg" alt="Gestão"></span>
+            <span class="nav__label">Gestão Operacional</span>
+          </a>
+          <a class="nav__item" href="#" data-route="hidrica">
+            <span class="nav__ico"><img src="./assets/img/svg/droplets.svg" alt="Gestão Hídrica"></span>
+            <span class="nav__label">Gestão Hídrica</span>
+          </a>
 
-            <a class="nav__item" href="#" data-route="monitoramento">
-              <span class="nav__ico"><img src="./assets/img/svg/radar.svg" alt="Monitoramento"></span>
-              <span class="nav__label">Monitoramento</span>
-            </a>
+          <a class="nav__item" href="#" data-route="monitoramento">
+            <span class="nav__ico"><img src="./assets/img/svg/radar.svg" alt="Monitoramento"></span>
+            <span class="nav__label">Monitoramento</span>
+          </a>
 
-            <a class="nav__item" href="#" data-route="pluviometria">
-              <span class="nav__ico"><img src="./assets/img/svg/cloud-hail.svg" alt="Pluviometria"></span>
-              <span class="nav__label">Pluviometria</span>
-            </a>
+          <a class="nav__item" href="#" data-route="pluviometria">
+            <span class="nav__ico"><img src="./assets/img/svg/cloud-hail.svg" alt="Pluviometria"></span>
+            <span class="nav__label">Pluviometria</span>
+          </a>
 
-            <a class="nav__item" href="#" data-route="conectividade">
-              <span class="nav__ico"><img src="./assets/img/svg/wifi.svg" alt="Conectividade"></span>
-              <span class="nav__label">Conectividade</span>
-            </a>
+          <a class="nav__item" href="#" data-route="conectividade">
+            <span class="nav__ico"><img src="./assets/img/svg/wifi.svg" alt="Conectividade"></span>
+            <span class="nav__label">Conectividade</span>
+          </a>
 
-            <a class="nav__item" href="#" data-route="notificações">
-              <span class="nav__ico"><img src="./assets/img/svg/bell.svg" alt="Notificações"></span>
-              <span class="nav__label">Notificações</span>
-            </a>
-          </div>
+          <a class="nav__item" href="#" data-route="notificações">
+            <span class="nav__ico"><img src="./assets/img/svg/bell.svg" alt="Notificações"></span>
+            <span class="nav__label">Notificações</span>
+          </a>
         </div>
+  </div>
 
-        <!-- RELATÓRIOS -->
-        <div class="nav__section">
-          <div class="nav__title" role="button" aria-expanded="true">
-            <span>RELATÓRIOS DA FAZENDA</span>
-            <i class="fa-solid fa-chevron-down nav__chevron"></i>
-          </div>
+  <!-- RELATÓRIOS -->
+  <div class="nav__section">
+    <div class="nav__title" role="button" aria-expanded="true">
+      <span>RELATÓRIOS DA FAZENDA</span>
+      <i class="fa-solid fa-chevron-down nav__chevron"></i>
+    </div>
 
-          <div class="nav__items">
-            <a class="nav__item" href="#" data-route="relatorios">
-              <span class="nav__ico"><img src="./assets/img/svg/report.svg" alt="Relatórios"></span>
-              <span class="nav__label">Relatórios de Pivôs</span>
-            </a>
-          </div>
+    <a class="nav__item" href="#" data-route="relatorios">
+      <span class="nav__ico"><img src="./assets/img/svg/report.svg" alt="Relatórios"></span>
+      <span class="nav__label">Relatórios de Pivôs</span>
+    </a>
+  </div>
+
+  <!-- GERENCIAL -->
+  <div class="nav__section">
+    <div class="nav__title" role="button" aria-expanded="true">
+      <span>GERENCIAL</span>
+      <i class="fa-solid fa-chevron-down nav__chevron"></i>
+    </div>
+
+    <div class="nav__items">
+      <a class="nav__item" href="#" data-route="usuarios">
+        <span class="nav__ico"><img src="./assets/img/svg/user.svg" alt="Usuários"></span>
+        <span class="nav__label">Usuários</span>
+      </a>
+
+      <a class="nav__item" href="#" data-route="fazenda">
+        <span class="nav__ico"><img src="./assets/img/svg/tractor.svg" alt="Fazenda"></span>
+        <span class="nav__label">Fazenda</span>
+      </a>
+
+      <a class="nav__item" href="#" data-route="equipamentos">
+        <span class="nav__ico"><img src="./assets/img/svg/dollar.svg" alt="Faturamento"></span>
+        <span class="nav__label">Faturamento</span>
+      </a>
+
+      <a class="nav__item" href="#" data-route="talhoes">
+        <span class="nav__ico"><img src="./assets/img/svg/land-plot.svg" alt="Talhões"></span>
+        <span class="nav__label">Talhões</span>
+      </a>
+    </div>
+  </div>
+  </nav>
+  </aside>
+
+  <!-- ÁREA DO MAPA (tela toda fora do sidebar) -->
+  <main class="main main--map">
+    <aside class="map-card" id="mapCard" aria-label="Resumo da fazenda">
+      <header class="map-card__header">
+        <div class="map-card__title">
+          <h2>Fazenda Santa Clara</h2>
         </div>
+        <button class="map-card__edit" type="button" aria-label="Editar fazenda">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+      </header>
 
-        <!-- GERENCIAL -->
-        <div class="nav__section">
-          <div class="nav__title" role="button" aria-expanded="true">
-            <span>GERENCIAL</span>
-            <i class="fa-solid fa-chevron-down nav__chevron"></i>
-          </div>
+      <div class="map-card__search">
+        <span class="map-card__search-ico">
+          <i class="fa-solid fa-wifi"></i>
+        </span>
+        <input class="map-card__input" id="mapSearchInput" name="map_search" type="text" placeholder="Ex: Pivo 1" />
+        <button class="map-card__chev" type="button" aria-label="Abrir filtros">
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+      </div>
 
-          <div class="nav__items">
-            <a class="nav__item" href="#" data-route="usuarios">
-              <span class="nav__ico"><img src="./assets/img/svg/user.svg" alt="Usuários"></span>
-              <span class="nav__label">Usuários</span>
-            </a>
+      <nav class="map-card__list" aria-label="Categorias de equipamentos">
+        <button class="map-card__item map-card__item--toggle" type="button" data-panel="pivos" aria-expanded="false">
+          <span>Pivôs</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="map-card__panel" data-panel="pivos" aria-hidden="true" data-equip-list="pivos"></div>
+        <button class="map-card__item map-card__item--toggle" type="button" data-panel="bombas" aria-expanded="false">
+          <span>Bombas</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="map-card__panel" data-panel="bombas" aria-hidden="true" data-equip-list="bombas"></div>
 
-            <a class="nav__item" href="#" data-route="fazenda">
-              <span class="nav__ico"><img src="./assets/img/svg/tractor.svg" alt="Fazenda"></span>
-              <span class="nav__label">Fazenda</span>
-            </a>
+        <button class="map-card__item map-card__item--toggle" type="button" data-panel="medidores"
+          aria-expanded="false">
+          <span>Medidores de Nível</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="map-card__panel" data-panel="medidores" aria-hidden="true" data-equip-list="medidores"></div>
 
-            <a class="nav__item" href="#" data-route="equipamentos">
-              <span class="nav__ico"><img src="./assets/img/svg/dollar.svg" alt="Faturamento"></span>
-              <span class="nav__label">Faturamento</span>
-            </a>
+        <button class="map-card__item map-card__item--toggle" type="button" data-panel="repetidoras"
+          aria-expanded="false">
+          <span>Repetidoras</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="map-card__panel" data-panel="repetidoras" aria-hidden="true" data-equip-list="repetidoras"></div>
 
-            <a class="nav__item" href="#" data-route="talhoes">
-              <span class="nav__ico"><img src="./assets/img/svg/land-plot.svg" alt="Talhões"></span>
-              <span class="nav__label">Talhões</span>
-            </a>
-          </div>
-        </div>
+        <button class="map-card__item map-card__item--toggle" type="button" data-panel="carreteis"
+          aria-expanded="false">
+          <span>Carretéis</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="map-card__panel" data-panel="carreteis" aria-hidden="true" data-equip-list="carreteis"></div>
+
+        <button class="map-card__item map-card__item--toggle" type="button" data-panel="estacoes" aria-expanded="false">
+          <span>Estações Meteorológicas</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="map-card__panel" data-panel="estacoes" aria-hidden="true" data-equip-list="estacoes"></div>
       </nav>
+
+      <div class="map-card__footer">
+        <button class="map-card__cta" type="button" id="btnCreateEquipment">
+          <span class="map-card__cta-ico"><i class="fa-solid fa-plus"></i></span>
+          Criar equipamento
+        </button>
+      </div>
     </aside>
 
-    <!-- ÁREA DO MAPA (tela toda fora do sidebar) -->
-    <main class="main main--map">
-      <aside class="map-card" id="mapCard" aria-label="Resumo da fazenda">
-        <header class="map-card__header">
-          <div class="map-card__title">
-            <h2>Fazenda Santa Clara</h2>
-          </div>
-          <button class="map-card__edit" type="button" aria-label="Editar fazenda">
-            <i class="fa-solid fa-pen"></i>
-          </button>
-        </header>
-
-        <div class="map-card__search">
-          <span class="map-card__search-ico">
-            <i class="fa-solid fa-wifi"></i>
+    <div class="map-toast" id="farmApiToast" role="status" aria-live="polite" aria-hidden="true">
+      <span class="map-toast__icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span>
+      <div class="map-toast__content">
+        <div class="map-toast__title">Servidor local offline</div>
+        <div class="map-toast__text" data-toast-text>Inicie o backend para salvar fazendas.</div>
+      </div>
+    </div>
+    <div id="map" class="map">
+      <div class="map-equip" id="mapEquip" aria-label="Equipamentos">
+        <button class="map-equip__bar" type="button" aria-expanded="false" aria-controls="mapEquipPanel">
+          <span class="map-equip__icon">
+            <i class="fa-solid fa-filter" aria-hidden="true"></i>
           </span>
-          <input class="map-card__input" id="mapSearchInput" name="map_search" type="text" placeholder="Ex: Pivo 1" />
-          <button class="map-card__chev" type="button" aria-label="Abrir filtros">
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-        </div>
+          <span class="map-equip__label">Equipamentos</span>
+          <span class="map-equip__chev">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </span>
+        </button>
 
-        <nav class="map-card__list" aria-label="Categorias de equipamentos">
-          <button class="map-card__item map-card__item--toggle" type="button" data-panel="pivos" aria-expanded="false">
+        <div class="map-equip__panel" id="mapEquipPanel" role="region" aria-label="Filtros de equipamentos">
+          <label class="map-equip__row">
+            <span>Todos</span>
+            <input class="map-equip__switch" type="checkbox" checked aria-label="Todos">
+          </label>
+          <label class="map-equip__row">
             <span>Pivôs</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="map-card__panel" data-panel="pivos" aria-hidden="true" data-equip-list="pivos"></div>
-          <button class="map-card__item map-card__item--toggle" type="button" data-panel="bombas" aria-expanded="false">
+            <input class="map-equip__switch" type="checkbox" checked aria-label="Pivôs">
+          </label>
+          <label class="map-equip__row">
             <span>Bombas</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="map-card__panel" data-panel="bombas" aria-hidden="true" data-equip-list="bombas"></div>
-
-          <button class="map-card__item map-card__item--toggle" type="button" data-panel="medidores"
-            aria-expanded="false">
+            <input class="map-equip__switch" type="checkbox" checked aria-label="Bombas">
+          </label>
+          <label class="map-equip__row">
             <span>Medidores de Nível</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="map-card__panel" data-panel="medidores" aria-hidden="true" data-equip-list="medidores"></div>
-
-          <button class="map-card__item map-card__item--toggle" type="button" data-panel="repetidoras"
-            aria-expanded="false">
+            <input class="map-equip__switch" type="checkbox" checked aria-label="Medidores de Nível">
+          </label>
+          <label class="map-equip__row">
             <span>Repetidoras</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="map-card__panel" data-panel="repetidoras" aria-hidden="true" data-equip-list="repetidoras"></div>
-
-          <button class="map-card__item map-card__item--toggle" type="button" data-panel="carreteis"
-            aria-expanded="false">
+            <input class="map-equip__switch" type="checkbox" checked aria-label="Repetidoras">
+          </label>
+          <label class="map-equip__row">
             <span>Carretéis</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="map-card__panel" data-panel="carreteis" aria-hidden="true" data-equip-list="carreteis"></div>
-
-          <button class="map-card__item map-card__item--toggle" type="button" data-panel="estacoes"
-            aria-expanded="false">
+            <input class="map-equip__switch" type="checkbox" checked aria-label="Carretéis">
+          </label>
+          <label class="map-equip__row">
+            <span>Talhões</span>
+            <input class="map-equip__switch" type="checkbox" checked aria-label="Talhões">
+          </label>
+          <label class="map-equip__row">
             <span>Estações Meteorológicas</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="map-card__panel" data-panel="estacoes" aria-hidden="true" data-equip-list="estacoes"></div>
-        </nav>
-
-        <div class="map-card__footer">
-          <button class="map-card__cta" type="button" id="btnCreateEquipment">
-            <span class="map-card__cta-ico"><i class="fa-solid fa-plus"></i></span>
-            Criar equipamento
-          </button>
-        </div>
-      </aside>
-
-      <div class="map-toast" id="farmApiToast" role="status" aria-live="polite" aria-hidden="true">
-        <span class="map-toast__icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span>
-        <div class="map-toast__content">
-          <div class="map-toast__title">Servidor local offline</div>
-          <div class="map-toast__text" data-toast-text>Inicie o backend para salvar fazendas.</div>
+            <input class="map-equip__switch" type="checkbox" checked aria-label="Estações Meteorológicas">
+          </label>
         </div>
       </div>
-      <div id="map" class="map">
-        <div class="map-equip" id="mapEquip" aria-label="Equipamentos">
-          <button class="map-equip__bar" type="button" aria-expanded="false" aria-controls="mapEquipPanel">
-            <span class="map-equip__icon">
-              <i class="fa-solid fa-filter" aria-hidden="true"></i>
-            </span>
-            <span class="map-equip__label">Equipamentos</span>
-            <span class="map-equip__chev">
-              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-            </span>
-          </button>
-
-          <div class="map-equip__panel" id="mapEquipPanel" role="region" aria-label="Filtros de equipamentos">
-            <label class="map-equip__row">
-              <span>Todos</span>
-              <input class="map-equip__switch" type="checkbox" checked aria-label="Todos">
-            </label>
-            <label class="map-equip__row">
-              <span>Pivôs</span>
-              <input class="map-equip__switch" type="checkbox" checked aria-label="Pivôs">
-            </label>
-            <label class="map-equip__row">
-              <span>Bombas</span>
-              <input class="map-equip__switch" type="checkbox" checked aria-label="Bombas">
-            </label>
-            <label class="map-equip__row">
-              <span>Medidores de Nível</span>
-              <input class="map-equip__switch" type="checkbox" checked aria-label="Medidores de Nível">
-            </label>
-            <label class="map-equip__row">
-              <span>Repetidoras</span>
-              <input class="map-equip__switch" type="checkbox" checked aria-label="Repetidoras">
-            </label>
-            <label class="map-equip__row">
-              <span>Carretéis</span>
-              <input class="map-equip__switch" type="checkbox" checked aria-label="Carretéis">
-            </label>
-            <label class="map-equip__row">
-              <span>Talhões</span>
-              <input class="map-equip__switch" type="checkbox" checked aria-label="Talhões">
-            </label>
-            <label class="map-equip__row">
-              <span>Estações Meteorológicas</span>
-              <input class="map-equip__switch" type="checkbox" checked aria-label="Estações Meteorológicas">
-            </label>
-          </div>
-        </div>
-        <div class="pluv-mapbar" aria-label="Período e relatório de pluviometria">
-          <div class="pluv-mapbar__period toolbar" role="group" aria-label="Período">
-            <span class="pluv-mapbar__label">Período</span>
-            <button class="pluv-mapbar__range toolbar__btn" type="button" aria-label="Selecionar período">
-              <span class="pluv-mapbar__range-start">29/01/2026</span>
-              <span class="pluv-mapbar__sep">&rarr;</span>
-              <span class="pluv-mapbar__range-end">30/01/2026</span>
-              <i class="fa-solid fa-calendar-days"></i>
-            </button>
-          </div>
-          <button class="pluv-mapbar__report" type="button">
-            <i class="fa-solid fa-eye"></i>
-            Dados de pluviometria
+      <div class="pluv-mapbar" aria-label="Período e relatório de pluviometria">
+        <div class="pluv-mapbar__period toolbar" role="group" aria-label="Período">
+          <span class="pluv-mapbar__label">Período</span>
+          <button class="pluv-mapbar__range toolbar__btn" type="button" aria-label="Selecionar período">
+            <span class="pluv-mapbar__range-start">29/01/2026</span>
+            <span class="pluv-mapbar__sep">&rarr;</span>
+            <span class="pluv-mapbar__range-end">30/01/2026</span>
+            <i class="fa-solid fa-calendar-days"></i>
           </button>
         </div>
-        <div class="pluv-layer-slot" id="pluvLayerSlot" aria-live="polite"></div>
+        <button class="pluv-mapbar__report" type="button">
+          <i class="fa-solid fa-eye"></i>
+          Dados de pluviometria
+        </button>
       </div>
-      <div id="pageSlot" aria-live="polite"></div>
-    </main>
+      <div class="pluv-layer-slot" id="pluvLayerSlot" aria-live="polite"></div>
+    </div>
+    <div id="pageSlot" aria-live="polite"></div>
+  </main>
 
   </div>
 
@@ -498,6 +495,7 @@
   <script src="./assets/js/pages/fazenda-edit/index.js"></script>
   <script src="./assets/js/pages/talhoes/index.js"></script>
   <script src="./assets/js/pages/relatorios/index.js"></script>
+  <script src="./assets/js/pages/gestao/index.js"></script>
   <script src="./assets/js/pages/monitoramento/index.js"></script>
   <script src="./assets/js/pages/chuva-geo/core.data.js"></script>
   <script src="./assets/js/pages/chuva-geo/core.state.js"></script>

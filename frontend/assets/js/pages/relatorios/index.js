@@ -52,7 +52,7 @@
         if (Array.isArray(stored)) {
           farm = stored.find((item) => item.id === activeId) || stored[0];
         }
-      } catch (_) {}
+      } catch (_) { }
     }
 
     return farm || null;
@@ -119,60 +119,47 @@
       return { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r };
     };
 
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, 0, Math.PI * 2);
-    ctx.shadowColor = "rgba(15,23,42,0.10)";
-    ctx.shadowBlur = 18;
-    ctx.fillStyle = "rgba(255,255,255,1)";
-    ctx.fill();
-    ctx.restore();
+    const outlineP = cfg.outline ?? DEFAULT_ACC_OUTLINE;
+    const pts = outlineP.map((p) => polar(p.a, p.r));
 
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, 0, Math.PI * 2);
-    const face = ctx.createRadialGradient(cx, cy - R * 0.2, R * 0.15, cx, cy, R);
-    face.addColorStop(0, "#ffffff");
-    face.addColorStop(0.6, "#f8fafc");
-    face.addColorStop(1, "#f1f5f9");
-    ctx.fillStyle = face;
-    ctx.fill();
-    ctx.strokeStyle = "#cbd5e1";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
+    // Desenha anéis de referência (azuis e sutis)
     for (let i = 1; i <= ringCount; i += 1) {
       const rr = (R * i) / ringCount;
       ctx.beginPath();
       ctx.arc(cx, cy, rr, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(15,23,42,0.07)";
+      ctx.strokeStyle = "rgba(59, 130, 246, 0.2)";
       ctx.lineWidth = 1;
       ctx.stroke();
     }
 
-    const outline = cfg.outline ?? DEFAULT_ACC_OUTLINE;
-    const pts = outline.map((p) => polar(p.a, p.r));
     if (pts.length) {
       ctx.beginPath();
       ctx.moveTo(pts[0].x, pts[0].y);
       for (let i = 1; i < pts.length; i += 1) ctx.lineTo(pts[i].x, pts[i].y);
       ctx.closePath();
 
-      ctx.fillStyle = "rgba(59,130,246,0.20)";
+      // Preenchimento Azul Suave
+      ctx.fillStyle = "rgba(59, 130, 246, 0.6)";
       ctx.fill();
 
-      ctx.strokeStyle = "rgba(59,130,246,0.55)";
-      ctx.lineWidth = 2.5;
+      // Contorno Azul mais definido
+      ctx.strokeStyle = "rgba(30, 64, 175, 0.9)";
+      ctx.lineWidth = 1.5;
       ctx.lineJoin = "round";
       ctx.lineCap = "round";
       ctx.stroke();
-
     }
 
+    // Centro
     ctx.beginPath();
-    ctx.arc(cx, cy, 4, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(148,163,184,0.9)";
+    ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(59, 130, 246, 0.9)";
     ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 1;
+    ctx.stroke();
   }
+
 
   function initReportUI(root) {
     const farm = getFarmData();

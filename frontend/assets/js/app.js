@@ -57,6 +57,7 @@
       setActive('pluviometria');
       try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
       ensureFarmEditClosed();
+      window.IcGestao?.close?.();
       window.IcTalhoes?.close?.();
       window.IcRelatorios?.close?.();
       window.IcMonitoramento?.close?.();
@@ -70,6 +71,7 @@
       setActive('relatorios');
       try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
       ensureFarmEditClosed();
+      window.IcGestao?.close?.();
       window.IcPluviometria?.close?.();
       window.IcChuvaGeo?.close?.();
       window.IcTalhoes?.close?.();
@@ -82,6 +84,7 @@
       setActive('fazenda');
       window.IcPluviometria?.close?.();
       window.IcChuvaGeo?.close?.();
+      window.IcGestao?.close?.();
       window.IcRelatorios?.close?.();
       window.IcTalhoes?.close?.();
       window.IcPivos?.close?.();
@@ -100,6 +103,7 @@
       setActive('talhoes');
       try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
       ensureFarmEditClosed();
+      window.IcGestao?.close?.();
       window.IcPluviometria?.close?.();
       window.IcChuvaGeo?.close?.();
       window.IcRelatorios?.close?.();
@@ -118,6 +122,7 @@
       if (mapCard) mapCard.style.display = "none";
 
       window.IcPluviometria?.close?.();
+      window.IcGestao?.close?.();
       window.IcChuvaGeo?.close?.();
       window.IcRelatorios?.close?.();
       window.IcTalhoes?.close?.();
@@ -136,10 +141,25 @@
       return;
     }
 
+    if (route === 'gestao') {
+      setActive('gestao');
+      try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
+      ensureFarmEditClosed();
+      window.IcPluviometria?.close?.();
+      window.IcChuvaGeo?.close?.();
+      window.IcRelatorios?.close?.();
+      window.IcTalhoes?.close?.();
+      window.IcPivos?.close?.();
+      window.IcMonitoramento?.close?.();
+      window.IcGestao?.open?.();
+      return;
+    }
+
     if (route === 'hidrica') {
       setActive('hidrica');
       try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
       ensureFarmEditClosed();
+      window.IcGestao?.close?.();
       window.IcPluviometria?.close?.();
       window.IcChuvaGeo?.close?.();
       window.IcRelatorios?.close?.();
@@ -153,6 +173,7 @@
       setActive(route);
       try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
       ensureFarmEditClosed();
+      window.IcGestao?.close?.();
       window.IcPluviometria?.close?.();
       window.IcChuvaGeo?.close?.();
       window.IcRelatorios?.close?.();
@@ -172,6 +193,7 @@
     setActive('mapa');
     try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
     ensureFarmEditClosed();
+    window.IcGestao?.close?.();
     window.IcPluviometria?.close?.();
     window.IcChuvaGeo?.close?.();
     window.IcRelatorios?.close?.();

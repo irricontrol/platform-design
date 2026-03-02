@@ -208,8 +208,12 @@ body.is-pivo-details .pluv-mapbar {
   gap: 4px;
 }
 
-.pivo-faults__trend i {
+.pivo-faults__trend i.is-up {
   color: #10b981;
+}
+
+.pivo-faults__trend i.is-down {
+  color: #ef4444;
 }
 
 /* Header */
