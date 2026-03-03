@@ -4,16 +4,18 @@
 </head>
 
 <section class="gestao-op" aria-label="Gestão Operacional">
-    <div class="gestao-op__crumbs">Operações</div>
+    <div class="gestao-op__crumbs">Operação / <strong>Gestão Operacional</strong></div>
 
     <header class="gestao-op__header">
-        <h2 class="gestao-op__title">Operações</h2>
+        <h2 class="gestao-op__title">
+            <i class="fa-solid fa-chevron-left"></i>
+            Gestão Operacional
+        </h2>
     </header>
 
     <!-- Filtros -->
     <div class="gestao-op__filters">
         <div class="gestao-op__filters-main">
-            <h3 class="gestao-op__filters-title">Filtros</h3>
             <div class="gestao-op__filters-row">
                 <!-- Filtro Fazendas -->
                 <div class="gestao-op__filter-group">
@@ -54,7 +56,6 @@
         </div>
 
         <div class="gestao-op__filters-side">
-            <h3 class="gestao-op__filters-title">Ordenação</h3>
             <div class="gestao-op__filters-row">
                 <!-- Filtro Ordenação -->
                 <div class="gestao-op__filter-group">
@@ -71,18 +72,35 @@
     <div class="gestao-op__content">
         <!-- Coluna Esquerda: Dispositivos -->
         <div class="gestao-op__devices">
-            <h3 class="gestao-op__section-title">Dispositivos</h3>
             <div id="gestaoDevicesContainer" class="gestao-op__devices-list">
-                <!-- Os cards serão preenchidos via javascript -->
+                <!-- Cards via JS -->
             </div>
         </div>
 
-        <!-- Coluna Direita: Linha do Tempo -->
-        <div class="gestao-op__timeline">
-            <h3 class="gestao-op__section-title">Linha do Tempo</h3>
-            <div class="gestao-op__timeline-empty">
-                <i class="fa-regular fa-folder-open gestao-op__empty-icon"></i>
-                <p>Não há dados</p>
+        <!-- Coluna Direita: Timeline + Programações -->
+        <div class="gestao-op__side-content">
+            <div class="gestao-op__timeline">
+                <div id="gestaoTimelineContainer" class="gestao-op__timeline-list">
+                    <!-- Timeline via JS -->
+                </div>
+                <div class="gestao-op__pagination">
+                    <button class="gestao-op__page-btn is-disabled"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="gestao-op__page-btn is-active">1</button>
+                    <button class="gestao-op__page-btn">2</button>
+                    <button class="gestao-op__page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="gestao-op__scheduled">
+                <div id="gestaoScheduledContainer" class="gestao-op__scheduled-list">
+                    <!-- Programações via JS -->
+                </div>
+                <div class="gestao-op__pagination">
+                    <button class="gestao-op__page-btn is-disabled"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="gestao-op__page-btn is-active">1</button>
+                    <button class="gestao-op__page-btn">2</button>
+                    <button class="gestao-op__page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
             </div>
         </div>
     </div>

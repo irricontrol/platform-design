@@ -37,6 +37,8 @@
         const dropdown = root.querySelector("[data-gestao-farm-dropdown]");
         const listHost = root.querySelector("[data-gestao-farm-list]");
         const devicesContainer = document.getElementById("gestaoDevicesContainer");
+        const timelineContainer = document.getElementById("gestaoTimelineContainer");
+        const scheduledContainer = document.getElementById("gestaoScheduledContainer");
 
         function renderChips() {
             if (!chipsHost) return;
@@ -118,13 +120,13 @@
         function getCardActions(category) {
             if (category === 'pivos') {
                 return `
-                    <button class="btn btn--success" type="button"><i class="fa-solid fa-play"></i> Iniciar Pivô</button>
-                    <button class="btn btn--danger-outline" type="button"><i class="fa-solid fa-pause"></i> Parar Pivô</button>
+                    <button class="btn btn--success js-start-pivo" type="button"><i class="fa-solid fa-play"></i> Iniciar Pivô</button>
+                    <button class="pincard__control-btn is-stop" type="button"><i class="fa-regular fa-square"></i> Parar Pivô</button>
                 `;
             } else if (category === 'bombas') {
                 return `
                     <button class="btn btn--success" type="button"><i class="fa-solid fa-play"></i> Ligar Bomba</button>
-                    <button class="btn btn--danger-outline" type="button"><i class="fa-solid fa-pause"></i> Desligar Bomba</button>
+                    <button class="pincard__control-btn is-stop" type="button"><i class="fa-regular fa-square"></i> Desligar Bomba</button>
                 `;
             }
             return `
@@ -191,7 +193,144 @@
                         <button class="gestao-op__refresh-btn" type="button"><i class="fa-solid fa-rotate-right"></i> Atualizar</button>
                     </div>
                 `;
+
+                // Bind Start Modal for Pivots
+                const startBtn = el.querySelector(".js-start-pivo");
+                if (startBtn) {
+                    startBtn.addEventListener("click", () => {
+                        if (window.OpModal) {
+                            window.OpModal.open({
+                                title: "Irrigação simples",
+                                angle: 304.6,
+                                isPeakHour: true
+                            });
+                        }
+                    });
+                }
+
                 devicesContainer.appendChild(el);
+            });
+        }
+
+        function renderTimeline() {
+            if (!timelineContainer) return;
+            timelineContainer.innerHTML = "";
+
+            const activeFarms = farms.filter(f => selectedFarms.has(f.id));
+            let timelineData = [];
+
+            activeFarms.forEach(f => {
+                const eq = Array.isArray(f.equipments) ? f.equipments : [];
+                eq.forEach(e => {
+                    if (e.category === 'pivos' || e.category === 'bombas' || e.type === 'irripump') {
+                        timelineData.push({ ...e, _farmName: f.name || 'Fazenda' });
+                    }
+                });
+            });
+
+            if (!timelineData.length) {
+                timelineContainer.innerHTML = `
+                    <div class="gestao-op__timeline-empty">
+                        <i class="fa-regular fa-folder-open gestao-op__empty-icon"></i>
+                        <p>Não há dados</p>
+                    </div>`;
+                return;
+            }
+
+            // Simulate some timeline events based on devices
+            timelineData.forEach((eq, idx) => {
+                const isPivo = eq.category === 'pivos';
+                const dateNow = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+                // Variating styles for demonstration like in print
+                const colors = ['red', 'blue', 'cyan'];
+                const color = isPivo ? colors[idx % 3] : 'cyan';
+                const status = isPivo ? (idx === 0 ? 'FALHA DE PRESSÃO' : 'PARADO') : 'ONLINE';
+                const percent = isPivo ? ' - 100%' : '';
+
+                const item = document.createElement("div");
+                item.className = "gestao-op__timeline-item";
+                item.innerHTML = `
+                    <div class="gestao-op__timeline-icon gestao-op__timeline-icon--${color}"></div>
+                    <div class="gestao-op__timeline-info">
+                        <div class="gestao-op__timeline-title-row">
+                            <span class="gestao-op__timeline-name">${eq.name || 'Equipamento'}</span>
+                            <span class="gestao-op__timeline-badge status--${color}">${status}${percent}</span>
+                        </div>
+                        <div class="gestao-op__timeline-meta">
+                            <strong>${eq._farmName}</strong> | ${dateNow.replace('.', '')}
+                        </div>
+                    </div>
+                `;
+                timelineContainer.appendChild(item);
+            });
+        }
+
+        function renderScheduled() {
+            if (!scheduledContainer) return;
+            scheduledContainer.innerHTML = "";
+
+            // Remove parent padding for table look
+            const parent = scheduledContainer.closest('.gestao-op__scheduled');
+            if (parent) parent.style.padding = "0";
+
+            const activeFarms = farms.filter(f => selectedFarms.has(f.id));
+            let scheduledEquips = [];
+
+            activeFarms.forEach(f => {
+                const eq = Array.isArray(f.equipments) ? f.equipments : [];
+                eq.forEach(e => {
+                    if (e.category === 'pivos') {
+                        scheduledEquips.push({ ...e, _farmName: f.name || 'Fazenda' });
+                    }
+                });
+            });
+
+            if (!scheduledEquips.length) {
+                scheduledContainer.innerHTML = `<div style="padding:20px; font-size:12px;color:#94a3b8;">Nenhum agendamento futuro.</div>`;
+                return;
+            }
+
+            const table = document.createElement("table");
+            table.className = "gestao-op__scheduled-table";
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Pivô</th>
+                        <th>Início</th>
+                        <th>Fim</th>
+                        <th>Direção</th>
+                        <th>Modo</th>
+                        <th>Percent.</th>
+                        <th>Lâmina</th>
+                        <th>Ângulo início</th>
+                        <th>Ângulo fim</th>
+                    </tr>
+                </thead>
+                <tbody id="scheduledTableBody"></tbody>
+            `;
+            scheduledContainer.appendChild(table);
+            const tbody = table.querySelector("#scheduledTableBody");
+
+            // Populate table rows with updated columns
+            scheduledEquips.forEach((eq, idx) => {
+                const tr = document.createElement("tr");
+                const direction = idx % 2 === 0 ? 'Avanço' : 'Reverso';
+                const percent = idx === 0 ? '100%' : '80%';
+                const depth = idx === 0 ? '6,73mm' : '5,20mm';
+
+                tr.innerHTML = `
+                    <td><strong>${eq.name || 'Pivô'}</strong></td>
+                    <td>03/03/2026 14:00</td>
+                    <td>03/03/2026 18:30</td>
+                    <td>${direction}</td>
+                    <td><span class="gestao-op__sch-badge gestao-op__sch-badge--mol">Molhado</span></td>
+                    <td>${percent}</td>
+                    <td>${depth}</td>
+                    <td>177.1°</td>
+                    <td>3.5°</td>
+                `;
+                tbody.appendChild(tr);
             });
         }
 
@@ -199,6 +338,8 @@
             renderChips();
             renderList(searchInput?.value || "");
             renderDevices();
+            renderTimeline();
+            renderScheduled();
         }
 
         if (multi) {

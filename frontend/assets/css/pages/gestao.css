@@ -18,43 +18,66 @@ body.is-gestao .main--map {
 }
 
 body.is-gestao .main {
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
+    /* Lock main scroll */
 }
 
 .gestao-op {
-    padding: 24px;
+    padding: 20px 24px;
     background-color: #ffffff;
-    min-height: 100%;
+    height: 100vh;
+    /* Fill entire screen */
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    overflow: hidden;
     animation: fade-in 0.3s ease;
 }
 
 .gestao-op__crumbs {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     color: #64748b;
 }
 
+.gestao-op__crumbs strong {
+    color: #475569;
+    font-weight: 600;
+}
+
 .gestao-op__header {
-    margin-bottom: 8px;
+    margin: 8px 0 12px;
 }
 
 .gestao-op__title {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.gestao-op__title i {
+    color: #16a34a;
+    /* Green chevron as in print */
+    font-size: 1.125rem;
+    cursor: pointer;
 }
 
 .gestao-op__filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 16px;
     align-items: flex-start;
-    padding-bottom: 24px;
+    padding: 8px 0 12px;
+    background: #fff;
+    z-index: 100;
+    margin-bottom: 8px;
     border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    /* Agrupado aqui */
 }
+
+/* No sticky needed when parent is locked */
 
 .gestao-op__filters-main {
     flex: 1;
@@ -78,9 +101,11 @@ body.is-gestao .main {
 }
 
 .gestao-op__filters-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #0f172a;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: -4px;
+    /* Bring closer to labels */
 }
 
 .gestao-op__filter-group {
@@ -256,10 +281,11 @@ body.is-gestao .main {
     padding: 6px 12px;
     min-height: 36px;
     cursor: pointer;
+    transition: border-color 0.2s;
 }
 
 .gestao-op__select:hover {
-    border-color: #cbd5e1;
+    border-color: #16a34a;
 }
 
 .gestao-op__select-text {
@@ -279,9 +305,22 @@ body.is-gestao .main {
 /* Content Area */
 .gestao-op__content {
     display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: 24px;
-    align-items: start;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: stretch;
+    /* Stretch to fill height */
+    margin-top: 12px;
+    flex: 1;
+    /* Take remaining space */
+    min-height: 0;
+    /* Important for flex child with overflow */
+}
+
+.gestao-op__side-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100%;
 }
 
 .gestao-op__section-title {
@@ -291,11 +330,51 @@ body.is-gestao .main {
     margin-bottom: 16px;
 }
 
-/* Devices Column */
-.gestao-op__devices {
+.gestao-op__devices,
+.gestao-op__timeline,
+.gestao-op__scheduled {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    flex: 1;
+    /* Fill parent height */
+    overflow: hidden;
+}
+
+.gestao-op__devices-list,
+.gestao-op__timeline-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    padding: 20px;
+    padding-right: 8px;
+}
+
+.gestao-op__scheduled-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 0;
+    /* Edge to edge for table */
+}
+
+/* Custom Scrollbar for clean look */
+.gestao-op__devices-list::-webkit-scrollbar,
+.gestao-op__timeline-list::-webkit-scrollbar,
+.gestao-op__scheduled-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.gestao-op__devices-list::-webkit-scrollbar-thumb,
+.gestao-op__timeline-list::-webkit-scrollbar-thumb,
+.gestao-op__scheduled-list::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
 }
 
 .gestao-op__card {
@@ -304,6 +383,12 @@ body.is-gestao .main {
     border-radius: 4px;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    transition: border-color 0.2s ease;
+}
+
+.gestao-op__card:hover {
+    border-color: #94a3b8;
 }
 
 .gestao-op__card-header {
@@ -311,13 +396,13 @@ body.is-gestao .main {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 16px;
-    padding: 16px;
+    gap: 8px;
+    padding: 8px 16px;
 }
 
 .gestao-op__card-icon {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -338,7 +423,7 @@ body.is-gestao .main {
 
 .pivot-icon-mock {
     width: 2px;
-    height: 24px;
+    height: 18px;
     background-color: #fff;
     position: absolute;
     top: 50%;
@@ -350,8 +435,8 @@ body.is-gestao .main {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    margin-top: 2px;
+    gap: 2px;
+    margin-top: 0;
 }
 
 .gestao-op__card-title-row {
@@ -371,7 +456,7 @@ body.is-gestao .main {
     font-size: 0.7rem;
     font-weight: 700;
     padding: 4px 8px;
-    border-radius: var(--radius-sm);
+    border-radius: 2px;
     text-transform: uppercase;
     line-height: 1;
 }
@@ -382,13 +467,13 @@ body.is-gestao .main {
 }
 
 .gestao-op__card-subtitle {
-    font-size: 0.8125rem;
-    color: #64748b;
+    font-size: 0.875rem;
+    color: #94a3b8;
 }
 
 .gestao-op__card-subtitle strong {
-    color: #0f172a;
-    font-weight: 600;
+    color: #475569;
+    font-weight: 700;
 }
 
 .gestao-op__card-link {
@@ -413,15 +498,15 @@ body.is-gestao .main {
 .btn--success {
     background-color: #10b981;
     color: white;
-    border: none;
-    font-size: 0.875rem;
-    padding: 8px 16px;
-    border-radius: var(--radius-md);
+    border: 1px solid #10b981;
+    font-size: 0.8125rem;
+    padding: 6px 12px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 400;
     transition: background-color 0.2s;
 }
 
@@ -429,32 +514,34 @@ body.is-gestao .main {
     background-color: #059669;
 }
 
-.btn--danger-outline {
-    background-color: transparent;
-    color: #ef4444;
-    border: 1px solid #ef4444;
-    font-size: 0.875rem;
-    padding: 8px 16px;
-    border-radius: var(--radius-md);
+.pincard__control-btn.is-stop {
+    background: #dc2626;
+    color: #fff;
+    border: 1px solid #dc2626;
+    font-size: 0.8125rem;
+    padding: 6px 12px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s;
+    font-weight: 400;
+    transition: all 0.2s ease;
 }
 
-.btn--danger-outline:hover {
-    background-color: #fef2f2;
+.pincard__control-btn.is-stop:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
 }
 
 .gestao-op__card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
-    border-top: 1px solid #e2e8f0;
-    background-color: #f8fafc;
+    padding: 6px 16px;
+    border-top: 1px solid #f1f5f9;
+    background-color: #ffffff;
+    /* Clean white as in main areas */
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
 }
@@ -464,7 +551,7 @@ body.is-gestao .main {
     border: none;
     color: #0f172a;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 400;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -486,45 +573,184 @@ body.is-gestao .main {
     border: 1px solid #e2e8f0;
     color: #64748b;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 400;
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
     padding: 4px 12px;
-    border-radius: var(--radius-md);
+    border-radius: 4px;
     background-color: #ffffff;
-    transition: background-color 0.2s, color 0.2s;
+    transition: all 0.2s ease;
 }
 
 .gestao-op__refresh-btn:hover {
-    background-color: #f1f5f9;
-    color: #0f172a;
+    border-color: #16a34a;
+    color: #16a34a;
+    background-color: #ffffff;
 }
 
 /* Timeline Column */
-.gestao-op__timeline {
+.gestao-op__timeline-item {
     display: flex;
-    flex-direction: column;
+    gap: 16px;
+    padding: 12px 0;
+    border-top: 1px solid #f1f5f9;
 }
 
-.gestao-op__timeline-empty {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: var(--radius-lg);
+.gestao-op__timeline-item:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.gestao-op__timeline-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.gestao-op__timeline-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 14px;
+    background: #fff;
+    transform-origin: bottom center;
+    transform: translate(-50%, -100%) rotate(45deg);
+}
+
+.gestao-op__timeline-icon--red {
+    background-color: #dc2626;
+}
+
+.gestao-op__timeline-icon--blue {
+    background-color: #3b82f6;
+}
+
+.gestao-op__timeline-icon--cyan {
+    background-color: #06b6d4;
+}
+
+.gestao-op__timeline-info {
     display: flex;
     flex-direction: column;
+    gap: 6px;
+}
+
+.gestao-op__timeline-title-row {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    min-height: 200px;
-    color: #64748b;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.gestao-op__timeline-name {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #475569;
+}
+
+.gestao-op__timeline-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    line-height: 1.4;
+}
+
+.status--red {
+    background-color: #dc2626;
+    color: #fff;
+}
+
+.status--blue {
+    background-color: #3b82f6;
+    color: #fff;
+}
+
+.status--cyan {
+    background-color: #06b6d4;
+    color: #fff;
+}
+
+.gestao-op__timeline-meta {
     font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+.gestao-op__timeline-meta strong {
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 0.9375rem;
 }
 
 .gestao-op__empty-icon {
     font-size: 2.5rem;
     margin-bottom: 12px;
-    color: var(--color-border-hover, #cbd5e1);
+    color: #cbd5e1;
+}
+
+/* Scheduled Table Styles (Excel look) */
+.gestao-op__scheduled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    color: #475569;
+}
+
+.gestao-op__scheduled-table th {
+    position: sticky;
+    top: 0;
+    background: #f8fafc;
+    padding: 10px 12px;
+    text-align: center;
+    font-weight: 600;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    z-index: 5;
+}
+
+.gestao-op__scheduled-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.gestao-op__scheduled-table th:first-child,
+.gestao-op__scheduled-table td:first-child {
+    text-align: left;
+}
+
+.gestao-op__scheduled-table tr:hover {
+    background-color: #f8fafc;
+}
+
+.gestao-op__sch-plus {
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+.gestao-op__sch-badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.gestao-op__sch-badge--sec {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.gestao-op__sch-badge--mol {
+    background: #ecfdf5;
+    color: #10b981;
 }
 
 /* Responsive */
@@ -532,4 +758,55 @@ body.is-gestao .main {
     .gestao-op__content {
         grid-template-columns: 1fr;
     }
+}
+
+/* Pagination Styles */
+.gestao-op__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px;
+    border-top: 1px solid #f1f5f9;
+    margin-top: auto;
+    background: #fff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.gestao-op__page-btn {
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1.5px solid transparent;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0 4px;
+}
+
+.gestao-op__page-btn:hover:not(.is-disabled) {
+    background: #f8fafc;
+    color: #10b981;
+}
+
+.gestao-op__page-btn.is-active {
+    border-color: #10b981;
+    color: #10b981;
+    font-weight: 700;
+}
+
+.gestao-op__page-btn.is-disabled {
+    color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.gestao-op__page-btn i {
+    font-size: 0.875rem;
 }
