@@ -106,13 +106,31 @@
   function addFarmMarker(farm) {
     const layer = ensureFarmLayer();
     if (!layer || !farm) return;
+    const tooltipHtml = `
+      <div class="pivot-tooltip">
+        <span class="pivot-tooltip__name">Central</span>
+      </div>
+    `;
+
     if (state.farmMarkers.has(farm.id)) {
       const existing = state.farmMarkers.get(farm.id);
       existing.setLatLng([farm.lat, farm.lng]);
+      existing.unbindTooltip().bindTooltip(tooltipHtml, {
+        direction: "top",
+        className: "pivot-tooltip-wrap",
+        opacity: 1,
+        offset: [0, -10]
+      });
       return;
     }
     const icon = getFarmMarkerIcon();
     const marker = L.marker([farm.lat, farm.lng], icon ? { icon } : undefined).addTo(layer);
+    marker.bindTooltip(tooltipHtml, {
+      direction: "top",
+      className: "pivot-tooltip-wrap",
+      opacity: 1,
+      offset: [0, -10]
+    });
     state.farmMarkers.set(farm.id, marker);
   }
 
@@ -241,6 +259,17 @@
 
     const icon = getFarmMarkerIcon();
     state.farmLocationMarker = L.marker([center.lat, center.lng], icon ? { icon } : undefined).addTo(state.farmLocationMap);
+
+    state.farmLocationMarker.bindTooltip(`
+      <div class="pivot-tooltip">
+        <span class="pivot-tooltip__name">Central</span>
+      </div>
+    `, {
+      direction: "top",
+      className: "pivot-tooltip-wrap",
+      opacity: 1,
+      offset: [0, -10]
+    });
 
     state.farmLocationMap.on("click", (e) => {
       applyLocation(e.latlng.lat, e.latlng.lng, false);

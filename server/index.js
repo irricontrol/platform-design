@@ -56,10 +56,9 @@ app.use((req, res, next) => {
 // Healthcheck (Uptime Bot)
 app.get("/health", (req, res) => {
   res.status(200).json({
-    ok: true,
-    service: "platform-design",
+    status: "healthy",
     uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
+    timestamp: new Date().toISOString()
   });
 });
 
@@ -69,6 +68,7 @@ app.get("/api/farms", async (req, res) => {
     res.setHeader("Cache-Control", "no-store");
     res.json({ farms });
   } catch (err) {
+    console.error("Erro na rota /api/farms:", err);
     res.status(500).json({ error: "Falha ao ler farms.json" });
   }
 });
@@ -83,16 +83,35 @@ app.put("/api/farms", async (req, res) => {
     await writeFarms(farms);
     res.json({ ok: true, farms });
   } catch (err) {
+    console.error("Erro na rota PUT /api/farms:", err);
     res.status(500).json({ error: "Falha ao salvar farms.json" });
   }
 });
 
 app.use(express.static(FRONTEND_DIR));
-app.get("/", (req, res) => {
+
+app.get("*", (req, res) => {
   res.sendFile(path.join(FRONTEND_DIR, "index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor local rodando em http://localhost:${PORT}`);
-});
+// Inicialização com tratamento de erro
+async function start() {
+  try {
+    console.log("--- Iniciando Serviço ---");
+    console.log(`Porta: ${PORT}`);
+    console.log(`Diretório Raiz: ${ROOT_DIR}`);
+    console.log(`Diretório Frontend: ${FRONTEND_DIR}`);
+
+    await ensureDataFile();
+
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Servidor pronto e escutando em 0.0.0.0:${PORT}`);
+    });
+  } catch (err) {
+    console.error("FALHA AO INICIAR SERVIDOR:", err);
+    process.exit(1);
+  }
+}
+
+start();
 

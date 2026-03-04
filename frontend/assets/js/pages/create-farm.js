@@ -386,7 +386,7 @@
 
   function ensureDefaultFarm() {
     if (farms.length) return farms[0];
-    const title = mapCardTitle?.textContent?.trim() || "Fazenda";
+    const title = mapCardTitle?.textContent?.trim() || "Minha Fazenda";
     let lat = -22.008419;
     let lng = -46.812567;
     if (window.icMap && typeof window.icMap.getCenter === "function") {
@@ -784,6 +784,7 @@
     clearEquipmentPanels();
     window.IcMapClearPivots?.();
     clearFarmMarkers();
+    if (mapCardTitle) mapCardTitle.textContent = "";
   }
 
   function getNextNameForCategory(farm, category, baseLabel) {
@@ -1222,15 +1223,35 @@
   function addFarmMarker(farm) {
     const layer = ensureFarmLayer();
     if (!layer || !farm) return;
+    const tooltipHtml = `
+      <div class="pivot-tooltip">
+        <span class="pivot-tooltip__name">Central</span>
+      </div>
+    `;
+
     if (farmMarkers.has(farm.id)) {
       const existing = farmMarkers.get(farm.id);
       existing.setLatLng([farm.lat, farm.lng]);
       existing.bindPopup(farm.name);
+      existing.bindTooltip(tooltipHtml, {
+        permanent: false,
+        direction: "top",
+        className: "pivot-tooltip-wrap",
+        opacity: 1,
+        offset: [0, -10]
+      });
       return;
     }
     const icon = getFarmMarkerIcon();
     const marker = L.marker([farm.lat, farm.lng], icon ? { icon } : undefined).addTo(layer);
     marker.bindPopup(farm.name);
+    marker.bindTooltip(tooltipHtml, {
+      permanent: false,
+      direction: "top",
+      className: "pivot-tooltip-wrap",
+      opacity: 1,
+      offset: [0, -10]
+    });
     farmMarkers.set(farm.id, marker);
   }
 
@@ -1299,7 +1320,7 @@
     if (marker) marker.openPopup();
     if (mapCardTitle) mapCardTitle.textContent = farm.name;
     if (farmSearchInput) {
-      farmSearchInput.value = farm.name;
+      farmSearchInput.value = `512 - ${farm.name}`;
       farmSearchInput.dataset.selected = farmId;
     }
     if (farmSearchHost) farmSearchHost.classList.add("has-selection");
@@ -1335,7 +1356,7 @@
 
       const name = document.createElement("span");
       name.className = "farm-list__name";
-      name.textContent = farm.name;
+      name.textContent = `512 - ${farm.name}`;
 
       btn.append(dot, name);
       btn.addEventListener("click", () => selectFarm(farm.id));
@@ -1349,9 +1370,13 @@
     if (!farmListHost && !window.icMap) return;
     loadFarms();
     if (!currentFarmId) {
-      clearEquipmentPanels();
-      window.IcMapClearPivots?.();
-      clearFarmMarkers();
+      if (farms.length) {
+        selectFarm(farms[0].id);
+      } else {
+        clearEquipmentPanels();
+        window.IcMapClearPivots?.();
+        clearFarmMarkers();
+      }
     }
     renderFarmList(farmSearchInput ? farmSearchInput.value : "");
     if (farmSearchInput) {

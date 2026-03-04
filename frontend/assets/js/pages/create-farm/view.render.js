@@ -177,7 +177,7 @@
 
       const name = document.createElement("span");
       name.className = "farm-list__name";
-      name.textContent = farm.name;
+      name.textContent = `512 - ${farm.name}`;
 
       btn.append(dot, name);
       btn.addEventListener("click", () => events.selectFarm?.(farm.id));

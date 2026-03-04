@@ -29,7 +29,8 @@
 
 .map-farm-marker,
 .map-rep-marker,
-.map-pump-marker {
+.map-pump-marker,
+.map-central-marker {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .45));
 }
 
@@ -291,7 +292,7 @@ body.is-pluviometria-edit .map-equip {
 .map-card__input {
   flex: 1;
   border: 1px solid rgba(15, 23, 32, .12);
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 8px 12px;
   font-size: 13px;
   outline: none;
@@ -650,7 +651,7 @@ body.is-pluviometria-edit .map-equip {
 .pivot-tooltip {
   background: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   padding: 8px 12px;
   color: #1e293b;
@@ -684,12 +685,22 @@ body.is-pluviometria-edit .map-equip {
   font-weight: 800;
   padding: 2px 8px;
   border-radius: 6px;
-  background: #d39b2b;
-  /* Amarelo do pivo */
+  background: #64748b;
+  /* Cor neutra padrão */
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.3px;
   margin-bottom: 6px;
+}
+
+.pivot-tooltip__status.is-warning {
+  background: #d39b2b;
+  /* Amarelo/Aviso */
+}
+
+.pivot-tooltip__status.is-info {
+  background: #3b82f6;
+  /* Azul/Informação */
 }
 
 .pivot-tooltip__date {
@@ -711,6 +722,6 @@ body.is-pluviometria-edit .map-equip {
   background: white;
   border: none;
   padding: 8px 12px;
-  border-radius: 10px;
+  border-radius: 4px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }

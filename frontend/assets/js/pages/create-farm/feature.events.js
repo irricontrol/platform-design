@@ -439,7 +439,7 @@
     // Sem popup do marcador da fazenda.
     if (state.mapCardTitle) state.mapCardTitle.textContent = farm.name;
     if (state.farmSearchInput) {
-      state.farmSearchInput.value = farm.name;
+      state.farmSearchInput.value = `512 - ${farm.name}`;
       state.farmSearchInput.dataset.selected = farmId;
     }
     if (state.farmSearchHost) state.farmSearchHost.classList.add("has-selection");

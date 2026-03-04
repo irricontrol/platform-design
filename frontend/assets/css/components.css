@@ -55,7 +55,7 @@
 .farm-search__input {
   padding: 8px 34px 8px 10px;
   font-size: 11px;
-  border-radius: 9px;
+  border-radius: 4px;
   width: 100%;
 }
 
@@ -100,7 +100,7 @@
   top: calc(100% + 6px);
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, .16);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 6px 0;
   box-shadow: 0 18px 28px rgba(2, 8, 20, 0.22);
   display: none;
@@ -125,7 +125,7 @@
   align-items: center;
   gap: 8px;
   padding: 8px 10px;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid transparent;
   background: #ffffff;
   color: #0f172a;
@@ -166,7 +166,7 @@
 .sidebar__create-btn {
   width: 100%;
   padding: 2px 2px;
-  border-radius: 2px;
+  border-radius: 4px;
   font-size: 11px;
   display: flex;
   align-items: center;
@@ -303,7 +303,7 @@
 /* Override para botão "Criar fazenda" (mais baixo) */
 .btn.sidebar__create-btn {
   padding: 9px 10px;
-  border-radius: 9px;
+  border-radius: 4px;
   font-size: 11px;
   line-height: 1.1;
 }

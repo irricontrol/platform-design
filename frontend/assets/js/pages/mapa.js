@@ -101,6 +101,7 @@
   const mdnLayer = L.layerGroup().addTo(map);
   const repLayer = L.layerGroup().addTo(map);
   const pumpLayer = L.layerGroup().addTo(map);
+  const centralLayer = L.layerGroup().addTo(map);
 
   const toNumber = (value) => {
     const num = Number(String(value ?? "").replace(",", "."));
@@ -238,6 +239,24 @@
     if (!center) return null;
     return { center };
   };
+  const extractCentralData = (equip) => {
+    if (!equip || !equip.data) return null;
+    if (equip.type !== "smart_connect" && equip.type !== "smarttouch") return null;
+
+    // Se tiver raio, provavelmente é um pivo e já foi desenhado no pivotLayer
+    const pivot = extractPivotData(equip);
+    if (pivot && pivot.radius > 0) return null;
+
+    const lat = toNumber(equip.data.lat || equip.data.centerLat);
+    const lng = toNumber(equip.data.lng || equip.data.centerLng);
+    const center =
+      Number.isFinite(lat) && Number.isFinite(lng)
+        ? { lat, lng }
+        : parseLatLngText(equip.data.loc || equip.data.center);
+
+    if (!center) return null;
+    return { center };
+  };
 
 
   const drawPivot = (pivot, equip) => {
@@ -253,7 +272,7 @@
     const tooltipHtml = `
       <div class="pivot-tooltip">
         <span class="pivot-tooltip__name">${equip.name || "Pivô"}</span>
-        <span class="pivot-tooltip__status">PAINEL ENERGIZADO</span>
+        <span class="pivot-tooltip__status is-warning">PAINEL ENERGIZADO</span>
         <span class="pivot-tooltip__date">20 fev 2026 17:41</span>
       </div>
     `;
@@ -309,7 +328,7 @@
     ).addTo(pivotLayer);
   };
 
-  const drawMdn = (mdn) => {
+  const drawMdn = (mdn, equip) => {
     const label = `${mdn.percent.toFixed(2)}%`;
     const icon = L.divIcon({
       className: "",
@@ -317,27 +336,96 @@
       iconSize: [48, 48],
       iconAnchor: [24, 24],
     });
-    L.marker([mdn.center.lat, mdn.center.lng], { icon }).addTo(mdnLayer);
+    const layer = L.marker([mdn.center.lat, mdn.center.lng], { icon }).addTo(mdnLayer);
+
+    const tooltipHtml = `
+      <div class="pivot-tooltip">
+        <span class="pivot-tooltip__name">${equip.name || "MDN"}</span>
+        <span class="pivot-tooltip__status is-info">${mdn.percent.toFixed(2)}% (4.24m)</span>
+        <span class="pivot-tooltip__date">30 dez 2025 15:25</span>
+      </div>
+    `;
+
+    layer.bindTooltip(tooltipHtml, {
+      permanent: false,
+      direction: "top",
+      className: "pivot-tooltip-wrap",
+      opacity: 1,
+      offset: [0, -10]
+    });
   };
 
-  const drawRepeater = (rep) => {
+  const drawRepeater = (rep, equip) => {
     const icon = L.icon({
       iconUrl: "./assets/img/svg/radio.svg",
       iconSize: [28, 28],
       iconAnchor: [14, 14],
       className: "map-rep-marker",
     });
-    L.marker([rep.center.lat, rep.center.lng], { icon }).addTo(repLayer);
+    const layer = L.marker([rep.center.lat, rep.center.lng], { icon }).addTo(repLayer);
+
+    const tooltipHtml = `
+      <div class="pivot-tooltip">
+        <span class="pivot-tooltip__name">${equip.name || "Repetidora"}</span>
+      </div>
+    `;
+
+    layer.bindTooltip(tooltipHtml, {
+      permanent: false,
+      direction: "top",
+      className: "pivot-tooltip-wrap",
+      opacity: 1,
+      offset: [0, -10]
+    });
   };
 
-  const drawPump = (pump) => {
+  const drawPump = (pump, equip) => {
     const icon = L.icon({
       iconUrl: "./assets/img/svg/irripump.svg",
       iconSize: [28, 28],
       iconAnchor: [14, 14],
       className: "map-pump-marker",
     });
-    L.marker([pump.center.lat, pump.center.lng], { icon }).addTo(pumpLayer);
+    const layer = L.marker([pump.center.lat, pump.center.lng], { icon }).addTo(pumpLayer);
+
+    const tooltipHtml = `
+      <div class="pivot-tooltip">
+        <span class="pivot-tooltip__name">${equip.name || "Bomba"}</span>
+        <span class="pivot-tooltip__status is-warning">DESLIGADA PELA INTERNET</span>
+        <span class="pivot-tooltip__date">04 mar 2026 15:15</span>
+      </div>
+    `;
+
+    layer.bindTooltip(tooltipHtml, {
+      permanent: false,
+      direction: "top",
+      className: "pivot-tooltip-wrap",
+      opacity: 1,
+      offset: [0, -10]
+    });
+  };
+  const drawCentral = (central, equip) => {
+    const icon = L.icon({
+      iconUrl: "./assets/img/svg/central.svg",
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+      className: "map-central-marker",
+    });
+    const layer = L.marker([central.center.lat, central.center.lng], { icon }).addTo(centralLayer);
+
+    const tooltipHtml = `
+      <div class="pivot-tooltip">
+        <span class="pivot-tooltip__name">${equip.name || "Central"}</span>
+      </div>
+    `;
+
+    layer.bindTooltip(tooltipHtml, {
+      permanent: false,
+      direction: "top",
+      className: "pivot-tooltip-wrap",
+      opacity: 1,
+      offset: [0, -10]
+    });
   };
 
   const renderMapEquipments = (farm) => {
@@ -345,6 +433,7 @@
     mdnLayer.clearLayers();
     repLayer.clearLayers();
     pumpLayer.clearLayers();
+    centralLayer.clearLayers();
     if (!farm || !Array.isArray(farm.equipments)) return;
 
     farm.equipments.forEach((equip) => {
@@ -356,19 +445,25 @@
     farm.equipments.forEach((equip) => {
       const mdn = extractMdnData(equip);
       if (!mdn) return;
-      drawMdn(mdn);
+      drawMdn(mdn, equip);
     });
 
     farm.equipments.forEach((equip) => {
       const rep = extractRepeaterData(equip);
       if (!rep) return;
-      drawRepeater(rep);
+      drawRepeater(rep, equip);
     });
 
     farm.equipments.forEach((equip) => {
       const pump = extractPumpData(equip);
       if (!pump) return;
-      drawPump(pump);
+      drawPump(pump, equip);
+    });
+
+    farm.equipments.forEach((equip) => {
+      const central = extractCentralData(equip);
+      if (!central) return;
+      drawCentral(central, equip);
     });
   };
 
@@ -378,6 +473,7 @@
     mdnLayer.clearLayers();
     repLayer.clearLayers();
     pumpLayer.clearLayers();
+    centralLayer.clearLayers();
   };
 })();
 
