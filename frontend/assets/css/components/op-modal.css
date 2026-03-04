@@ -88,6 +88,28 @@
     color: #10b981;
 }
 
+.op-modal__details-btn {
+    background: transparent;
+    border: none;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.op-modal__details-btn:hover {
+    color: #1d4ed8;
+}
+
+.op-modal__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .op-modal__close {
     background: transparent;
     border: none;

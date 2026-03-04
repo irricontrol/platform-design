@@ -1,7 +1,8 @@
 /* ==========================================================================
-   Relatórios da Fazenda - Estilos Principais
+   Relatórios da Fazenda - Estilos Principais (BEM Style)
    ========================================================================== */
 
+/* Layout Base e Reset de Containers */
 body.is-relatorios {
   background: #ffffff;
 }
@@ -15,140 +16,268 @@ body.is-relatorios #pageSlot {
   display: block;
   background: #ffffff;
   min-height: 100vh;
+  width: 100%;
+  max-width: none !important;
 }
 
+body.is-relatorios .main,
 body.is-relatorios .main--map {
   background: #ffffff;
-}
-
-body.is-relatorios .main {
   overflow-y: auto;
   overflow-x: hidden;
+  width: 100%;
 }
 
-.farm-report {
-  padding: 20px 28px 32px;
-  background: #ffffff;
+/* --- Bloco: relatorios-page --- */
+.relatorios-page {
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+  max-width: none !important;
   min-height: 100vh;
+  padding: 18px 22px 40px 22px;
+  background: #f8fafc;
+}
+
+/* NOVO: Quebra a restrição de largura do wrapper da aba (O causador do espaço em branco) */
+.relatorios-page .pluv-edit__tab-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.relatorios-page .pluv-edit__body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Sidebar de Navegação */
+.relatorios-page .pluv-edit__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 10px;
+  background: transparent;
+  border-right: 1px solid #f1f5f9;
+}
+
+.relatorios-page .pluv-edit__nav-item {
+  position: relative;
+  padding: 8px 10px;
+  border: 0;
+  background: transparent;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: left;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.relatorios-page .pluv-edit__nav-item.is-active {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.relatorios-page .pluv-edit__nav-item.is-active::after {
+  content: "";
+  position: absolute;
+  right: -11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #16a34a;
+}
+
+/* Área de Conteúdo Principal (Dashboard) */
+.relatorios-page .pluv-edit__content {
+  flex: 1;
+  width: 100% !important;
+  max-width: none !important;
+  padding: 24px 32px 60px 32px;
+  background: #ffffff;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Crumbs e Títulos */
+.relatorios-page .pluv-edit__crumbs {
+  padding-top: 10px;
+  margin-bottom: 12px;
+  width: 100%;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.relatorios-page .pluv-edit__titlebar {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.relatorios-page .pluv-edit__back i {
+  color: #16a34a;
+}
+
+.relatorios-page #btnExportReport {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.relatorios-page #btnExportReport:hover {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* ==========================================================================
+   Bloco: farm-report
+   ========================================================================== */
+
+.farm-report {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100% !important;
+  max-width: none !important;
+  background: transparent;
 }
 
-/* --- Cabeçalho e Navegação --- */
-
-.farm-report__crumbs {
-  font-size: 12px;
-  color: #94a3b8;
-}
-
-.farm-report__crumbs span {
-  margin: 0 6px;
-}
-
-.farm-report__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.farm-report__title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  color: #0f172a;
-}
-
+/* --- Tabs de Período --- */
 .farm-report__tabs {
   display: inline-flex;
-  gap: 6px;
-  background: #f8fafc;
-  border-radius: 8px;
+  gap: 4px;
+  background: #f4f4f5;
+  border-radius: 6px;
   padding: 3px;
   width: fit-content;
+  margin-bottom: 4px;
 }
 
 .farm-report__tab {
   border: 0;
-  padding: 6px 12px;
-  font-size: 12px;
-  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
   background: transparent;
-  color: #475569;
+  color: #64748b;
   cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.farm-report__tab:hover:not(.is-active) {
+  color: #0f172a;
 }
 
 .farm-report__tab.is-active {
   background: #ffffff;
   color: #0f172a;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, .08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .farm-report__filters {
-  display: grid;
-  grid-template-columns: minmax(320px, 520px) 180px;
-  gap: 12px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  gap: 24px;
+  width: 100%;
+  padding: 12px 0;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
   position: sticky;
   top: 0;
   z-index: 90;
-  background: #ffffff;
-  padding: 12px 0;
-  border-bottom: 1px solid #f1f5f9;
 }
 
-/* --- Estatísticas Gerais --- */
+.farm-report__multi {
+  flex: 1;
+  max-width: none;
+}
+
+/* --- Estatísticas Gerais (GRID DE ALINHAMENTO) --- */
 
 .farm-report__stats {
   display: flex;
+  width: 100%;
+  padding: 0;
+  /* Removido padding para deixar a grid controlar as margens exatas */
+  margin-top: 8px;
   background: #ffffff;
   border: 1px solid var(--border-200);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin-top: 8px;
   align-items: stretch;
-  overflow: hidden;
-  padding: 8px 0;
 }
 
 .farm-report__stats-item {
   flex: 1;
-  padding: 12px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
   position: relative;
-  transition: all 0.2s ease;
+  display: grid;
+  /* Sistema de balança: o 'auto' (Valor) fica exatamente no centro */
+  grid-template-rows: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  padding: 8px 10px 10px 10px;
+  min-height: 82px;
   min-width: 0;
+  gap: 0;
+  outline: none;
 }
 
 .farm-report__stats-item:not(:last-child)::after {
   content: "";
   position: absolute;
   right: 0;
-  top: 5%;
-  height: 90%;
+  top: 10%;
   width: 1px;
+  height: 80%;
   background: var(--border-200);
 }
 
 .farm-report__stats-label {
-  font-size: 12px;
-  color: var(--muted-600);
-  font-weight: 500;
-  line-height: 1;
+  color: #64748b;
+  font-size: 11px;
+  /* Aumentado levemente */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-align: center;
+  display: flex;
+  align-items: flex-start;
+  /* Mudado para flex-start para subir o texto na gaveta */
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .farm-report__stats-value {
-  font-size: 19px;
-  color: var(--ink-900);
-  font-weight: 600;
-  line-height: 1.2;
   display: flex;
   align-items: baseline;
+  /* Garante que 'R$' e 'ha' alinhem na mesma reta que os números */
+  justify-content: center;
   gap: 4px;
-  margin: 1px 0;
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+  height: 100%;
+  margin: 0;
+  padding-top: 2px;
 }
 
 .farm-report__stats-value.is-success {
@@ -164,9 +293,19 @@ body.is-relatorios .main {
 }
 
 .farm-report__stats-value .unit {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--muted-500);
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  opacity: 0.8;
+}
+
+/* Espaçamento do rodapé unificado para todos os itens */
+.farm-report__stats-item>.farm-report__stats-trend,
+.farm-report__stats-item>.farm-report__stats-desc,
+.farm-report__stats-item>.farm-report__stats-footer,
+.farm-report__stats-item>.farm-report__badge {
+  margin-top: 10px;
+  /* Reduzido de 16px para compactar ainda mais */
 }
 
 .farm-report__stats-trend {
@@ -174,140 +313,219 @@ body.is-relatorios .main {
   align-items: center;
   gap: 4px;
   font-size: 11px;
-  font-weight: 500;
-  color: var(--muted-500);
+  font-weight: 600;
 }
 
-.farm-report__stats-trend.is-up i {
-  color: #10b981;
+.farm-report__stats-trend.is-up {
+  color: #16a34a;
 }
 
-.farm-report__stats-trend.is-down i {
+.farm-report__stats-trend.is-down {
   color: #ef4444;
 }
 
 .farm-report__stats-footer {
-  display: flex;
+  display: grid;
+  /* Gavetas do rodapé: Linha 1 (Trend/Badge) | Linha 2 (Descrição) */
+  grid-template-rows: 15px 12px;
   align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
-  margin-top: 4px;
+  justify-items: center;
+  gap: 5px;
+  /* Aumentado para 5px para baixar a descrição */
+  width: 100%;
+  height: 100%;
 }
 
 .farm-report__stats-desc {
+  grid-row: 2;
+  /* Sempre na segunda linha da gaveta de rodapé */
   font-size: 10px;
-  color: var(--muted-500);
+  color: #94a3b8;
   font-weight: 400;
   line-height: 1.2;
+  text-align: center;
 }
 
 .farm-report__badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 2px 8px;
-  border-radius: 4px;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
   font-size: 10px;
-  font-weight: 600;
-  white-space: nowrap;
+  font-weight: 700;
+  width: fit-content;
+  margin: 0;
 }
 
 .farm-report__badge.is-good {
-  background: #ecfdf5;
-  color: #059669;
-  border: 1px solid #d1fae5;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #dcfce7;
+}
+
+.farm-report__badge i {
+  font-size: 9px;
 }
 
 /* --- Dashboard e Gráficos --- */
 
 .farm-report__dashboard-grid {
   display: flex;
+  flex-direction: row;
   gap: 24px;
+  width: 100%;
+  margin-top: 16px;
   align-items: stretch;
-  margin-top: 6px;
 }
 
-.farm-report__analysis-card {
+/* Cards de Análise (Hídrica e Energia) */
+.farm-report__analysis-card,
+.energy-analysis-card {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
+  padding: 18px 24px;
   background: #ffffff;
   border: 1px solid var(--border-200);
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
 }
 
-.farm-report__analysis-item {
-  position: relative;
-  padding: 24px;
-}
-
-.farm-report__analysis-item--chart {
+/* Containers de SVG */
+.farm-report__chart-container,
+.energy-analysis__chart-container {
+  display: flex;
+  gap: 16px;
+  height: 320px;
   width: 100%;
-  padding-bottom: 8px;
 }
 
+.farm-report__chart-body,
+.energy-analysis__chart-body {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+/* Métricas no Rodapé dos Cards */
 .farm-report__analysis-metrics-row {
   display: flex;
-  position: relative;
   width: 100%;
   margin-top: auto;
-  padding-top: 8px;
-}
-
-.farm-report__analysis-metrics-row::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 5%;
-  right: 5%;
-  height: 1px;
-  background: var(--border-200);
+  padding-top: 12px;
+  border-top: 1px solid var(--border-200);
 }
 
 .farm-report__analysis-item--metric {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 2px;
-  padding: 12px 20px;
+  align-items: center;
+  /* Centraliza horizontalmente */
+  text-align: center;
+  /* Centraliza o texto */
+  gap: 4px;
+  /* Aumentado gap para respiro */
+  padding: 12px 10px;
+  position: relative;
 }
 
 .farm-report__analysis-item--metric:not(:last-child)::after {
   content: "";
   position: absolute;
   right: 0;
-  top: 20%;
-  height: 60%;
+  top: 10%;
+  height: 80%;
   width: 1px;
   background: var(--border-200);
 }
+
+/* Histórico Operacional (Timeline) */
+.farm-report__timeline-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.farm-report__timeline-body {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+/* ==========================================================================
+   Componentes Específicos (Pivô, Donut, Mapas)
+   ========================================================================== */
+.pivo-chart-container--donut {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  margin: auto;
+}
+
+.farm-report__map-area {
+  width: 100%;
+  aspect-ratio: 1 / 1.12;
+  background-color: #1e293b;
+  background-size: cover;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ==========================================================================
+   Responsividade
+   ========================================================================== */
+@media (max-width: 1280px) {
+  .farm-report__dashboard-grid {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 960px) {
+  .relatorios-page .pluv-edit__body {
+    grid-template-columns: 1fr;
+  }
+
+  .relatorios-page .pluv-edit__nav {
+    border-right: 0;
+    border-bottom: 1px solid #f1f5f9;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .farm-report__filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* As regras abaixo (filtros e painéis internos) foram mantidas sem cortes */
 
 .farm-report__chart-header {
   margin-bottom: 24px;
 }
 
 .farm-report__chart-title {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   color: var(--ink-900);
   margin: 0;
-}
-
-.farm-report__chart-container {
-  display: flex;
-  gap: 12px;
-  height: 240px;
 }
 
 .farm-report__chart-y-axis {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: 24px;
+  padding: 0 0 22px 0;
+  /* Espaço para alinhar com o x-axis */
+  height: 100%;
 }
 
 .farm-report__chart-y-axis span {
@@ -317,22 +535,18 @@ body.is-relatorios .main {
   white-space: nowrap;
 }
 
-.farm-report__chart-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
 .farm-report__chart-svg {
-  flex: 1;
+  display: block;
   width: 100%;
+  height: calc(100% - 22px);
+  /* Descontando espaço das datas */
 }
 
 .farm-report__chart-x-axis {
   display: flex;
   justify-content: space-between;
   padding-top: 8px;
+  height: 22px;
 }
 
 .farm-report__chart-x-axis span {
@@ -343,7 +557,8 @@ body.is-relatorios .main {
 .farm-report__chart-hover {
   position: absolute;
   top: 0;
-  bottom: 24px;
+  bottom: 22px;
+  /* Alinhado com o novo x-axis */
   width: 0;
   pointer-events: none;
 }
@@ -458,13 +673,14 @@ body.is-relatorios .main {
   height: 8px;
 }
 
-/* --- Cartões de Resumo --- */
-
 .summary-card__header {
   display: flex;
   align-items: center;
+  justify-content: center;
+  /* Centraliza ícone e título */
   gap: 8px;
   margin-bottom: 4px;
+  width: 100%;
 }
 
 .summary-card__header i {
@@ -493,24 +709,10 @@ body.is-relatorios .main {
   margin: 0;
 }
 
-/* --- Análise de Energia --- */
-
-.energy-analysis-card {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  border: 1px solid var(--border-200);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-}
-
 .energy-analysis-card__charts-row {
   display: flex;
   gap: 24px;
-  padding: 24px 24px 8px;
+  padding: 0 0 8px;
   align-items: stretch;
 }
 
@@ -542,46 +744,40 @@ body.is-relatorios .main {
   margin-bottom: 24px;
 }
 
-.energy-analysis-card .energy-analysis__chart-container {
-  display: flex;
-  gap: 12px;
-  height: 240px;
-}
-
 .energy-analysis__y-axis {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: 24px;
+  padding: 0 0 22px 0;
+  /* O bottom padding deve ser igual à altura ocupada pelo x-axis */
+  height: 100%;
 }
 
 .energy-analysis__y-axis span {
   font-size: 10px;
   color: var(--muted-500);
   text-align: right;
-  min-width: 20px;
-}
-
-.energy-analysis__chart-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
+  min-width: 28px;
+  line-height: 1;
 }
 
 .energy-analysis__svg {
-  flex: 1;
+  display: block;
   width: 100%;
+  height: calc(100% - 22px);
+  /* Subtrai o espaço do x-axis */
 }
 
 .energy-analysis__x-axis {
   display: flex;
   justify-content: space-between;
   padding-top: 8px;
+  height: 22px;
 }
 
 .energy-analysis__x-axis span {
   font-size: 9px;
+  font-weight: 500;
   color: var(--muted-500);
   white-space: nowrap;
 }
@@ -592,26 +788,14 @@ body.is-relatorios .main {
   height: 100%;
 }
 
-.pivo-chart-container--donut {
-  position: relative;
-  overflow: visible;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 110px;
-  height: 110px;
-  margin: auto;
-  transform: translateY(-8px);
-}
-
 .donut-center-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: 700;
-  font-size: 13px;
-  color: var(--ink-900);
+  font-size: 18px;
+  color: #0f172a;
   text-align: center;
   line-height: 1.1;
   pointer-events: none;
@@ -620,10 +804,10 @@ body.is-relatorios .main {
 
 .donut-center-text span {
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   color: var(--muted-500);
   font-weight: 500;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .pivo-chart-legend {
@@ -668,14 +852,14 @@ body.is-relatorios .main {
   font-size: 13px;
 }
 
-/* --- Filtros de Período --- */
-
 .farm-report__period {
   position: relative;
   width: 180px;
 }
 
-.farm-report__week {
+.farm-report__week,
+.farm-report__month,
+.farm-report__quarter {
   display: none;
   position: relative;
   width: 100%;
@@ -765,7 +949,6 @@ body.is-relatorios .main {
   font-size: 12px;
 }
 
-/* Grids de Calendário */
 .week-panel__dow {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -797,7 +980,6 @@ body.is-relatorios .main {
   margin-top: 10px;
 }
 
-/* Dias, Meses e Trimestres */
 .week-panel__day {
   width: 100%;
   text-align: center;
@@ -831,19 +1013,6 @@ body.is-relatorios .main {
   color: #ffffff;
 }
 
-/* Logica de exibição de Abas de Período (Corrigida) */
-.farm-report__month,
-.farm-report__quarter {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  background: #ffffff;
-  position: relative;
-  width: 100%;
-}
-
 .farm-report[data-report-period="weekly"] .farm-report__week {
   display: block;
 }
@@ -854,12 +1023,6 @@ body.is-relatorios .main {
 
 .farm-report[data-report-period="quarterly"] .farm-report__quarter {
   display: flex;
-}
-
-/* --- Controle Multi-Select --- */
-
-.farm-report__multi {
-  position: relative;
 }
 
 .farm-report__multi-control {
@@ -974,8 +1137,6 @@ body.is-relatorios .main {
   border-top: 1px solid #e2e8f0;
 }
 
-/* --- Linha do Tempo --- */
-
 .farm-report__legend {
   display: flex;
   flex-wrap: wrap;
@@ -1014,17 +1175,6 @@ body.is-relatorios .main {
   background: #eab308;
 }
 
-.farm-report__timeline-wrap {
-  margin-top: 8px;
-  border: 0;
-  border-radius: 12px;
-  background: #ffffff;
-  padding: 0 0 16px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
 .farm-report__timeline-head-row {
   display: flex;
   position: sticky;
@@ -1042,17 +1192,6 @@ body.is-relatorios .main {
 }
 
 .farm-report__timeline-head-row::-webkit-scrollbar {
-  height: 0;
-}
-
-.farm-report__timeline-body {
-  overflow-x: auto;
-  overflow-y: visible;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.farm-report__timeline-body::-webkit-scrollbar {
   height: 0;
 }
 
@@ -1125,7 +1264,6 @@ body.is-relatorios .main {
   box-shadow: 1px 0 0 #e5e7eb;
 }
 
-/* Timeline Cell Unificada */
 .farm-report__timeline-cell {
   position: relative;
   width: 240px;
@@ -1196,17 +1334,6 @@ body.is-relatorios .main {
   z-index: 2;
 }
 
-.farm-report__event:hover {
-  z-index: 100;
-}
-
-.farm-report__event.is-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  box-shadow: 0 0 0 4px rgba(15, 23, 42, .08);
-}
-
 .farm-report__event.is-dry {
   background: #a16207;
 }
@@ -1229,6 +1356,17 @@ body.is-relatorios .main {
 
 .farm-report__event.is-maint {
   background: #eab308;
+}
+
+.farm-report__event:hover {
+  z-index: 100;
+}
+
+.farm-report__event.is-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px rgba(15, 23, 42, .08);
 }
 
 .farm-report__timeline-metrics {
@@ -1259,7 +1397,6 @@ body.is-relatorios .main {
   text-align: center;
 }
 
-/* Modos Visuais da Timeline */
 .farm-report__timeline-wrap.is-single-line .farm-report__timeline-track {
   min-height: 56px;
 }
@@ -1285,7 +1422,6 @@ body.is-relatorios .main {
   display: none;
 }
 
-/* Tooltip */
 .farm-report__tooltip {
   position: absolute;
   left: 50%;
@@ -1332,23 +1468,6 @@ body.is-relatorios .main {
 .farm-report__tooltip-note {
   color: #64748b;
   font-style: italic;
-}
-
-/* --- Mapas --- */
-
-.farm-report__map-area {
-  width: 100%;
-  aspect-ratio: 1 / 1.12;
-  background-image: url('../../img/relatorios_pivos/fundo.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-  background-color: #1e293b;
-  border-bottom: 2px solid #edeff2;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .farm-report__map-date {
@@ -1417,8 +1536,6 @@ body.is-relatorios .main {
   justify-content: center;
 }
 
-/* --- Componente Pivô (Design Final Unificado) --- */
-
 .farm-report__pivot {
   position: relative;
   width: min(300px, 92%);
@@ -1426,14 +1543,12 @@ body.is-relatorios .main {
   height: auto;
   border-radius: 50%;
 
-  /* Variáveis base */
   --pivot-start: 0deg;
   --pivot-sweep: 0deg;
   --pivot-ring: #cbd5e1;
   --pivot-face: #ffffff;
   --pivot-grid: rgba(15, 23, 42, .05);
 
-  /* Valores finais dos overrides (Design Preenchido Moderno) */
   --pivot-water-1: rgba(40, 109, 221, 0.85);
   --pivot-water-2: rgba(59, 130, 246, 0.65);
   --pivot-water-edge: rgba(3, 99, 255, 0.85);
@@ -1514,7 +1629,6 @@ body.is-relatorios .main {
   display: none;
 }
 
-/* Acumulado Heatmap */
 .farm-report__pivot--accum {
   background: none !important;
   display: flex;
@@ -1580,7 +1694,6 @@ body.is-relatorios .main {
   left: 50%;
   transform: translate(-50%, -54%);
   width: 210px;
-  /* Descido levemente e mantido em 210px */
   height: 210px;
   z-index: 10;
 }
@@ -1598,7 +1711,6 @@ body.is-relatorios .main {
   z-index: 0;
 }
 
-/* Pivô flutuante nos cards diários (Apenas mancha d'água) */
 .farm-report__map-area .farm-report__pivot--ui {
   position: absolute;
   top: 50%;
@@ -1618,7 +1730,6 @@ body.is-relatorios .main {
   inset: 2% !important;
 }
 
-/* Área Seca (Raio Menor e Marrom) */
 .farm-report__pivot--ui::after {
   display: block !important;
   content: "";
@@ -1667,16 +1778,31 @@ body.is-relatorios .main {
   font-weight: 600;
 }
 
-/* --- Responsividade --- */
+/* ==========================================================================
+   Responsividade
+   ========================================================================== */
+
+@media (max-width: 1280px) {
+  .farm-report__dashboard-grid {
+    flex-direction: column;
+  }
+}
 
 @media (max-width: 960px) {
-  .farm-report__filters {
+  .relatorios-page .pluv-edit__body {
     grid-template-columns: 1fr;
   }
 
-  .farm-report__month {
-    width: 100%;
-    justify-content: space-between;
+  .relatorios-page .pluv-edit__nav {
+    border-right: 0;
+    border-bottom: 1px solid #f1f5f9;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .farm-report__filters {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

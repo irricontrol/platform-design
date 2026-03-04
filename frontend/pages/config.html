@@ -1,0 +1,288 @@
+<section class="pluv-edit farm-edit config-page" id="configPanel" aria-label="Configurações">
+    <div class="pluv-edit__crumbs">Configurações / <strong>Preferências</strong></div>
+
+    <div class="pluv-edit__titlebar">
+        <button class="pluv-edit__back" type="button" id="configBack" aria-label="Voltar">
+            <i class="fa-solid fa-chevron-left"></i>
+            <span>Configurações</span>
+        </button>
+
+        <div class="pluv-edit__actions">
+            <button class="pluv-edit__save btn-save-pref" type="button">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Salvar
+            </button>
+        </div>
+    </div>
+
+    <div class="pluv-edit__tab-body is-active">
+        <div class="pluv-edit__body">
+            <aside class="pluv-edit__nav" aria-label="Seções de configurações">
+                <button class="pluv-edit__nav-item is-active" type="button"
+                    data-target="#configPrefs">Preferências</button>
+                <button class="pluv-edit__nav-item" type="button" data-target="#configAdvanced">Personalização
+                    avançada</button>
+                <button class="pluv-edit__nav-item" type="button" data-target="#configProfile">Perfil</button>
+                <button class="pluv-edit__nav-item" type="button" data-target="#configSecurity">Segurança</button>
+                <button class="pluv-edit__nav-item" type="button" data-target="#configInfo">Informações</button>
+            </aside>
+
+            <div class="pluv-edit__content">
+                <!-- INFORMAÇÕES -->
+                <section class="pluv-edit__section" id="configInfo">
+                    <div class="pluv-edit__section-head">
+                        <div class="config-header-row">
+                            <div style="display:flex; align-items:center; gap: 12px;">
+                                <i class="fa-solid fa-info" style="color: #3b82f6; font-size: 20px;"></i>
+                                <h2 style="font-size: 18px; font-weight: 500;">Informações gerais da aplicação</h2>
+                            </div>
+                            <button class="close-btn" type="button"
+                                onclick="document.getElementById('configBack').click();">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pluv-edit__section-body">
+                        <div class="version-card">
+                            <div class="version-item">
+                                <div class="version-item__left">
+                                    <i class="fa-solid fa-globe"></i>
+                                    <span>Versão</span>
+                                </div>
+                                <div class="version-item__value">v1.0.2 (build 20251211)</div>
+                            </div>
+
+                            <div class="version-item">
+                                <div class="version-item__left">
+                                    <i class="fa-brands fa-android"></i>
+                                    <span>Versão Android</span>
+                                </div>
+                                <div class="version-item__value">1.0.2</div>
+                            </div>
+
+                            <div class="version-item">
+                                <div class="version-item__left">
+                                    <i class="fa-brands fa-apple"></i>
+                                    <span>Versão iOS</span>
+                                </div>
+                                <div class="version-item__value">1.0.2</div>
+                            </div>
+                        </div>
+
+                        <p class="config-footer-text">
+                            Para mais informações sobre os Termos que governam a plataforma da Irricontrol,
+                            visite <a href="#">Termos de Uso e Proteção de Dados</a>.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- PREFERÊNCIAS -->
+                <section class="pluv-edit__section is-active" id="configPrefs">
+                    <div class="pluv-edit__section-head">
+                    </div>
+
+                    <div class="pluv-edit__section-body">
+                        <!-- TEMA -->
+                        <div class="pref-row">
+                            <span class="pref-label">Tema:</span>
+                            <div class="toggle-group">
+                                <button class="toggle-btn" type="button">Escuro</button>
+                                <button class="toggle-btn is-active" type="button">Claro</button>
+                            </div>
+                        </div>
+
+                        <div class="pref-divider"></div>
+
+                        <!-- UNIDADES -->
+                        <h3 class="pref-section-title">Unidades de Medida</h3>
+
+                        <div class="pref-row">
+                            <span class="pref-label">Pressão:</span>
+                            <div class="toggle-group">
+                                <button class="toggle-btn is-active" type="button">bar</button>
+                                <button class="toggle-btn" type="button">psi</button>
+                            </div>
+                        </div>
+
+                        <div class="pref-row">
+                            <span class="pref-label">Lâmina:</span>
+                            <div class="toggle-group">
+                                <button class="toggle-btn is-active" type="button">%</button>
+                                <button class="toggle-btn" type="button">mm</button>
+                            </div>
+                        </div>
+
+                        <div class="pref-row">
+                            <span class="pref-label">Ângulo:</span>
+                            <div class="toggle-group">
+                                <button class="toggle-btn is-active" type="button">°</button>
+                                <button class="toggle-btn" type="button">m</button>
+                            </div>
+                        </div>
+
+                        <div class="pref-divider"></div>
+
+                        <!-- IDIOMA -->
+                        <div style="margin-bottom: 8px;">
+                            <span class="pref-label">Idioma:</span>
+                        </div>
+                        <div class="lang-select">
+                            <div class="lang-select__info">
+                                <img src="https://flagcdn.com/br.svg" alt="Brasil" class="lang-flag">
+                                <span>Português</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #94a3b8;"></i>
+                        </div>
+
+                        <div class="pref-divider"></div>
+
+                        <!-- DATA/HORA -->
+                        <div style="margin-bottom: 8px;">
+                            <span class="pref-label">Formato Data/Hora:</span>
+                        </div>
+                        <div style="max-width: 500px;">
+                            <div class="toggle-group" style="width: 100%;">
+                                <button class="toggle-btn is-active" type="button" style="flex: 1;">04 mar 2026
+                                    09:30</button>
+                                <button class="toggle-btn" type="button" style="flex: 1;">04/03/2026 09:30
+                                    GMT-03</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PERSONALIZAÇÃO AVANÇADA -->
+                <section class="pluv-edit__section" id="configAdvanced">
+                    <div class="pluv-edit__section-head">
+                    </div>
+
+                    <div class="pluv-edit__section-body">
+                        <h3 class="pref-section-title" style="margin-top: 0;">Comportamento do Monitoramento</h3>
+
+                        <div class="pref-row"
+                            style="margin-bottom: 24px; align-items: center; justify-content: space-between; gap: 40px;">
+                            <div style="flex: 1;">
+                                <div style="margin-bottom: 4px;">
+                                    <span class="pref-label">Ação ao Clicar no Pivô</span>
+                                </div>
+                                <p style="font-size: 13px; color: #64748b; margin: 0;">O que acontece ao clicar em um
+                                    pivô no mapa</p>
+                            </div>
+
+                            <div class="custom-select-wrapper" style="width: 280px;">
+                                <div class="lang-select js-advanced-select">
+                                    <div class="lang-select__info">
+                                        <i class="fa-solid fa-check" style="font-size: 12px; color: #22c55e;"></i>
+                                        <span id="pivotActionLabel">Ir para Detalhes</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #94a3b8;"></i>
+                                </div>
+
+                                <div class="advanced-dropdown-panel is-hidden" id="pivotActionDropdown">
+                                    <div class="advanced-dropdown-item" data-value="details">
+                                        <span>Ir para Detalhes</span>
+                                    </div>
+                                    <div class="advanced-dropdown-item" data-value="schedule">
+                                        <span>Abrir Agendamento Direto</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PERFIL -->
+                <section class="pluv-edit__section" id="configProfile">
+                    <div class="pluv-edit__section-head">
+                    </div>
+
+                    <div class="pluv-edit__section-body">
+                        <h3 class="pref-section-title" style="margin-top: 0;">Dados pessoais</h3>
+
+                        <div class="config-grid-3">
+                            <div class="pluv-edit__field">
+                                <label class="label--required">Nome</label>
+                                <div class="input-container">
+                                    <input class="pluv-edit__input" type="text" value="Marcelo">
+                                    <i class="fa-solid fa-circle-xmark input-clear"></i>
+                                </div>
+                            </div>
+                            <div class="pluv-edit__field">
+                                <label class="label--required">Sobrenome</label>
+                                <div class="input-container">
+                                    <input class="pluv-edit__input" type="text" value="Santos">
+                                    <i class="fa-solid fa-circle-xmark input-clear"></i>
+                                </div>
+                            </div>
+                            <div class="pluv-edit__field">
+                                <label class="label--required">E-mail</label>
+                                <div class="input-container">
+                                    <input class="pluv-edit__input" type="email" value="usuario@test.com">
+                                    <i class="fa-solid fa-circle-xmark input-clear"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="config-grid-2">
+                            <div class="pluv-edit__field">
+                                <label class="label--required">Nacionalidade</label>
+                                <div class="nationality-select">
+                                    <img src="https://flagcdn.com/br.svg" alt="Brasil">
+                                    <span>br Brasil</span>
+                                    <i class="fa-solid fa-chevron-down input-chevron"></i>
+                                </div>
+                            </div>
+                            <div class="pluv-edit__field">
+                                <label class="label--required">Celular</label>
+                                <div class="input-container">
+                                    <input class="pluv-edit__input" type="text" placeholder="( ) _____-____">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- SEGURANÇA -->
+                <section class="pluv-edit__section" id="configSecurity">
+                    <div class="pluv-edit__section-head">
+                    </div>
+
+                    <div class="pluv-edit__section-body">
+                        <div class="pluv-edit__field" style="max-width: 600px;">
+                            <label class="label--required">Senha atual</label>
+                            <div class="input-container">
+                                <input class="pluv-edit__input" type="password" placeholder="Senha atual">
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </div>
+                        </div>
+
+                        <div class="pluv-edit__field" style="max-width: 600px; margin-top: 24px;">
+                            <label>Nova senha</label>
+                            <div class="input-container">
+                                <input class="pluv-edit__input" type="password" placeholder="Nova senha">
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </div>
+                        </div>
+
+                        <ul class="password-requirements">
+                            <li><i class="fa-solid fa-circle-xmark"></i> Possuir no mínimo 8 caracteres</li>
+                            <li><i class="fa-solid fa-circle-xmark"></i> Possuir pelo menos uma letra</li>
+                            <li><i class="fa-solid fa-circle-xmark"></i> Possuir pelo menos um número</li>
+                            <li><i class="fa-solid fa-circle-xmark"></i> Possuir pelo menos um caractere especial</li>
+                        </ul>
+
+                        <div class="pluv-edit__field" style="max-width: 600px;">
+                            <label>Confirme a nova senha</label>
+                            <div class="input-container">
+                                <input class="pluv-edit__input" type="password" placeholder="Confirme a nova senha">
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div> <!-- end content -->
+        </div> <!-- end body -->
+    </div> <!-- end tab-body -->
+</section> <!-- end configPanel -->

@@ -23,7 +23,9 @@
   <link rel="stylesheet" href="./assets/css/pages/pivos.css">
   <link rel="stylesheet" href="./assets/css/pages/monitoramento.css">
   <link rel="stylesheet" href="./assets/css/pages/usuarios.css">
+  <link rel="stylesheet" href="./assets/css/pages/config.css">
   <link rel="stylesheet" href="./assets/css/components/op-modal.css">
+  <link rel="stylesheet" href="./assets/css/components/toast.css">
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -116,14 +118,14 @@
         <!-- RELATÓRIOS -->
         <div class="nav__section">
           <div class="nav__title" role="button" aria-expanded="true">
-            <span>RELATÓRIOS DA FAZENDA</span>
+            <span>RELATÓRIOS</span>
             <i class="fa-solid fa-chevron-down nav__chevron"></i>
           </div>
 
           <div class="nav__items">
             <a class="nav__item" href="#" data-route="relatorios">
               <span class="nav__ico"><img src="./assets/img/svg/report.svg" alt="Relatórios"></span>
-              <span class="nav__label">Relatórios de Pivôs</span>
+              <span class="nav__label">Relatórios da Fazenda</span>
             </a>
           </div>
         </div>
@@ -158,6 +160,15 @@
           </div>
         </div>
       </nav>
+      <div class="sidebar__footer">
+        <button class="sidebar__footer-btn" type="button" id="btnSettings" data-route="config"
+          aria-label="Configurações">
+          <span class="nav__ico">
+            <i class="fa-solid fa-gear"></i>
+          </span>
+          <span class="nav__label">Configurações</span>
+        </button>
+      </div>
     </aside>
 
     <!-- ÁREA DO MAPA (tela toda fora do sidebar) -->
@@ -510,6 +521,8 @@
   <script src="./assets/js/pages/chuva-geo/index.js"></script>
   <script src="./assets/js/pages/chuva-geo.js"></script>
   <script src="./assets/js/components/op-modal.js"></script>
+  <script src="./assets/js/components/toast.js"></script>
+  <script src="./assets/js/pages/config/index.js"></script>
   <script src="./assets/js/app.js"></script>
 
 </body>

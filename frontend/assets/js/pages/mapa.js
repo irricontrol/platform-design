@@ -267,8 +267,19 @@
     });
 
     layer.on("click", () => {
-      if (window.IcPivos && typeof window.IcPivos.open === "function") {
-        window.IcPivos.open({ pivotId: equip.id });
+      const action = localStorage.getItem('ic:pivot-click-action') || 'details';
+
+      if (action === 'schedule') {
+        if (window.OpModal && typeof window.OpModal.open === "function") {
+          window.OpModal.open({
+            title: equip.name || "Pivô",
+            pivotId: equip.id
+          });
+        }
+      } else {
+        if (window.IcPivos && typeof window.IcPivos.open === "function") {
+          window.IcPivos.open({ pivotId: equip.id });
+        }
       }
     });
 

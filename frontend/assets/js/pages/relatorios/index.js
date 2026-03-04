@@ -168,6 +168,58 @@
     if (titleEl) titleEl.textContent = farmName;
 
     const reportRoot = root.querySelector(".farm-report") || root;
+    const sidebar = root.querySelector(".pluv-edit__nav");
+    const sections = root.querySelectorAll(".pluv-edit__section");
+
+    if (sidebar) {
+      sidebar.addEventListener("click", (e) => {
+        const btn = e.target.closest(".pluv-edit__nav-item");
+        if (!btn) return;
+
+        const targetId = btn.getAttribute("data-target");
+        if (!targetId) return;
+
+        // Update sidebar
+        sidebar.querySelectorAll(".pluv-edit__nav-item").forEach(b => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+
+        // Show section
+        sections.forEach(s => s.classList.remove("is-active"));
+        const target = root.querySelector(targetId);
+        if (target) target.classList.add("is-active");
+
+        // Update crumbs
+        const crumbStrong = root.querySelector(".pluv-edit__crumbs strong");
+        if (crumbStrong) crumbStrong.textContent = btn.textContent;
+
+        // Scroll to top
+        const content = root.querySelector(".pluv-edit__content");
+        if (content) content.scrollTop = 0;
+      });
+    }
+
+    // Back button
+    const backBtn = root.querySelector("#relatoriosBack");
+    if (backBtn) {
+      backBtn.addEventListener("click", () => {
+        const logo = document.querySelector(".sidebar__brand");
+        if (logo) logo.click();
+        else window.IcRelatorios.close();
+      });
+    }
+
+    // Export button
+    const exportBtn = root.querySelector("#btnExportReport");
+    if (exportBtn) {
+      exportBtn.addEventListener("click", () => {
+        if (window.IcNotify) {
+          window.IcNotify.success("Relatório pronto para download!");
+        } else {
+          alert("Relatório pronto para download!");
+        }
+      });
+    }
+
     const tabs = Array.from(root.querySelectorAll(".farm-report__tab"));
     const weekWrap = root.querySelector("[data-report-week]");
     const weekToggle = weekWrap?.querySelector(".farm-report__week-input");

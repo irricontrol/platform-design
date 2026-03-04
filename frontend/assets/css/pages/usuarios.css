@@ -22,6 +22,27 @@
     /* Chrome/Safari */
 }
 
+/* ==========================================================================
+   Refinamentos de Layout (Seguindo o padrão do Relatório)
+   ========================================================================== */
+.user-page .pluv-edit__body {
+    grid-template-columns: 180px 1fr;
+    gap: 0;
+}
+
+.user-page .pluv-edit__nav {
+    border-right: 1px solid #f1f5f9;
+}
+
+.user-page .pluv-edit__nav-item.is-active::after {
+    right: -11px;
+}
+
+.user-page .pluv-edit__content {
+    border-left: 0;
+    padding: 24px 32px 60px;
+}
+
 .user-page__header {
     margin-bottom: 32px;
 }

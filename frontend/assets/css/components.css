@@ -427,6 +427,52 @@
   font-size: 15px;
 }
 
+/* Sidebar Footer */
+.sidebar__footer-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 9px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  color: var(--sidebarText);
+  margin-top: 4px;
+  width: 100%;
+  font-size: 11px;
+  /* Para que ele preencha a largura do sidebar e tenha o hover igual aos nav__items */
+}
+
+.sidebar__footer-btn:hover {
+  background: rgba(0, 0, 0, .10);
+}
+
+.sidebar__footer-btn.is-active {
+  background: rgba(0, 0, 0, .20);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, .05);
+}
+
+.sidebar__footer-btn .nav__ico {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.app.is-collapsed .sidebar__footer {
+  justify-content: center;
+}
+
+.app.is-collapsed .sidebar__footer-btn {
+  justify-content: center;
+  padding: 9px;
+}
+
+.app.is-collapsed .sidebar__footer-btn .nav__label {
+  display: none;
+}
+
 /* Base components */
 .card {
   background: var(--surface);

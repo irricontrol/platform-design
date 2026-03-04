@@ -1,1388 +1,1432 @@
-<head>
-  <meta charset="UTF-8" />
-  <title>Relatórios</title>
-</head>
+<section class="pluv-edit farm-edit relatorios-page" id="relatoriosPanel" aria-label="Relatórios da Fazenda">
+  <div class="pluv-edit__crumbs">Relatórios / <strong id="js-report-crumb">Relatório da Fazenda</strong></div>
 
-<section class="farm-report" aria-label="Relatórios da Fazenda">
-  <div class="farm-report__crumbs">Relatórios da Fazenda <span>/</span> Relatório de Pivôs</div>
+  <div class="pluv-edit__titlebar">
+    <button class="pluv-edit__back" type="button" id="relatoriosBack" aria-label="Voltar">
+      <i class="fa-solid fa-chevron-left"></i>
+      <span>Relatório de Pivôs - <span data-report-farm>Fazenda Agro Brasil</span></span>
+    </button>
 
-  <header class="farm-report__header">
-    <h2 class="farm-report__title">
-      Relatório de Pivôs - <span data-report-farm>Fazenda</span>
-    </h2>
-  </header>
-
-  <div class="farm-report__tabs" role="tablist" aria-label="Período">
-    <button class="farm-report__tab is-active" type="button" role="tab" aria-selected="true">Semanal</button>
-    <button class="farm-report__tab" type="button" role="tab" aria-selected="false">Mensal</button>
-    <button class="farm-report__tab" type="button" role="tab" aria-selected="false">Trimestral</button>
-  </div>
-
-  <div class="farm-report__filters">
-    <div class="farm-report__multi" data-report-multi>
-      <div class="farm-report__multi-control" data-report-multi-control>
-        <div class="farm-report__chips" data-report-chips></div>
-        <input class="farm-report__search" type="text" placeholder="Selecionar pivôs" data-report-search />
-        <span class="farm-report__chev" aria-hidden="true">
-          <i class="fa-solid fa-chevron-down"></i>
-        </span>
-      </div>
-      <div class="farm-report__dropdown" data-report-dropdown aria-hidden="true">
-        <div class="farm-report__list" data-report-list></div>
-        <button class="farm-report__all" type="button" data-report-select-all>Selecionar todos</button>
-      </div>
-    </div>
-
-    <div class="farm-report__period">
-      <div class="farm-report__week" data-report-week>
-        <button class="farm-report__week-input" type="button">
-          <span>2026-10</span>
-          <i class="fa-regular fa-calendar"></i>
-        </button>
-        <div class="farm-report__week-panel" role="dialog" aria-label="Selecionar semana">
-          <div class="week-panel__nav">
-            <button type="button" aria-label="Semana anterior"><i class="fa-solid fa-chevron-left"></i></button>
-            <div class="week-panel__title">2026 Jan</div>
-            <button type="button" aria-label="Próxima semana"><i class="fa-solid fa-chevron-right"></i></button>
-          </div>
-          <div class="week-panel__dow">
-            <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
-          </div>
-          <div class="week-panel__grid">
-            <span class="week-panel__day is-muted">28</span>
-            <span class="week-panel__day is-muted">29</span>
-            <span class="week-panel__day is-muted">30</span>
-            <span class="week-panel__day is-muted">31</span>
-            <span class="week-panel__day is-range">1</span>
-            <span class="week-panel__day is-range">2</span>
-            <span class="week-panel__day is-range">3</span>
-
-            <span class="week-panel__day">4</span>
-            <span class="week-panel__day is-range">5</span>
-            <span class="week-panel__day is-range">6</span>
-            <span class="week-panel__day is-range">7</span>
-            <span class="week-panel__day is-range">8</span>
-            <span class="week-panel__day is-range">9</span>
-            <span class="week-panel__day is-range">10</span>
-
-            <span class="week-panel__day">11</span>
-            <span class="week-panel__day">12</span>
-            <span class="week-panel__day">13</span>
-            <span class="week-panel__day">14</span>
-            <span class="week-panel__day">15</span>
-            <span class="week-panel__day">16</span>
-            <span class="week-panel__day">17</span>
-
-            <span class="week-panel__day">18</span>
-            <span class="week-panel__day">19</span>
-            <span class="week-panel__day">20</span>
-            <span class="week-panel__day">21</span>
-            <span class="week-panel__day">22</span>
-            <span class="week-panel__day">23</span>
-            <span class="week-panel__day">24</span>
-
-            <span class="week-panel__day is-muted">25</span>
-            <span class="week-panel__day is-muted" title="2025-12-28">26</span>
-            <span class="week-panel__day is-muted">27</span>
-            <span class="week-panel__day is-muted">28</span>
-            <span class="week-panel__day is-muted">29</span>
-            <span class="week-panel__day is-muted">30</span>
-            <span class="week-panel__day is-muted">31</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="farm-report__month" data-report-month-picker>
-        <button class="farm-report__month-input" type="button" data-report-month-toggle>
-          <span>2026-01</span>
-          <i class="fa-regular fa-calendar"></i>
-        </button>
-        <div class="farm-report__month-panel" role="dialog" aria-label="Selecionar mês">
-          <div class="month-panel__nav">
-            <button type="button" aria-label="Ano anterior"><i class="fa-solid fa-chevron-left"></i></button>
-            <div class="month-panel__title">2026</div>
-            <button type="button" aria-label="Próximo ano"><i class="fa-solid fa-chevron-right"></i></button>
-          </div>
-          <div class="month-panel__grid">
-            <button class="month-panel__month is-active" type="button">Jan</button>
-            <button class="month-panel__month" type="button">Fev</button>
-            <button class="month-panel__month" type="button">Mar</button>
-            <button class="month-panel__month" type="button">Abr</button>
-            <button class="month-panel__month" type="button">Mai</button>
-            <button class="month-panel__month" type="button">Jun</button>
-            <button class="month-panel__month" type="button">Jul</button>
-            <button class="month-panel__month" type="button">Ago</button>
-            <button class="month-panel__month" type="button">Set</button>
-            <button class="month-panel__month" type="button">Out</button>
-            <button class="month-panel__month" type="button">Nov</button>
-            <button class="month-panel__month" type="button">Dez</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="farm-report__quarter" data-report-quarter-picker>
-        <button class="farm-report__quarter-input" type="button" data-report-quarter-toggle>
-          <span>2026-Q1</span>
-          <i class="fa-regular fa-calendar"></i>
-        </button>
-        <div class="farm-report__quarter-panel" role="dialog" aria-label="Selecionar trimestre">
-          <div class="quarter-panel__nav">
-            <button type="button" aria-label="Ano anterior"><i class="fa-solid fa-chevron-left"></i></button>
-            <div class="quarter-panel__title">2026</div>
-            <button type="button" aria-label="Próximo ano"><i class="fa-solid fa-chevron-right"></i></button>
-          </div>
-          <div class="quarter-panel__grid">
-            <button class="quarter-panel__quarter is-active" type="button">Q1</button>
-            <button class="quarter-panel__quarter" type="button">Q2</button>
-            <button class="quarter-panel__quarter" type="button">Q3</button>
-            <button class="quarter-panel__quarter" type="button">Q4</button>
-          </div>
-        </div>
-      </div>
+    <div class="pluv-edit__actions">
+      <button class="pluv-edit__save" id="btnExportReport" type="button"
+        style="background: #ffffff; color: #475569; border: 1px solid #e2e8f0;">
+        <i class="fa-solid fa-file-export"></i>
+        Exportar
+      </button>
     </div>
   </div>
 
-  <article class="farm-report__stats">
-    <div class="farm-report__stats-item">
-      <span class="farm-report__stats-label">Área Gerenciada</span>
-      <strong class="farm-report__stats-value">8.724,4 <span class="unit">ha</span></strong>
-    </div>
-    <div class="farm-report__stats-item">
-      <span class="farm-report__stats-label">Lâmina Aplicada</span>
-      <strong class="farm-report__stats-value">142,5 <span class="unit">mm</span></strong>
-      <span class="farm-report__stats-trend is-up"><i class="fa-solid fa-arrow-trend-up"></i> +3.2%</span>
-    </div>
-    <div class="farm-report__stats-item">
-      <span class="farm-report__stats-label">Eficiência de Irrigação</span>
-      <strong class="farm-report__stats-value">91%</strong>
-      <div class="farm-report__stats-footer">
-        <span class="farm-report__stats-trend is-up"><i class="fa-solid fa-arrow-trend-up"></i> +2%</span>
-        <span class="farm-report__stats-desc">Irrigação efetiva / ETc</span>
-      </div>
-    </div>
-    <div class="farm-report__stats-item">
-      <span class="farm-report__stats-label" title="Diferença entre Irrigação+Chuva e ETc">Balanço Hídrico</span>
-      <strong class="farm-report__stats-value is-warning">-3,2 <span class="unit">mm</span></strong>
-      <span class="farm-report__stats-desc">Déficit leve</span>
-    </div>
-    <div class="farm-report__stats-item">
-      <span class="farm-report__stats-label">Custo por mm/ha</span>
-      <strong class="farm-report__stats-value"><span class="unit">R$</span> 4,20</strong>
-      <span class="farm-report__stats-trend is-down"><i class="fa-solid fa-arrow-trend-down"></i> 0.5%</span>
-    </div>
-    <div class="farm-report__stats-item">
-      <span class="farm-report__stats-label">Score de Saúde</span>
-      <strong class="farm-report__stats-value">87<span class="unit">/100</span></strong>
-      <div class="farm-report__stats-footer">
-        <span class="farm-report__stats-trend is-up"><i class="fa-solid fa-arrow-trend-up"></i> +2%</span>
-        <span class="farm-report__badge is-good"><i class="fa-solid fa-shield-halved"></i> Bom</span>
-      </div>
-    </div>
-  </article>
+  <div class="pluv-edit__tab-body is-active">
+    <div class="pluv-edit__body">
+      <aside class="pluv-edit__nav" aria-label="Seções de relatórios">
+        <button class="pluv-edit__nav-item is-active" type="button" data-target="#reportPivots">Relatório de
+          Pivôs</button>
+      </aside>
 
-  <div class="farm-report__dashboard-grid">
-    <article class="farm-report__analysis-card">
-      <div class="farm-report__analysis-item farm-report__analysis-item--chart">
-        <header class="farm-report__chart-header">
-          <h3 class="farm-report__chart-title">ETc vs Irrigação vs Chuva</h3>
-        </header>
-        <div class="farm-report__chart-container">
-          <div class="farm-report__chart-y-axis">
-            <span>16 mm</span>
-            <span>12 mm</span>
-            <span>8 mm</span>
-            <span>4 mm</span>
-            <span>0 mm</span>
+      <div class="pluv-edit__content">
+        <!-- RELATÓRIO DE PIVÔS -->
+        <section class="pluv-edit__section is-active farm-report" id="reportPivots" data-report-period="weekly">
+
+          <div class="farm-report__tabs" role="tablist" aria-label="Período">
+            <button class="farm-report__tab is-active" type="button" role="tab" aria-selected="true">Semanal</button>
+            <button class="farm-report__tab" type="button" role="tab" aria-selected="false">Mensal</button>
+            <button class="farm-report__tab" type="button" role="tab" aria-selected="false">Trimestral</button>
           </div>
-          <div class="farm-report__chart-body">
-            <svg class="farm-report__chart-svg" viewBox="0 0 1000 200" preserveAspectRatio="none">
-              <!-- Linhas de Grade Horizontais -->
-              <line x1="0" y1="0" x2="1000" y2="0" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="0" y1="50" x2="1000" y2="50" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="0" y1="100" x2="1000" y2="100" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="0" y1="150" x2="1000" y2="150" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="0" y1="200" x2="1000" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
 
-              <!-- Linhas de Grade Verticais -->
-              <line x1="71" y1="0" x2="71" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="142" y1="0" x2="142" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="213" y1="0" x2="213" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="284" y1="0" x2="284" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="355" y1="0" x2="355" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="426" y1="0" x2="426" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="497" y1="0" x2="497" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="568" y1="0" x2="568" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="639" y1="0" x2="639" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="710" y1="0" x2="710" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="781" y1="0" x2="781" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="852" y1="0" x2="852" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-              <line x1="923" y1="0" x2="923" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-
-              <!-- Chuva (Pontilhado cinza) -->
-              <path
-                d="M0,200 L140,150 L210,195 L280,40 L350,200 L420,200 L490,165 L560,200 L630,200 L700,200 L770,100 L840,200 L910,200 L1000,180"
-                fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6,4" />
-
-              <!-- Irrigação (Azul) -->
-              <path
-                d="M0,145 L70,140 L140,142 L210,155 L280,200 L350,145 L420,148 L490,150 L560,155 L630,150 L700,145 L770,148 L840,155 L910,150 L1000,148"
-                fill="none" stroke="#3b82f6" stroke-width="2" />
-
-              <!-- ETc (Verde) -->
-              <path
-                d="M0,140 L70,135 L140,138 L210,145 L280,140 L350,135 L420,138 L490,140 L560,145 L630,140 L700,135 L770,138 L840,145 L910,140 L1000,138"
-                fill="none" stroke="#10b981" stroke-width="2" />
-            </svg>
-            <div class="farm-report__chart-x-axis">
-              <span>01/02</span>
-              <span>02/02</span>
-              <span>03/02</span>
-              <span>04/02</span>
-              <span>05/02</span>
-              <span>06/02</span>
-              <span>07/02</span>
-              <span>08/02</span>
-              <span>09/02</span>
-              <span>10/02</span>
-              <span>11/02</span>
-              <span>12/02</span>
-              <span>13/02</span>
-              <span>14/02</span>
-            </div>
-
-            <!-- Marcador de Hover -->
-            <div class="farm-report__chart-hover" style="left: 38.5%;">
-              <div class="farm-report__chart-hover-line"></div>
-              <div class="farm-report__chart-hover-dot"></div>
-              <div class="farm-report__chart-tooltip">
-                <div class="tooltip-date">06/02</div>
-                <div class="tooltip-row etc"><span class="label">ETc :</span> <span class="value">5</span></div>
-                <div class="tooltip-row irrigation"><span class="label">Irrigação :</span> <span
-                    class="value">4.8</span>
-                </div>
-                <div class="tooltip-row rain"><span class="label">Chuva :</span> <span class="value">0</span></div>
+          <div class="farm-report__filters">
+            <div class="farm-report__multi" data-report-multi>
+              <div class="farm-report__multi-control" data-report-multi-control>
+                <div class="farm-report__chips" data-report-chips></div>
+                <input class="farm-report__search" type="text" placeholder="Selecionar pivôs" data-report-search />
+                <span class="farm-report__chev" aria-hidden="true">
+                  <i class="fa-solid fa-chevron-down"></i>
+                </span>
+              </div>
+              <div class="farm-report__dropdown" data-report-dropdown aria-hidden="true">
+                <div class="farm-report__list" data-report-list></div>
+                <button class="farm-report__all" type="button" data-report-select-all>Selecionar todos</button>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Linha de métricas abaixo do gráfico -->
-      <div class="farm-report__analysis-metrics-row">
-        <div class="farm-report__analysis-item farm-report__analysis-item--metric">
-          <header class="summary-card__header">
-            <i class="fa-solid fa-droplet"></i>
-            <span class="summary-card__title">IRRIGAÇÃO EFETIVA</span>
-          </header>
-          <div class="summary-card__value">91%</div>
-          <p class="summary-card__desc">Relação entre irrigação e ETc</p>
-        </div>
+            <div class="farm-report__period">
+              <div class="farm-report__week" data-report-week>
+                <button class="farm-report__week-input" type="button">
+                  <span>2026-10</span>
+                  <i class="fa-regular fa-calendar"></i>
+                </button>
+                <div class="farm-report__week-panel" role="dialog" aria-label="Selecionar semana">
+                  <div class="week-panel__nav">
+                    <button type="button" aria-label="Semana anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="week-panel__title">2026 Jan</div>
+                    <button type="button" aria-label="Próxima semana"><i class="fa-solid fa-chevron-right"></i></button>
+                  </div>
+                  <div class="week-panel__dow">
+                    <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+                  </div>
+                  <div class="week-panel__grid">
+                    <span class="week-panel__day is-muted">28</span>
+                    <span class="week-panel__day is-muted">29</span>
+                    <span class="week-panel__day is-muted">30</span>
+                    <span class="week-panel__day is-muted">31</span>
+                    <span class="week-panel__day is-range">1</span>
+                    <span class="week-panel__day is-range">2</span>
+                    <span class="week-panel__day is-range">3</span>
 
-        <div class="farm-report__analysis-item farm-report__analysis-item--metric">
-          <header class="summary-card__header">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <span class="summary-card__title">ÍNDICE DE ESTRESSE</span>
-          </header>
-          <div class="summary-card__value">8%</div>
-          <p class="summary-card__desc">Déficit hídrico acumulado</p>
-        </div>
+                    <span class="week-panel__day">4</span>
+                    <span class="week-panel__day is-range">5</span>
+                    <span class="week-panel__day is-range">6</span>
+                    <span class="week-panel__day is-range">7</span>
+                    <span class="week-panel__day is-range">8</span>
+                    <span class="week-panel__day is-range">9</span>
+                    <span class="week-panel__day is-range">10</span>
 
-        <div class="farm-report__analysis-item farm-report__analysis-item--metric">
-          <header class="summary-card__header">
-            <i class="fa-solid fa-arrow-trend-down"></i>
-            <span class="summary-card__title">DIFERENÇA ETC VS APLICADO</span>
-          </header>
-          <div class="summary-card__value">-3,2 mm</div>
-          <p class="summary-card__desc">No período selecionado</p>
-        </div>
-      </div>
-    </article>
+                    <span class="week-panel__day">11</span>
+                    <span class="week-panel__day">12</span>
+                    <span class="week-panel__day">13</span>
+                    <span class="week-panel__day">14</span>
+                    <span class="week-panel__day">15</span>
+                    <span class="week-panel__day">16</span>
+                    <span class="week-panel__day">17</span>
 
-    <!-- ENERGY ANALYSIS SECTION -->
-    <!-- ENERGY ANALYSIS CARD - Unified -->
-    <article class="energy-analysis-card">
-      <div class="energy-analysis-card__charts-row">
-        <!-- Consumo de Energia -->
-        <div class="energy-analysis-card__item energy-analysis-card__item--main">
-          <header class="energy-analysis__card-header">
-            <h3 class="farm-report__chart-title">Consumo de Energia (kWh/dia)</h3>
-          </header>
-          <div class="energy-analysis__chart-container">
-            <div class="energy-analysis__y-axis">
-              <span>280</span>
-              <span>210</span>
-              <span>140</span>
-              <span>70</span>
-              <span>0</span>
-            </div>
-            <div class="energy-analysis__chart-body">
-              <svg class="energy-analysis__svg" viewBox="0 0 1000 200" preserveAspectRatio="none">
-                <line x1="0" y1="0" x2="1000" y2="0" stroke="#f1f5f9" stroke-dasharray="4" />
-                <line x1="0" y1="50" x2="1000" y2="50" stroke="#f1f5f9" stroke-dasharray="4" />
-                <line x1="0" y1="100" x2="1000" y2="100" stroke="#f1f5f9" stroke-dasharray="4" />
-                <line x1="0" y1="150" x2="1000" y2="150" stroke="#f1f5f9" stroke-dasharray="4" />
-                <line x1="0" y1="200" x2="1000" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
-                <path
-                  d="M0,45 L70,35 L140,50 L210,140 L280,40 L350,45 L420,55 L490,65 L560,40 L630,35 L700,85 L770,45 L840,40 L910,32 L1000,25"
-                  fill="none" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round" />
-              </svg>
+                    <span class="week-panel__day">18</span>
+                    <span class="week-panel__day">19</span>
+                    <span class="week-panel__day">20</span>
+                    <span class="week-panel__day">21</span>
+                    <span class="week-panel__day">22</span>
+                    <span class="week-panel__day">23</span>
+                    <span class="week-panel__day">24</span>
 
-              <!-- Marcador de Hover (Balaozinho) -->
-              <div class="farm-report__chart-hover" style="left: 54%;">
-                <div class="farm-report__chart-hover-line"></div>
-                <div class="farm-report__chart-hover-dot" style="top: 60px; background: #0ea5e9;"></div>
-                <div class="farm-report__chart-tooltip">
-                  <div class="tooltip-date">08/02</div>
-                  <div class="tooltip-row kwh">
-                    <span class="label">kWh :</span>
-                    <span class="value">220</span>
+                    <span class="week-panel__day is-muted">25</span>
+                    <span class="week-panel__day is-muted" title="2025-12-28">26</span>
+                    <span class="week-panel__day is-muted">27</span>
+                    <span class="week-panel__day is-muted">28</span>
+                    <span class="week-panel__day is-muted">29</span>
+                    <span class="week-panel__day is-muted">30</span>
+                    <span class="week-panel__day is-muted">31</span>
                   </div>
                 </div>
               </div>
 
-              <div class="energy-analysis__x-axis">
-                <span>01/02</span>
-                <span>02/02</span>
-                <span>03/02</span>
-                <span>04/02</span>
-                <span>05/02</span>
-                <span>06/02</span>
-                <span>07/02</span>
-                <span>08/02</span>
-                <span>09/02</span>
-                <span>10/02</span>
-                <span>11/02</span>
-                <span>12/02</span>
-                <span>13/02</span>
-                <span>14/02</span>
+              <div class="farm-report__month" data-report-month-picker>
+                <button class="farm-report__month-input" type="button" data-report-month-toggle>
+                  <span>2026-01</span>
+                  <i class="fa-regular fa-calendar"></i>
+                </button>
+                <div class="farm-report__month-panel" role="dialog" aria-label="Selecionar mês">
+                  <div class="month-panel__nav">
+                    <button type="button" aria-label="Ano anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="month-panel__title">2026</div>
+                    <button type="button" aria-label="Próximo ano"><i class="fa-solid fa-chevron-right"></i></button>
+                  </div>
+                  <div class="month-panel__grid">
+                    <button class="month-panel__month is-active" type="button">Jan</button>
+                    <button class="month-panel__month" type="button">Fev</button>
+                    <button class="month-panel__month" type="button">Mar</button>
+                    <button class="month-panel__month" type="button">Abr</button>
+                    <button class="month-panel__month" type="button">Mai</button>
+                    <button class="month-panel__month" type="button">Jun</button>
+                    <button class="month-panel__month" type="button">Jul</button>
+                    <button class="month-panel__month" type="button">Ago</button>
+                    <button class="month-panel__month" type="button">Set</button>
+                    <button class="month-panel__month" type="button">Out</button>
+                    <button class="month-panel__month" type="button">Nov</button>
+                    <button class="month-panel__month" type="button">Dez</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="farm-report__quarter" data-report-quarter-picker>
+                <button class="farm-report__quarter-input" type="button" data-report-quarter-toggle>
+                  <span>2026-Q1</span>
+                  <i class="fa-regular fa-calendar"></i>
+                </button>
+                <div class="farm-report__quarter-panel" role="dialog" aria-label="Selecionar trimestre">
+                  <div class="quarter-panel__nav">
+                    <button type="button" aria-label="Ano anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="quarter-panel__title">2026</div>
+                    <button type="button" aria-label="Próximo ano"><i class="fa-solid fa-chevron-right"></i></button>
+                  </div>
+                  <div class="quarter-panel__grid">
+                    <button class="quarter-panel__quarter is-active" type="button">Q1</button>
+                    <button class="quarter-panel__quarter" type="button">Q2</button>
+                    <button class="quarter-panel__quarter" type="button">Q3</button>
+                    <button class="quarter-panel__quarter" type="button">Q4</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Custos em Energia (Modelo Donut com texto central) -->
-        <div class="energy-analysis-card__item energy-analysis-card__item--side">
-          <div class="pivo-energy__top">
-            <header class="energy-analysis__card-header">
-              <h3 class="farm-report__chart-title">Custos em Energia</h3>
-            </header>
-            <div class="pivo-chart-container pivo-chart-container--donut" id="pivoChartCustos">
-              <svg viewBox="0 0 120 120" class="donut-svg" style="overflow: visible;">
-                <g transform="translate(10, 10)">
-                  <!-- Donut Segments (Corrigidos para 35%, 45%, 20%) -->
-                  <!-- Reduzido (20% - Verde) -->
-                  <path d="M 50 4 A 46 46 0 0 1 93.75 35.79 L 80.43 40.11 A 32 32 0 0 0 50 18 Z" fill="#86efac"
-                    class="donut-sector"></path>
-                  <!-- Fora Pico (45% - Azul) -->
-                  <path d="M 93.75 35.79 A 46 46 0 0 1 12.79 77.04 L 24.11 68.81 A 32 32 0 0 0 80.43 40.11 Z"
-                    fill="#93c5fd" class="donut-sector"></path>
-                  <!-- Pico (35% - Vermelho) -->
-                  <path d="M 12.79 77.04 A 46 46 0 0 1 50 4 L 50 18 A 32 32 0 0 0 24.11 68.81 Z" fill="#f87171"
-                    class="donut-sector"></path>
+          <article class="farm-report__stats">
+            <div class="farm-report__stats-item">
+              <span class="farm-report__stats-label">Área Gerenciada</span>
+              <strong class="farm-report__stats-value">8.724,4 <span class="unit">ha</span></strong>
+              <div class="farm-report__stats-footer"></div>
+            </div>
 
-                  <!-- Callout Lines and Labels -->
-                  <path d="M 75 14 L 95 -2 L 105 -2" fill="none" stroke="#cbd5e1" stroke-width="1"></path>
-                  <text x="108" y="1" font-size="8" font-weight="700" fill="#64748b">20%</text>
-
-                  <path d="M 71 88 L 90 105 L 100 105" fill="none" stroke="#cbd5e1" stroke-width="1"></path>
-                  <text x="103" y="108" font-size="8" font-weight="700" fill="#64748b">45%</text>
-
-                  <path d="M 10 32 L -8 15 L -18 15" fill="none" stroke="#cbd5e1" stroke-width="1"></path>
-                  <text x="-38" y="18" font-size="8" font-weight="700" fill="#64748b">35%</text>
-                </g>
-              </svg>
-              <div class="donut-center-text">
-                R$ 12.840<span>Total</span>
+            <div class="farm-report__stats-item">
+              <span class="farm-report__stats-label">Lâmina Aplicada</span>
+              <strong class="farm-report__stats-value">142,5 <span class="unit">mm</span></strong>
+              <div class="farm-report__stats-footer">
+                <span class="farm-report__stats-trend is-up"><i class="fa-solid fa-arrow-trend-up"></i> +3.2%</span>
               </div>
             </div>
-            <div class="pivo-chart-legend">
-              <div class="donut-legend-item">
-                <span class="legend-dot" style="background:#f87171"></span>
-                <span class="label">Pico</span>
-                <span class="value">35%</span>
+
+            <div class="farm-report__stats-item">
+              <span class="farm-report__stats-label">Eficiência de Irrigação</span>
+              <strong class="farm-report__stats-value">91%</strong>
+              <div class="farm-report__stats-footer">
+                <span class="farm-report__stats-trend is-up"><i class="fa-solid fa-arrow-trend-up"></i> +2%</span>
+                <span class="farm-report__stats-desc">Irrigação efetiva / ETc</span>
               </div>
-              <div class="donut-legend-item">
-                <span class="legend-dot" style="background:#93c5fd"></span>
-                <span class="label">Fora Pico</span>
-                <span class="value">45%</span>
+            </div>
+
+            <div class="farm-report__stats-item">
+              <span class="farm-report__stats-label" title="Diferença entre Irrigação+Chuva e ETc">Balanço
+                Hídrico</span>
+              <strong class="farm-report__stats-value is-warning">-3,2 <span class="unit">mm</span></strong>
+              <div class="farm-report__stats-footer">
+                <span class="farm-report__stats-desc">Déficit leve</span>
               </div>
-              <div class="donut-legend-item">
-                <span class="legend-dot" style="background:#86efac"></span>
-                <span class="label">Reduzido</span>
-                <span class="value">20%</span>
+            </div>
+
+            <div class="farm-report__stats-item">
+              <span class="farm-report__stats-label">Custo por mm/ha</span>
+              <strong class="farm-report__stats-value"><span class="unit">R$</span> 4,20</strong>
+              <div class="farm-report__stats-footer">
+                <span class="farm-report__stats-trend is-down"><i class="fa-solid fa-arrow-trend-down"></i> 0.5%</span>
               </div>
+            </div>
+
+            <div class="farm-report__stats-item">
+              <span class="farm-report__stats-label">Score de Saúde</span>
+              <strong class="farm-report__stats-value">87<span class="unit">/100</span></strong>
+              <div class="farm-report__stats-footer">
+                <span class="farm-report__stats-trend is-up"><i class="fa-solid fa-arrow-trend-up"></i> +2%</span>
+                <span class="farm-report__badge is-good"><i class="fa-solid fa-shield-halved"></i> Bom</span>
+              </div>
+            </div>
+          </article>
+
+          <div class="farm-report__dashboard-grid">
+            <article class="farm-report__analysis-card">
+              <div class="farm-report__analysis-item farm-report__analysis-item--chart">
+                <header class="farm-report__chart-header">
+                  <h3 class="farm-report__chart-title">ETc vs Irrigação vs Chuva</h3>
+                </header>
+                <div class="farm-report__chart-container">
+                  <div class="farm-report__chart-y-axis">
+                    <span>16 mm</span>
+                    <span>12 mm</span>
+                    <span>8 mm</span>
+                    <span>4 mm</span>
+                    <span>0 mm</span>
+                  </div>
+                  <div class="farm-report__chart-body">
+                    <svg class="farm-report__chart-svg" viewBox="0 0 1000 200" preserveAspectRatio="none">
+                      <!-- Linhas de Grade Horizontais -->
+                      <line x1="0" y1="0" x2="1000" y2="0" stroke="#f1f5f9" stroke-dasharray="4" />
+                      <line x1="0" y1="50" x2="1000" y2="50" stroke="#f1f5f9" stroke-dasharray="4" />
+                      <line x1="0" y1="100" x2="1000" y2="100" stroke="#f1f5f9" stroke-dasharray="4" />
+                      <line x1="0" y1="150" x2="1000" y2="150" stroke="#f1f5f9" stroke-dasharray="4" />
+                      <line x1="0" y1="200" x2="1000" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
+
+                      <!-- Linhas de Grade Verticais (7 dias) -->
+                      <line x1="167" y1="0" x2="167" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
+                      <line x1="333" y1="0" x2="333" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
+                      <line x1="500" y1="0" x2="500" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
+                      <line x1="667" y1="0" x2="667" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
+                      <line x1="833" y1="0" x2="833" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
+
+                      <!-- Chuva (Pontilhado cinza) - 7 dias -->
+                      <path d="M0,165 L167,200 L333,200 L500,200 L667,100 L833,200 L1000,180" fill="none"
+                        stroke="#94a3b8" stroke-width="2" stroke-dasharray="6,4" />
+
+                      <!-- Irrigação (Azul) - 7 dias -->
+                      <path d="M0,150 L167,155 L333,150 L500,145 L667,148 L833,155 L1000,148" fill="none"
+                        stroke="#3b82f6" stroke-width="2" />
+
+                      <!-- ETc (Verde) - 7 dias -->
+                      <path d="M0,140 L167,145 L333,140 L500,135 L667,138 L833,145 L1000,138" fill="none"
+                        stroke="#10b981" stroke-width="2" />
+                    </svg>
+                    <div class="farm-report__chart-x-axis">
+                      <span>08/02</span>
+                      <span>09/02</span>
+                      <span>10/02</span>
+                      <span>11/02</span>
+                      <span>12/02</span>
+                      <span>13/02</span>
+                      <span>14/02</span>
+                    </div>
+
+                    <!-- Marcador de Hover (Ajustado para 7 dias) -->
+                    <div class="farm-report__chart-hover" style="left: 50.5%;">
+                      <div class="farm-report__chart-hover-line"></div>
+                      <div class="farm-report__chart-hover-dot"></div>
+                      <div class="farm-report__chart-tooltip">
+                        <div class="tooltip-date">11/02</div>
+                        <div class="tooltip-row etc"><span class="label">ETc :</span> <span class="value">5.2</span>
+                        </div>
+                        <div class="tooltip-row irrigation"><span class="label">Irrigação :</span> <span
+                            class="value">4.9</span>
+                        </div>
+                        <div class="tooltip-row rain"><span class="label">Chuva :</span> <span class="value">0</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Linha de métricas abaixo do gráfico -->
+              <div class="farm-report__analysis-metrics-row">
+                <div class="farm-report__analysis-item farm-report__analysis-item--metric">
+                  <header class="summary-card__header">
+                    <i class="fa-solid fa-droplet"></i>
+                    <span class="summary-card__title">IRRIGAÇÃO EFETIVA</span>
+                  </header>
+                  <div class="summary-card__value">91%</div>
+                  <p class="summary-card__desc">Relação entre irrigação e ETc</p>
+                </div>
+
+                <div class="farm-report__analysis-item farm-report__analysis-item--metric">
+                  <header class="summary-card__header">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span class="summary-card__title">ÍNDICE DE ESTRESSE</span>
+                  </header>
+                  <div class="summary-card__value">8%</div>
+                  <p class="summary-card__desc">Déficit hídrico acumulado</p>
+                </div>
+
+                <div class="farm-report__analysis-item farm-report__analysis-item--metric">
+                  <header class="summary-card__header">
+                    <i class="fa-solid fa-arrow-trend-down"></i>
+                    <span class="summary-card__title">DIFERENÇA ETC VS APLICADO</span>
+                  </header>
+                  <div class="summary-card__value">-3,2 mm</div>
+                  <p class="summary-card__desc">No período selecionado</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- ENERGY ANALYSIS SECTION -->
+            <!-- ENERGY ANALYSIS CARD - Unified -->
+            <article class="energy-analysis-card">
+              <div class="energy-analysis-card__charts-row">
+                <!-- Consumo de Energia -->
+                <div class="energy-analysis-card__item energy-analysis-card__item--main">
+                  <header class="energy-analysis__card-header">
+                    <h3 class="farm-report__chart-title">Consumo de Energia (kWh/dia)</h3>
+                  </header>
+                  <div class="energy-analysis__chart-container">
+                    <div class="energy-analysis__y-axis">
+                      <span>280</span>
+                      <span>210</span>
+                      <span>140</span>
+                      <span>70</span>
+                      <span>0</span>
+                    </div>
+                    <div class="energy-analysis__chart-body">
+                      <svg class="energy-analysis__svg" viewBox="0 0 1000 200" preserveAspectRatio="none">
+                        <line x1="0" y1="0" x2="1000" y2="0" stroke="#f1f5f9" stroke-dasharray="4" />
+                        <line x1="0" y1="50" x2="1000" y2="50" stroke="#f1f5f9" stroke-dasharray="4" />
+                        <line x1="0" y1="100" x2="1000" y2="100" stroke="#f1f5f9" stroke-dasharray="4" />
+                        <line x1="0" y1="150" x2="1000" y2="150" stroke="#f1f5f9" stroke-dasharray="4" />
+                        <line x1="0" y1="200" x2="1000" y2="200" stroke="#f1f5f9" stroke-dasharray="4" />
+                        <path d="M0,45 L167,65 L333,40 L500,35 L667,85 L833,32 L1000,25" fill="none" stroke="#10b981"
+                          stroke-width="2.5" stroke-linejoin="round" />
+                      </svg>
+
+                      <!-- Marcador de Hover (Balaozinho) -->
+                      <div class="farm-report__chart-hover" style="left: 67%;">
+                        <div class="farm-report__chart-hover-line"></div>
+                        <div class="farm-report__chart-hover-dot" style="top: 32px; background: #0ea5e9;"></div>
+                        <div class="farm-report__chart-tooltip">
+                          <div class="tooltip-date">13/02</div>
+                          <div class="tooltip-row kwh">
+                            <span class="label">kWh :</span>
+                            <span class="value">235</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="energy-analysis__x-axis">
+                        <span>08/02</span>
+                        <span>09/02</span>
+                        <span>10/02</span>
+                        <span>11/02</span>
+                        <span>12/02</span>
+                        <span>13/02</span>
+                        <span>14/02</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Custos em Energia (Modelo Donut com texto central) -->
+                <div class="energy-analysis-card__item energy-analysis-card__item--side">
+                  <div class="pivo-energy__top">
+                    <header class="energy-analysis__card-header">
+                      <h3 class="farm-report__chart-title">Custos em Energia</h3>
+                    </header>
+                    <div class="pivo-chart-container pivo-chart-container--donut" id="pivoChartCustos">
+                      <svg viewBox="0 0 120 120" class="donut-svg" style="overflow: visible;">
+                        <g transform="translate(10, 10)">
+                          <!-- Donut Segments (Corrigidos para 35%, 45%, 20%) -->
+                          <!-- Reduzido (20% - Verde) -->
+                          <path d="M 50 4 A 46 46 0 0 1 93.75 35.79 L 80.43 40.11 A 32 32 0 0 0 50 18 Z" fill="#86efac"
+                            class="donut-sector"></path>
+                          <!-- Fora Pico (45% - Azul) -->
+                          <path d="M 93.75 35.79 A 46 46 0 0 1 12.79 77.04 L 24.11 68.81 A 32 32 0 0 0 80.43 40.11 Z"
+                            fill="#93c5fd" class="donut-sector"></path>
+                          <!-- Pico (35% - Vermelho) -->
+                          <path d="M 12.79 77.04 A 46 46 0 0 1 50 4 L 50 18 A 32 32 0 0 0 24.11 68.81 Z" fill="#f87171"
+                            class="donut-sector"></path>
+
+                          <!-- Callout Lines and Labels -->
+                          <path d="M 75 14 L 95 -2 L 105 -2" fill="none" stroke="#cbd5e1" stroke-width="1"></path>
+                          <text x="108" y="1" font-size="8" font-weight="700" fill="#64748b">20%</text>
+
+                          <path d="M 71 88 L 90 105 L 100 105" fill="none" stroke="#cbd5e1" stroke-width="1"></path>
+                          <text x="103" y="108" font-size="8" font-weight="700" fill="#64748b">45%</text>
+
+                          <path d="M 10 32 L -8 15 L -18 15" fill="none" stroke="#cbd5e1" stroke-width="1"></path>
+                          <text x="-38" y="18" font-size="8" font-weight="700" fill="#64748b">35%</text>
+                        </g>
+                      </svg>
+                      <div class="donut-center-text">
+                        R$ 12.840<span>Total</span>
+                      </div>
+                    </div>
+                    <div class="pivo-chart-legend">
+                      <div class="donut-legend-item">
+                        <span class="legend-dot" style="background:#f87171"></span>
+                        <span class="label">Pico</span>
+                        <span class="value">35%</span>
+                      </div>
+                      <div class="donut-legend-item">
+                        <span class="legend-dot" style="background:#93c5fd"></span>
+                        <span class="label">Fora Pico</span>
+                        <span class="value">45%</span>
+                      </div>
+                      <div class="donut-legend-item">
+                        <span class="legend-dot" style="background:#86efac"></span>
+                        <span class="label">Reduzido</span>
+                        <span class="value">20%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Métricas na Base - Padronizadas com a Análise Hídrica -->
+              <div class="farm-report__analysis-metrics-row">
+                <div class="farm-report__analysis-item farm-report__analysis-item--metric">
+                  <header class="summary-card__header">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span class="summary-card__title">CONSUMO TOTAL</span>
+                  </header>
+                  <div class="summary-card__value">3.280 kWh</div>
+                  <p class="summary-card__desc">Acumulado no período</p>
+                </div>
+
+                <div class="farm-report__analysis-item farm-report__analysis-item--metric">
+                  <header class="summary-card__header">
+                    <i class="fa-solid fa-brazilian-real-sign"></i>
+                    <span class="summary-card__title">CUSTO TOTAL</span>
+                  </header>
+                  <div class="summary-card__value">R$ 12.840</div>
+                  <p class="summary-card__desc">Valor total faturado</p>
+                </div>
+
+                <div class="farm-report__analysis-item farm-report__analysis-item--metric">
+                  <header class="summary-card__header">
+                    <i class="fa-solid fa-clock"></i>
+                    <span class="summary-card__title">CUSTO POR HORA</span>
+                  </header>
+                  <div class="summary-card__value">R$ 42,50</div>
+                  <p class="summary-card__desc">Média operacional</p>
+                </div>
+
+                <div class="farm-report__analysis-item farm-report__analysis-item--metric">
+                  <header class="summary-card__header">
+                    <i class="fa-solid fa-arrow-trend-down"></i>
+                    <span class="summary-card__title">ECONOMIA POTENCIAL</span>
+                  </header>
+                  <div class="summary-card__value">R$ 1.920</div>
+                  <p class="summary-card__desc">Redução em pico</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <header class="farm-report__header" style="margin-top: 32px; margin-bottom: 12px;">
+            <h2 class="farm-report__title">Histórico Operacional do Pivô</h2>
+          </header>
+
+          <div class="farm-report__legend">
+            <div class="farm-report__legend-item"><span class="legend-dot legend-dot--dry"></span>Executado Seco</div>
+            <div class="farm-report__legend-item"><span class="legend-dot legend-dot--wet"></span>Executado Molhado
+            </div>
+            <div class="farm-report__legend-item"><span class="legend-dot legend-dot--fert"></span>Executado
+              Fertirrigado
+            </div>
+            <div class="farm-report__legend-item"><span class="legend-dot legend-dot--stop"></span>Paradas Inesperadas
+            </div>
+            <div class="farm-report__legend-item"><span class="legend-dot legend-dot--peak"></span>Horário de pico</div>
+            <div class="farm-report__legend-item"><span class="legend-dot legend-dot--maint"></span>Manutenção</div>
+          </div>
+
+          <div class="farm-report__timeline-wrap is-single-line" aria-label="Linha do tempo da fazenda">
+            <div class="farm-report__timeline-body" data-report-body>
+              <div class="farm-report__timeline-head-row" data-report-head-row>
+                <div class="farm-report__timeline-head--spacer"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head"></div>
+                <div class="farm-report__timeline-head farm-report__timeline-head--accum">Acumulado</div>
+              </div>
+
+              <div class="farm-report__timeline-grid">
+
+                <div class="farm-report__timeline-row">
+                  <div class="farm-report__timeline-label">
+                    Pivô 01
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__pivot farm-report__pivot--ui"
+                        style="--dry-start: 170deg; --dry-sweep: 40deg; --pivot-start: 220deg; --pivot-sweep: 95deg;">
+                        <div class="farm-report__pivot-arm"></div>
+                        <div class="farm-report__pivot-center"></div>
+                      </div>
+                      <div class="farm-report__map-date">08/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-dry" style="--x: 18%; --w: 14%; --y: 32px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Seco</strong>
+                          <span>Início: 07/02 06:00</span>
+                          <span>Fim: 07/02 12:00</span>
+                          <span>Duração: 6h</span>
+                          <span class="farm-report__tooltip-note">Execução seca – preparo de solo</span>
+                        </span>
+                      </span>
+
+                      <span class="farm-report__event is-wet" style="--x: 46%; --w: 18%; --y: 18px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Molhado</strong>
+                          <span>Início: 07/02 14:00</span>
+                          <span>Fim: 07/02 20:00</span>
+                          <span>Duração: 6h</span>
+                          <span class="farm-report__tooltip-note">Irrigação normal</span>
+                        </span>
+                      </span>
+
+                      <span class="farm-report__event is-peak" style="--x: 68%; --w: 10%; --y: 52px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Horário de pico</strong>
+                          <span>Início: 08/02 17:30</span>
+                          <span>Fim: 08/02 20:30</span>
+                          <span>Duração: 3h</span>
+                          <span class="farm-report__tooltip-note">Tarifa elevada</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 2.4h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__map-date">09/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-dry" style="--x: 28%; --w: 8%; --y: 42px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Seco</strong>
+                          <span>Início: 09/02 07:00</span>
+                          <span>Fim: 09/02 12:00</span>
+                          <span>Duração: 5h</span>
+                          <span class="farm-report__tooltip-note">Preparo de solo</span>
+                        </span>
+                      </span>
+
+                      <span class="farm-report__event is-maint" style="--x: 60%; --w: 10%; --y: 20px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Manutenção</strong>
+                          <span>Início: 09/02 15:00</span>
+                          <span>Fim: 09/02 19:00</span>
+                          <span>Duração: 4h</span>
+                          <span class="farm-report__tooltip-note">Troca de bicos</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.9h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__map-date">10/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-stop" style="--x: 46%; --w: 10%; --y: 30px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Paradas Inesperadas</strong>
+                          <span>Início: 10/02 20:00</span>
+                          <span>Fim: 10/02 22:30</span>
+                          <span>Duração: 2h30min</span>
+                          <span class="farm-report__tooltip-note">Parada por falha elétrica</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__pivot farm-report__pivot--ui"
+                        style="--pivot-start: 310deg; --pivot-sweep: 100deg;">
+                        <div class="farm-report__pivot-arm"></div>
+                        <div class="farm-report__pivot-center"></div>
+                      </div>
+                      <div class="farm-report__map-date">11/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                      <span class="farm-report__event is-wet" style="--x: 40%; --w: 14%; --y: 24px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Molhado</strong>
+                          <span>Início: 11/02 08:00</span>
+                          <span>Fim: 11/02 12:00</span>
+                          <span>Duração: 4h</span>
+                          <span class="farm-report__tooltip-note">Irrigação normal</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.4h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__map-date">12/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                      <span class="farm-report__event is-dry" style="--x: 32%; --w: 12%; --y: 28px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Seco</strong>
+                          <span>Início: 12/02 06:00</span>
+                          <span>Fim: 12/02 10:00</span>
+                          <span>Duração: 4h</span>
+                          <span class="farm-report__tooltip-note">Preparo de solo</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.6h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__map-date">13/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                      <span class="farm-report__event is-peak" style="--x: 54%; --w: 10%; --y: 30px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Horário de pico</strong>
+                          <span>Início: 13/02 18:00</span>
+                          <span>Fim: 13/02 20:00</span>
+                          <span>Duração: 2h</span>
+                          <span class="farm-report__tooltip-note">Tarifa elevada</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.2h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__pivot farm-report__pivot--ui"
+                        style="--fert-start: 20deg; --fert-sweep: 110deg;">
+                        <div class="farm-report__pivot-arm"></div>
+                        <div class="farm-report__pivot-center"></div>
+                      </div>
+                      <div class="farm-report__map-date">14/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                      <span class="farm-report__event is-fert" style="--x: 38%; --w: 14%; --y: 26px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Fertirrigado</strong>
+                          <span>Início: 14/02 07:00</span>
+                          <span>Fim: 14/02 11:00</span>
+                          <span>Duração: 4h</span>
+                          <span class="farm-report__tooltip-note">Aplicação de nutrientes</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 1.1h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__map-needle" style="transform: rotate(-30deg)"></div>
+                      <div class="farm-report__map-date">15/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__map-needle" style="transform: rotate(-30deg)"></div>
+                      <div class="farm-report__map-date">16/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__map-needle" style="transform: rotate(-30deg)"></div>
+                      <div class="farm-report__map-date">17/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__map-needle" style="transform: rotate(-30deg)"></div>
+                      <div class="farm-report__map-date">18/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="farm-report__timeline-cell farm-report__timeline-cell--accum farm-report__timeline-cell--accum-fixed">
+                    <div class="farm-report__map-area farm-report__map-area--pivo1">
+                      <div class="farm-report__pivot farm-report__pivot--accum" aria-hidden="true" data-acc-rings="3"
+                        data-acc-outline="350:0.8,20:0.82,70:0.82,110:0.8,145:0.78,170:0.78,190:0.78,190:0.55,215:0.55,215:0.78,240:0.78,255:0.78,255:0.38,285:0.38,285:0.78,305:0.78,305:0.5,330:0.5,330:0.78">
+                        <canvas class="farm-report__pivot-canvas" width="210" height="210"></canvas>
+                        <div class="farm-report__pivot-acc-ring r1"></div>
+                        <div class="farm-report__pivot-acc-ring r2"></div>
+                        <div class="farm-report__pivot-acc-ring r3"></div>
+                      </div>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div><!-- farm-report__timeline-metrics -->
+                  </div><!-- farm-report__timeline-cell--accum -->
+                </div><!-- farm-report__timeline-row -->
+
+                <div class="farm-report__timeline-row">
+                  <div class="farm-report__timeline-label">
+                    Pivô 02
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">08/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-wet" style="--x: 22%; --w: 16%; --y: 22px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Molhado</strong>
+                          <span>Início: 08/02 08:00</span>
+                          <span>Fim: 08/02 12:00</span>
+                          <span>Duração: 4h</span>
+                          <span class="farm-report__tooltip-note">Irrigação normal</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 1.2h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">09/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">10/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-maint" style="--x: 54%; --w: 10%; --y: 24px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Manutenção</strong>
+                          <span>Início: 10/02 14:00</span>
+                          <span>Fim: 10/02 18:00</span>
+                          <span>Duração: 4h</span>
+                          <span class="farm-report__tooltip-note">Revisão preventiva</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">11/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">12/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">13/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-peak" style="--x: 50%; --w: 10%; --y: 28px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Horário de pico</strong>
+                          <span>Início: 13/02 18:00</span>
+                          <span>Fim: 13/02 20:00</span>
+                          <span>Duração: 2h</span>
+                          <span class="farm-report__tooltip-note">Tarifa elevada</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">14/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">15/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-dry" style="--x: 26%; --w: 12%; --y: 30px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Seco</strong>
+                          <span>Início: 15/02 06:00</span>
+                          <span>Fim: 15/02 09:00</span>
+                          <span>Duração: 3h</span>
+                          <span class="farm-report__tooltip-note">Preparo de solo</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">16/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">17/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-fert" style="--x: 34%; --w: 12%; --y: 26px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Fertirrigado</strong>
+                          <span>Início: 17/02 07:00</span>
+                          <span>Fim: 17/02 10:00</span>
+                          <span>Duração: 3h</span>
+                          <span class="farm-report__tooltip-note">Aplicação de nutrientes</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__map-date">18/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="farm-report__timeline-cell farm-report__timeline-cell--accum farm-report__timeline-cell--accum-fixed">
+                    <div class="farm-report__map-area farm-report__map-area--pivo2">
+                      <div class="farm-report__pivot farm-report__pivot--accum" aria-hidden="true" data-acc-rings="3"
+                        data-acc-outline="20:0.6,60:0.65,100:0.65,140:0.6,180:0.55,220:0.55,260:0.6,300:0.65,340:0.65">
+                        <canvas class="farm-report__pivot-canvas" width="210" height="210"></canvas>
+                        <div class="farm-report__pivot-acc-ring r1"></div>
+                        <div class="farm-report__pivot-acc-ring r2"></div>
+                        <div class="farm-report__pivot-acc-ring r3"></div>
+                      </div>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div><!-- farm-report__timeline-metrics -->
+                  </div><!-- farm-report__timeline-cell--accum -->
+                </div><!-- farm-report__timeline-row -->
+
+                <div class="farm-report__timeline-row">
+                  <div class="farm-report__timeline-label">
+                    Pivô 03
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">08/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">09/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-wet" style="--x: 18%; --w: 18%; --y: 24px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Executado Molhado</strong>
+                          <span>Início: 09/02 05:00</span>
+                          <span>Fim: 09/02 11:00</span>
+                          <span>Duração: 6h</span>
+                          <span class="farm-report__tooltip-note">Irrigação normal</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">10/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">11/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-stop" style="--x: 50%; --w: 10%; --y: 30px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Paradas Inesperadas</strong>
+                          <span>Início: 11/02 16:00</span>
+                          <span>Fim: 11/02 18:00</span>
+                          <span>Duração: 2h</span>
+                          <span class="farm-report__tooltip-note">Parada por falha elétrica</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">12/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">13/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">14/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-peak" style="--x: 52%; --w: 10%; --y: 26px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Horário de pico</strong>
+                          <span>Início: 14/02 18:00</span>
+                          <span>Fim: 14/02 20:00</span>
+                          <span>Duração: 2h</span>
+                          <span class="farm-report__tooltip-note">Tarifa elevada</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">15/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">16/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">17/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="farm-report__timeline-cell">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__map-date">18/02/2026</div>
+                    </div>
+                    <div class="farm-report__timeline-track">
+
+                      <span class="farm-report__event is-maint" style="--x: 58%; --w: 12%; --y: 24px;">
+                        <span class="farm-report__tooltip">
+                          <strong>Manutenção</strong>
+                          <span>Início: 18/02 09:00</span>
+                          <span>Fim: 18/02 12:00</span>
+                          <span>Duração: 3h</span>
+                          <span class="farm-report__tooltip-note">Troca de bicos</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="farm-report__timeline-cell farm-report__timeline-cell--accum farm-report__timeline-cell--accum-fixed">
+                    <div class="farm-report__map-area farm-report__map-area--pivo3">
+                      <div class="farm-report__pivot farm-report__pivot--accum" aria-hidden="true" data-acc-rings="3"
+                        data-acc-outline="10:0.75,50:0.8,90:0.8,130:0.75,170:0.65,210:0.65,250:0.75,290:0.8,330:0.8">
+                        <canvas class="farm-report__pivot-canvas" width="210" height="210"></canvas>
+                        <div class="farm-report__pivot-acc-ring r1"></div>
+                        <div class="farm-report__pivot-acc-ring r2"></div>
+                        <div class="farm-report__pivot-acc-ring r3"></div>
+                      </div>
+                    </div>
+                    <div class="farm-report__timeline-metrics">
+                      <div class="farm-report__metrics-row">
+                        <span>Volume: 0m³</span>
+                        <span>Nº Voltas: 0</span>
+                      </div>
+                      <div class="farm-report__metrics-row">
+                        <span>LP: 0.0h</span>
+                        <span>HP: 0.0h</span>
+                        <span>HFP: 0.0h</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+        </section>
+
+        <!-- Placeholders para outras seções -->
+        <section class="pluv-edit__section" id="reportEnergy">
+          <div class="pluv-edit__section-head">
+            <h2>Relatório de Energia</h2>
+            <p>Análise detalhada do consumo e custos de energia da fazenda.</p>
+          </div>
+          <div class="pluv-edit__section-body">
+            <div
+              style="background: #f8fafc; border: 2px dashed #e2e8f0; border-radius: 12px; height: 300px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 14px;">
+              Dashboard de Energia em breve...
             </div>
           </div>
-        </div>
+        </section>
+
+        <section class="pluv-edit__section" id="reportWater">
+          <div class="pluv-edit__section-head">
+            <h2>Relatório de Água</h2>
+            <p>Volumes captados e aplicados em cada área.</p>
+          </div>
+          <div class="pluv-edit__section-body">
+            <div
+              style="background: #f8fafc; border: 2px dashed #e2e8f0; border-radius: 12px; height: 300px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 14px;">
+              Gestão de Recursos Hídricos em breve...
+            </div>
+          </div>
+        </section>
       </div>
-
-      <!-- Métricas na Base - Padronizadas com a Análise Hídrica -->
-      <div class="farm-report__analysis-metrics-row">
-        <div class="farm-report__analysis-item farm-report__analysis-item--metric">
-          <header class="summary-card__header">
-            <i class="fa-solid fa-bolt"></i>
-            <span class="summary-card__title">CONSUMO TOTAL</span>
-          </header>
-          <div class="summary-card__value">3.280 kWh</div>
-          <p class="summary-card__desc">Acumulado no período</p>
-        </div>
-
-        <div class="farm-report__analysis-item farm-report__analysis-item--metric">
-          <header class="summary-card__header">
-            <i class="fa-solid fa-brazilian-real-sign"></i>
-            <span class="summary-card__title">CUSTO TOTAL</span>
-          </header>
-          <div class="summary-card__value">R$ 12.840</div>
-          <p class="summary-card__desc">Valor total faturado</p>
-        </div>
-
-        <div class="farm-report__analysis-item farm-report__analysis-item--metric">
-          <header class="summary-card__header">
-            <i class="fa-solid fa-clock"></i>
-            <span class="summary-card__title">CUSTO POR HORA</span>
-          </header>
-          <div class="summary-card__value">R$ 42,50</div>
-          <p class="summary-card__desc">Média operacional</p>
-        </div>
-
-        <div class="farm-report__analysis-item farm-report__analysis-item--metric">
-          <header class="summary-card__header">
-            <i class="fa-solid fa-arrow-trend-down"></i>
-            <span class="summary-card__title">ECONOMIA POTENCIAL</span>
-          </header>
-          <div class="summary-card__value">R$ 1.920</div>
-          <p class="summary-card__desc">Redução em pico</p>
-        </div>
-      </div>
-    </article>
-  </div>
-
-  <header class="farm-report__header" style="margin-top: 32px; margin-bottom: 12px;">
-    <h2 class="farm-report__title">Histórico Operacional do Pivô</h2>
-  </header>
-
-  <div class="farm-report__legend">
-    <div class="farm-report__legend-item"><span class="legend-dot legend-dot--dry"></span>Executado Seco</div>
-    <div class="farm-report__legend-item"><span class="legend-dot legend-dot--wet"></span>Executado Molhado</div>
-    <div class="farm-report__legend-item"><span class="legend-dot legend-dot--fert"></span>Executado Fertirrigado
     </div>
-    <div class="farm-report__legend-item"><span class="legend-dot legend-dot--stop"></span>Paradas Inesperadas</div>
-    <div class="farm-report__legend-item"><span class="legend-dot legend-dot--peak"></span>Horário de pico</div>
-    <div class="farm-report__legend-item"><span class="legend-dot legend-dot--maint"></span>Manutenção</div>
   </div>
-
-  <div class="farm-report__timeline-wrap is-single-line" aria-label="Linha do tempo da fazenda">
-    <div class="farm-report__timeline-body" data-report-body>
-      <div class="farm-report__timeline-head-row" data-report-head-row>
-        <div class="farm-report__timeline-head--spacer"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head"></div>
-        <div class="farm-report__timeline-head farm-report__timeline-head--accum">Acumulado</div>
-      </div>
-
-      <div class="farm-report__timeline-grid">
-
-        <div class="farm-report__timeline-row">
-          <div class="farm-report__timeline-label">
-            Pivô 01
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__pivot farm-report__pivot--ui"
-                style="--dry-start: 170deg; --dry-sweep: 40deg; --pivot-start: 220deg; --pivot-sweep: 95deg;">
-                <div class="farm-report__pivot-arm"></div>
-                <div class="farm-report__pivot-center"></div>
-              </div>
-              <div class="farm-report__map-date">08/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-dry" style="--x: 18%; --w: 14%; --y: 32px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Seco</strong>
-                  <span>Início: 07/02 06:00</span>
-                  <span>Fim: 07/02 12:00</span>
-                  <span>Duração: 6h</span>
-                  <span class="farm-report__tooltip-note">Execução seca – preparo de solo</span>
-                </span>
-              </span>
-
-              <span class="farm-report__event is-wet" style="--x: 46%; --w: 18%; --y: 18px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Molhado</strong>
-                  <span>Início: 07/02 14:00</span>
-                  <span>Fim: 07/02 20:00</span>
-                  <span>Duração: 6h</span>
-                  <span class="farm-report__tooltip-note">Irrigação normal</span>
-                </span>
-              </span>
-
-              <span class="farm-report__event is-peak" style="--x: 68%; --w: 10%; --y: 52px;">
-                <span class="farm-report__tooltip">
-                  <strong>Horário de pico</strong>
-                  <span>Início: 08/02 17:30</span>
-                  <span>Fim: 08/02 20:30</span>
-                  <span>Duração: 3h</span>
-                  <span class="farm-report__tooltip-note">Tarifa elevada</span>
-                </span>
-              </span>
-            </div>
-
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 2.4h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__map-date">09/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-dry" style="--x: 28%; --w: 8%; --y: 42px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Seco</strong>
-                  <span>Início: 09/02 07:00</span>
-                  <span>Fim: 09/02 12:00</span>
-                  <span>Duração: 5h</span>
-                  <span class="farm-report__tooltip-note">Preparo de solo</span>
-                </span>
-              </span>
-
-              <span class="farm-report__event is-maint" style="--x: 60%; --w: 10%; --y: 20px;">
-                <span class="farm-report__tooltip">
-                  <strong>Manutenção</strong>
-                  <span>Início: 09/02 15:00</span>
-                  <span>Fim: 09/02 19:00</span>
-                  <span>Duração: 4h</span>
-                  <span class="farm-report__tooltip-note">Troca de bicos</span>
-                </span>
-              </span>
-            </div>
-
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.9h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__map-date">10/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-stop" style="--x: 46%; --w: 10%; --y: 30px;">
-                <span class="farm-report__tooltip">
-                  <strong>Paradas Inesperadas</strong>
-                  <span>Início: 10/02 20:00</span>
-                  <span>Fim: 10/02 22:30</span>
-                  <span>Duração: 2h30min</span>
-                  <span class="farm-report__tooltip-note">Parada por falha elétrica</span>
-                </span>
-              </span>
-            </div>
-
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__pivot farm-report__pivot--ui"
-                style="--pivot-start: 310deg; --pivot-sweep: 100deg;">
-                <div class="farm-report__pivot-arm"></div>
-                <div class="farm-report__pivot-center"></div>
-              </div>
-              <div class="farm-report__map-date">11/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-              <span class="farm-report__event is-wet" style="--x: 40%; --w: 14%; --y: 24px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Molhado</strong>
-                  <span>Início: 11/02 08:00</span>
-                  <span>Fim: 11/02 12:00</span>
-                  <span>Duração: 4h</span>
-                  <span class="farm-report__tooltip-note">Irrigação normal</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.4h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__map-date">12/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-              <span class="farm-report__event is-dry" style="--x: 32%; --w: 12%; --y: 28px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Seco</strong>
-                  <span>Início: 12/02 06:00</span>
-                  <span>Fim: 12/02 10:00</span>
-                  <span>Duração: 4h</span>
-                  <span class="farm-report__tooltip-note">Preparo de solo</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.6h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__map-date">13/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-              <span class="farm-report__event is-peak" style="--x: 54%; --w: 10%; --y: 30px;">
-                <span class="farm-report__tooltip">
-                  <strong>Horário de pico</strong>
-                  <span>Início: 13/02 18:00</span>
-                  <span>Fim: 13/02 20:00</span>
-                  <span>Duração: 2h</span>
-                  <span class="farm-report__tooltip-note">Tarifa elevada</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.2h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__pivot farm-report__pivot--ui" style="--fert-start: 20deg; --fert-sweep: 110deg;">
-                <div class="farm-report__pivot-arm"></div>
-                <div class="farm-report__pivot-center"></div>
-              </div>
-              <div class="farm-report__map-date">14/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-              <span class="farm-report__event is-fert" style="--x: 38%; --w: 14%; --y: 26px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Fertirrigado</strong>
-                  <span>Início: 14/02 07:00</span>
-                  <span>Fim: 14/02 11:00</span>
-                  <span>Duração: 4h</span>
-                  <span class="farm-report__tooltip-note">Aplicação de nutrientes</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 1.1h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__map-needle" style="transform: rotate(-30deg)"></div>
-              <div class="farm-report__map-date">15/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__map-needle" style="transform: rotate(-30deg)"></div>
-              <div class="farm-report__map-date">16/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__map-needle" style="transform: rotate(-30deg)"></div>
-              <div class="farm-report__map-date">17/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__map-needle" style="transform: rotate(-30deg)"></div>
-              <div class="farm-report__map-date">18/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="farm-report__timeline-cell farm-report__timeline-cell--accum farm-report__timeline-cell--accum-fixed">
-            <div class="farm-report__map-area farm-report__map-area--pivo1">
-              <div class="farm-report__pivot farm-report__pivot--accum" aria-hidden="true" data-acc-rings="3"
-                data-acc-outline="350:0.8,20:0.82,70:0.82,110:0.8,145:0.78,170:0.78,190:0.78,190:0.55,215:0.55,215:0.78,240:0.78,255:0.78,255:0.38,285:0.38,285:0.78,305:0.78,305:0.5,330:0.5,330:0.78">
-                <canvas class="farm-report__pivot-canvas" width="210" height="210"></canvas>
-                <div class="farm-report__pivot-acc-ring r1"></div>
-                <div class="farm-report__pivot-acc-ring r2"></div>
-                <div class="farm-report__pivot-acc-ring r3"></div>
-              </div>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div><!-- farm-report__timeline-metrics -->
-          </div><!-- farm-report__timeline-cell--accum -->
-        </div><!-- farm-report__timeline-row -->
-
-        <div class="farm-report__timeline-row">
-          <div class="farm-report__timeline-label">
-            Pivô 02
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">08/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-wet" style="--x: 22%; --w: 16%; --y: 22px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Molhado</strong>
-                  <span>Início: 08/02 08:00</span>
-                  <span>Fim: 08/02 12:00</span>
-                  <span>Duração: 4h</span>
-                  <span class="farm-report__tooltip-note">Irrigação normal</span>
-                </span>
-              </span>
-            </div>
-
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 1.2h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">09/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">10/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-maint" style="--x: 54%; --w: 10%; --y: 24px;">
-                <span class="farm-report__tooltip">
-                  <strong>Manutenção</strong>
-                  <span>Início: 10/02 14:00</span>
-                  <span>Fim: 10/02 18:00</span>
-                  <span>Duração: 4h</span>
-                  <span class="farm-report__tooltip-note">Revisão preventiva</span>
-                </span>
-              </span>
-            </div>
-
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">11/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">12/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">13/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-peak" style="--x: 50%; --w: 10%; --y: 28px;">
-                <span class="farm-report__tooltip">
-                  <strong>Horário de pico</strong>
-                  <span>Início: 13/02 18:00</span>
-                  <span>Fim: 13/02 20:00</span>
-                  <span>Duração: 2h</span>
-                  <span class="farm-report__tooltip-note">Tarifa elevada</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">14/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">15/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-dry" style="--x: 26%; --w: 12%; --y: 30px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Seco</strong>
-                  <span>Início: 15/02 06:00</span>
-                  <span>Fim: 15/02 09:00</span>
-                  <span>Duração: 3h</span>
-                  <span class="farm-report__tooltip-note">Preparo de solo</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">16/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">17/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-fert" style="--x: 34%; --w: 12%; --y: 26px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Fertirrigado</strong>
-                  <span>Início: 17/02 07:00</span>
-                  <span>Fim: 17/02 10:00</span>
-                  <span>Duração: 3h</span>
-                  <span class="farm-report__tooltip-note">Aplicação de nutrientes</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__map-date">18/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="farm-report__timeline-cell farm-report__timeline-cell--accum farm-report__timeline-cell--accum-fixed">
-            <div class="farm-report__map-area farm-report__map-area--pivo2">
-              <div class="farm-report__pivot farm-report__pivot--accum" aria-hidden="true" data-acc-rings="3"
-                data-acc-outline="20:0.6,60:0.65,100:0.65,140:0.6,180:0.55,220:0.55,260:0.6,300:0.65,340:0.65">
-                <canvas class="farm-report__pivot-canvas" width="210" height="210"></canvas>
-                <div class="farm-report__pivot-acc-ring r1"></div>
-                <div class="farm-report__pivot-acc-ring r2"></div>
-                <div class="farm-report__pivot-acc-ring r3"></div>
-              </div>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div><!-- farm-report__timeline-metrics -->
-          </div><!-- farm-report__timeline-cell--accum -->
-        </div><!-- farm-report__timeline-row -->
-
-        <div class="farm-report__timeline-row">
-          <div class="farm-report__timeline-label">
-            Pivô 03
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">08/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">09/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-wet" style="--x: 18%; --w: 18%; --y: 24px;">
-                <span class="farm-report__tooltip">
-                  <strong>Executado Molhado</strong>
-                  <span>Início: 09/02 05:00</span>
-                  <span>Fim: 09/02 11:00</span>
-                  <span>Duração: 6h</span>
-                  <span class="farm-report__tooltip-note">Irrigação normal</span>
-                </span>
-              </span>
-            </div>
-
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">10/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">11/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-stop" style="--x: 50%; --w: 10%; --y: 30px;">
-                <span class="farm-report__tooltip">
-                  <strong>Paradas Inesperadas</strong>
-                  <span>Início: 11/02 16:00</span>
-                  <span>Fim: 11/02 18:00</span>
-                  <span>Duração: 2h</span>
-                  <span class="farm-report__tooltip-note">Parada por falha elétrica</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">12/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">13/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">14/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-peak" style="--x: 52%; --w: 10%; --y: 26px;">
-                <span class="farm-report__tooltip">
-                  <strong>Horário de pico</strong>
-                  <span>Início: 14/02 18:00</span>
-                  <span>Fim: 14/02 20:00</span>
-                  <span>Duração: 2h</span>
-                  <span class="farm-report__tooltip-note">Tarifa elevada</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">15/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">16/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">17/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div class="farm-report__timeline-cell">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__map-date">18/02/2026</div>
-            </div>
-            <div class="farm-report__timeline-track">
-
-              <span class="farm-report__event is-maint" style="--x: 58%; --w: 12%; --y: 24px;">
-                <span class="farm-report__tooltip">
-                  <strong>Manutenção</strong>
-                  <span>Início: 18/02 09:00</span>
-                  <span>Fim: 18/02 12:00</span>
-                  <span>Duração: 3h</span>
-                  <span class="farm-report__tooltip-note">Troca de bicos</span>
-                </span>
-              </span>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="farm-report__timeline-cell farm-report__timeline-cell--accum farm-report__timeline-cell--accum-fixed">
-            <div class="farm-report__map-area farm-report__map-area--pivo3">
-              <div class="farm-report__pivot farm-report__pivot--accum" aria-hidden="true" data-acc-rings="3"
-                data-acc-outline="10:0.75,50:0.8,90:0.8,130:0.75,170:0.65,210:0.65,250:0.75,290:0.8,330:0.8">
-                <canvas class="farm-report__pivot-canvas" width="210" height="210"></canvas>
-                <div class="farm-report__pivot-acc-ring r1"></div>
-                <div class="farm-report__pivot-acc-ring r2"></div>
-                <div class="farm-report__pivot-acc-ring r3"></div>
-              </div>
-            </div>
-            <div class="farm-report__timeline-metrics">
-              <div class="farm-report__metrics-row">
-                <span>Volume: 0m³</span>
-                <span>Nº Voltas: 0</span>
-              </div>
-              <div class="farm-report__metrics-row">
-                <span>LP: 0.0h</span>
-                <span>HP: 0.0h</span>
-                <span>HFP: 0.0h</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
 </section>

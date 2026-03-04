@@ -22,9 +22,12 @@
                 <h3 class="op-modal__title">${title}</h3>
                 <button type="button" class="op-modal__load-btn">Carregar última irrigação</button>
               </div>
-              <button type="button" class="op-modal__close" aria-label="Fechar">
-                <i class="fa-solid fa-xmark"></i>
-              </button>
+              <div class="op-modal__header-actions">
+                ${data.pivotId ? `<button type="button" class="op-modal__details-btn js-op-go-details">Detalhes</button>` : ''}
+                <button type="button" class="op-modal__close" aria-label="Fechar">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
             </header>
 
             <div class="op-modal__content">
@@ -264,6 +267,17 @@
 
       // Render Dial
       this.renderDial("opModalDial", angle);
+
+      // Pivot Details navigation
+      const detailBtn = modal.querySelector(".js-op-go-details");
+      if (detailBtn && data.pivotId) {
+        detailBtn.addEventListener("click", () => {
+          modal.remove();
+          if (window.IcPivos && typeof window.IcPivos.open === "function") {
+            window.IcPivos.open({ pivotId: data.pivotId });
+          }
+        });
+      }
     },
 
     renderDial(containerId, currentAngle) {

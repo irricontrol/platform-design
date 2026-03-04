@@ -8,7 +8,7 @@
   if (!nav) return;
 
   function setActive(route) {
-    document.querySelectorAll(".nav__item").forEach((a) => {
+    document.querySelectorAll(".nav__item, .sidebar__footer-btn").forEach((a) => {
       a.classList.toggle("is-active", a.getAttribute("data-route") === route);
     });
   }
@@ -49,6 +49,7 @@
   function ensureFarmEditClosed() {
     if (document.body.classList.contains("is-farm-edit")) {
       closeFarmEditFallback();
+      window.IcConfig?.close?.();
     }
   }
 
@@ -82,6 +83,7 @@
     }
     if (route === 'fazenda') {
       setActive('fazenda');
+      window.IcConfig?.close?.();
       window.IcPluviometria?.close?.();
       window.IcChuvaGeo?.close?.();
       window.IcGestao?.close?.();
@@ -116,6 +118,7 @@
     if (route === 'usuarios') {
       setActive('usuarios');
       try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
+      window.IcConfig?.close?.();
 
       document.body.classList.add("is-farm-edit");
       const mapCard = document.getElementById("mapCard");
@@ -189,11 +192,44 @@
       return;
     }
 
+    if (route === 'config') {
+      setActive('config');
+      try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
+      ensureFarmEditClosed();
+      window.IcGestao?.close?.();
+      window.IcPluviometria?.close?.();
+      window.IcChuvaGeo?.close?.();
+      window.IcRelatorios?.close?.();
+      window.IcTalhoes?.close?.();
+      window.IcPivos?.close?.();
+      window.IcMonitoramento?.close?.();
+
+      try {
+        window.IcConfig?.open?.();
+      } catch (_) {
+        // Fallback local caso o objeto não esteja pronto
+        document.body.classList.add("is-farm-edit");
+        const mapCard = document.getElementById("mapCard");
+        if (mapCard) mapCard.style.display = "none";
+        const slot = document.getElementById("pageSlot");
+        if (slot) {
+          fetch("./pages/config.html")
+            .then(r => r.text())
+            .then(html => {
+              slot.innerHTML = html;
+              window.dispatchEvent(new Event("ic:layout-change"));
+            });
+        }
+      }
+      return;
+    }
+
     // default: volta para o mapa normal
     setActive('mapa');
     try { window.IcFarmEdit?.close?.(); } catch (_) { closeFarmEditFallback(); }
     ensureFarmEditClosed();
     window.IcGestao?.close?.();
+    window.IcConfig?.close?.();
     window.IcPluviometria?.close?.();
     window.IcChuvaGeo?.close?.();
     window.IcRelatorios?.close?.();
@@ -206,16 +242,19 @@
       setTimeout(() => map.invalidateSize({ pan: false }), 180);
     }
   }
-  nav.addEventListener("click", (e) => {
-    const item = e.target.closest(".nav__item");
-    if (!item) return;
+  const sidebar = document.querySelector(".sidebar");
+  if (sidebar) {
+    sidebar.addEventListener("click", (e) => {
+      const item = e.target.closest("[data-route]");
+      if (!item) return;
 
-    const route = item.getAttribute("data-route");
-    if (!route) return;
+      const route = item.getAttribute("data-route");
+      if (!route) return;
 
-    e.preventDefault();
-    go(route);
-  });
+      e.preventDefault();
+      go(route);
+    });
+  }
 
   // rota inicial
   go("mapa");
