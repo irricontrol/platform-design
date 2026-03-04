@@ -8,7 +8,7 @@
     const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:";
 
     // URL do seu backend no Render
-    const RENDER_BACKEND_URL = "https://platform-design.onrender.com";
+    const RENDER_BACKEND_URL = "https://platform-design-x28t.onrender.com";
 
     window.IC_API_CONFIG = {
         baseUrl: isLocal ? "http://localhost:3000" : RENDER_BACKEND_URL,
