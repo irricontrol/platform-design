@@ -136,12 +136,6 @@
     text-decoration: underline;
 }
 
-/* Preferences specific styles */
-.pluv-edit__section {
-    max-width: 900px;
-    /* Um pouco mais largo para as linhas respirarem */
-    margin: 0;
-}
 
 .config-header-row {
     display: flex;

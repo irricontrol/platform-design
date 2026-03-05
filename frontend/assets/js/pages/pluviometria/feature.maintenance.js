@@ -414,6 +414,96 @@
     else openResponsibleMenu(wrapper);
   }
 
+  function closeAllMaintMenus() {
+    closeMaintMenu();
+    closeReminderMenu();
+    closeResponsibleMenu();
+  }
+
+  function bindMaintenanceUI() {
+    if (document.body.dataset.pluvMaintBound) return;
+    document.body.dataset.pluvMaintBound = "1";
+
+    document.addEventListener("click", (e) => {
+      // Toggle Frequência
+      const maintTrigger = e.target.closest("[data-maint-trigger]");
+      if (maintTrigger) {
+        const wrap = maintTrigger.closest("[data-maint-frequency]");
+        toggleMaintMenu(wrap);
+        return;
+      }
+
+      // Toggle Lembrete
+      const reminderTrigger = e.target.closest("[data-reminder-trigger]");
+      if (reminderTrigger) {
+        const wrap = reminderTrigger.closest("[data-reminder-select]");
+        toggleReminderMenu(wrap);
+        return;
+      }
+
+      // Toggle Responsável
+      const responsibleTrigger = e.target.closest("[data-responsible-trigger]");
+      if (responsibleTrigger) {
+        const wrap = responsibleTrigger.closest("[data-responsible-select]");
+        toggleResponsibleMenu(wrap);
+        return;
+      }
+
+      // Option Frequência
+      const freqOpt = e.target.closest("[data-frequency-option]");
+      if (freqOpt) {
+        const val = freqOpt.getAttribute("data-frequency-option");
+        setMaintenanceFrequency(val);
+        closeAllMaintMenus();
+        return;
+      }
+
+      // Option Lembrete
+      const remOpt = e.target.closest("[data-reminder-option]");
+      if (remOpt) {
+        const val = remOpt.getAttribute("data-reminder-option");
+        setReminderDays(val);
+        closeAllMaintMenus();
+        return;
+      }
+
+      // Option Responsável
+      const respOpt = e.target.closest("[data-responsible-option]");
+      if (respOpt) {
+        const val = respOpt.getAttribute("data-responsible-option");
+        setMaintenanceResponsible(val);
+        closeAllMaintMenus();
+        return;
+      }
+
+      // Click outside
+      if (!e.target.closest(".pluv-maint__select")) {
+        closeAllMaintMenus();
+      }
+    });
+
+    document.addEventListener("change", (e) => {
+      const typeCheck = e.target.closest("[data-maint-type]");
+      if (typeCheck) {
+        const id = typeCheck.getAttribute("data-maint-type");
+        if (!state.maintenanceState) return;
+        if (typeCheck.checked) state.maintenanceState.selectedTypes.add(id);
+        else state.maintenanceState.selectedTypes.delete(id);
+        renderMaintenance();
+        return;
+      }
+    });
+
+    document.addEventListener("input", (e) => {
+      const otherInput = e.target.closest("[data-maint-other]");
+      if (otherInput) {
+        if (!state.maintenanceState) return;
+        state.maintenanceState.otherText = otherInput.value;
+        syncMaintenanceSubmit();
+      }
+    });
+  }
+
   function parseBrDate(value) {
     if (!value || typeof value !== "string") return null;
     const parts = value.split("/").map((v) => Number(v));
@@ -909,4 +999,8 @@
   maintenance.syncMaintenanceSubmit = syncMaintenanceSubmit;
   maintenance.renderMaintenanceHistory = renderMaintenanceHistory;
   maintenance.renderMaintenance = renderMaintenance;
+  maintenance.bindMaintenanceUI = bindMaintenanceUI;
+
+  // Initialize
+  bindMaintenanceUI();
 })();
